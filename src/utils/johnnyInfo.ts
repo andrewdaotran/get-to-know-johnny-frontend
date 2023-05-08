@@ -6,7 +6,7 @@ export const johnnyAge = () => {
   const johnnyMonth = 9;
   const johnnyYear = 1995;
 
-  let age = todayYear - johnnyYear - 1;
+  const age = todayYear - johnnyYear - 1;
   if (
     todayMonth > johnnyMonth ||
     (todayMonth === johnnyMonth && todayDay >= johnnyDay)
