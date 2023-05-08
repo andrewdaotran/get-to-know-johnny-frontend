@@ -6,7 +6,7 @@ import { api } from "andrewdaotran/utils/api";
 
 import "andrewdaotran/styles/globals.css";
 
-import { MessageProvider } from "andrewdaotran/context/MessageContext";
+// import { MessageProvider } from "andrewdaotran/context/MessageContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
