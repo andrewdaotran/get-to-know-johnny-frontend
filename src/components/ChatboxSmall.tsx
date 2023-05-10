@@ -5,11 +5,26 @@ import MessageBox from "./MessageBox";
 export const ChatboxSmall = () => {
   const [message, setMessage] = useState<string | null>("");
 
-  const textareaRef = useRef(null);
+  const textareaRef = useRef<HTMLSpanElement>(null);
+
+  const submitMessage = (e: FormEvent) => {
+    e.preventDefault();
+    if (textareaRef.current !== null) {
+      console.log(textareaRef.current.textContent);
+      textareaRef.current.textContent = "";
+    }
+  };
 
   const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
     setMessage(e.currentTarget.textContent);
   };
+
+  // Only works inline?
+  // const submitOnEnter = (e) => {
+  //   if (e.key === "Enter") {
+  //     submitMessage(e);
+  //   }
+  // };
 
   return (
     <main className="mx-16 min-h-screen w-full flex-col rounded-lg border border-black">
@@ -27,15 +42,24 @@ export const ChatboxSmall = () => {
       {/* Chat Area End */}
 
       {/* Message Box */}
-      <p className="mx-2">
+      <form onSubmit={submitMessage} className="flex gap-2 p-2">
         <span
           className="block h-fit w-[100%] flex-auto resize-none rounded-xl border bg-gray-100 p-2 empty:before:text-gray-400 empty:before:content-['Message'] focus:outline-none"
           ref={textareaRef}
           onInput={typeMessage}
           placeholder="Message"
           contentEditable
+          suppressContentEditableWarning
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              submitMessage(e);
+            }
+          }}
         />
-      </p>
+        <button type="submit" className=" px-2">
+          Submit
+        </button>
+      </form>
       {/* Message Box End */}
     </main>
   );
