@@ -10,6 +10,7 @@ const Description = () => {
   const johnnyBasicInformation = [
     {
       title: "Height",
+      // &apos; to replace '
       description: `5'8"`,
     },
     {
@@ -111,7 +112,7 @@ const Description = () => {
 
         {/* What I'm looking for */}
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">What I'm looking for...</h2>
+          <h2 className="w-fit font-semibold">What I&apos;m looking for...</h2>
           <p className="text-sm text-grayText">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
             pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
