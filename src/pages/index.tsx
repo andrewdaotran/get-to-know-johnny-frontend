@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Johnny Dating App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" flex min-h-screen flex-col items-center justify-center border border-red-500 ">
+      <main className=" flex min-h-screen flex-col items-center justify-center  ">
         <ChatboxSmall />
       </main>
     </>
