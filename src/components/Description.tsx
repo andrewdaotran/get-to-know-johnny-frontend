@@ -45,11 +45,11 @@ const Description = () => {
   return (
     <>
       {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
-      <main className=" flex h-[100vh-5rem] w-full grow flex-col  gap-1 rounded-lg bg-gray-200 px-1 pt-2">
+      <main className=" flex h-[100vh-5rem] w-full grow flex-col  gap-1 rounded-lg bg-secondary px-1 pt-2">
         {/* Basic Information */}
-        <div className=" flex flex-col justify-center gap-2 rounded-md bg-white px-6 py-4 ">
+        <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
           <h1 className=" w-fit  font-semibold">A little about me...</h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-grayText">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
             corporis laborum architecto obcaecati accusantium sed?
           </p>
@@ -68,10 +68,10 @@ const Description = () => {
                       : index === 5
                       ? "rounded-br-md"
                       : ""
-                  } overflow-hidden bg-white p-2 text-sm outline outline-gray-200`}
+                  } overflow-hidden bg-main p-2 text-sm outline outline-secondary`}
                   key={info.title}
                 >
-                  <h2 className="text-gray-500">{info.title}</h2>
+                  <h2 className="text-grayText">{info.title}</h2>
                   <h2 className="">{info.description}</h2>
                 </li>
               );
@@ -81,14 +81,14 @@ const Description = () => {
         {/* Information Boxes End */}
         {/* Basic Information End */}
         {/* Hobbies */}
-        <div className="grid gap-2 rounded-md bg-white px-6 py-4">
+        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
           <h2 className="w-fit font-semibold">My hobbies</h2>
           <ul className=" flex flex-wrap gap-2 ">
             {johnnyHobbies.map((hobby) => {
               return (
                 <li
                   key={hobby.hobby}
-                  className="rounded-2xl bg-gray-200 px-3 py-1 text-sm"
+                  className="rounded-2xl bg-secondary px-3 py-1 text-sm"
                 >
                   {hobby.icon} {hobby.hobby}
                 </li>
