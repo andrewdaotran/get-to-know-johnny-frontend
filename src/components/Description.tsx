@@ -2,10 +2,8 @@ import React from "react";
 
 // Need to pull descriptions from database so Johnny can edit it anytime
 
-// Im looking for...
-// I like... (hobbies)
 // What im looking for in a person...
-// My aspiraitions...
+// Deal breakers (optional)
 //
 
 const Description = () => {
@@ -45,7 +43,7 @@ const Description = () => {
   return (
     <>
       {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
-      <main className=" flex h-[100vh-5rem] w-full grow flex-col  gap-1 rounded-lg bg-secondary px-1 pt-2">
+      <main className=" flex h-[100vh-5rem]  w-full grow flex-col  gap-1 overflow-auto rounded-lg bg-secondary px-1 pt-2">
         {/* Basic Information */}
         <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
           <h1 className=" w-fit  font-semibold">A little about me...</h1>
@@ -53,6 +51,7 @@ const Description = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
             corporis laborum architecto obcaecati accusantium sed?
           </p>
+
           {/* Information Boxes */}
           <ul className="grid grid-cols-3 grid-rows-2  ">
             {johnnyBasicInformation.map((info, index) => {
@@ -80,9 +79,10 @@ const Description = () => {
         </div>
         {/* Information Boxes End */}
         {/* Basic Information End */}
+
         {/* Hobbies */}
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">My hobbies</h2>
+          <h2 className="w-fit font-semibold">My hobbies...</h2>
           <ul className=" flex flex-wrap gap-2 ">
             {johnnyHobbies.map((hobby) => {
               return (
@@ -97,6 +97,39 @@ const Description = () => {
           </ul>
         </div>
         {/* Hobbies End */}
+
+        {/* Aspirations */}
+        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+          <h2 className="w-fit font-semibold">My aspirations...</h2>
+          <p className="text-sm text-grayText">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
+            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
+            modi sapiente excepturi, praesentium quibusdam assumenda.
+          </p>
+        </div>
+        {/* Aspirations End */}
+
+        {/* What I'm looking for */}
+        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+          <h2 className="w-fit font-semibold">What I'm looking for...</h2>
+          <p className="text-sm text-grayText">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
+            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
+            modi sapiente excepturi, praesentium quibusdam assumenda.
+          </p>
+        </div>
+        {/* What I'm looking for End */}
+
+        {/* Deal Breakers */}
+        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+          <h2 className="w-fit font-semibold">Deal breakers...</h2>
+          <p className="text-sm text-grayText">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
+            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
+            modi sapiente excepturi, praesentium quibusdam assumenda.
+          </p>
+        </div>
+        {/* Deal Breakers End */}
       </main>
     </>
   );
