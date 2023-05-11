@@ -7,7 +7,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 
 import { api } from "andrewdaotran/utils/api";
-import ChatboxSmall from "../components/ChatboxSmall";
+import MobilePage from "andrewdaotran/components/MobilePage";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className=" flex min-h-screen flex-col items-center justify-center  ">
-        <ChatboxSmall />
+        <MobilePage />
       </main>
     </>
   );

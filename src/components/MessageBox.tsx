@@ -2,6 +2,10 @@ type Props = {
   isJohnny: boolean;
 };
 
+// Needs state to change the rounded shape of messages if messages by the same person are sent in chunks
+
+// When sending User's messages to chatbox api, wait a bit in case user sends multiple messages and concat messages to send the api one message
+
 const MessageBox = () => {
   return (
     <>
