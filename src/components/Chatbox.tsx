@@ -33,7 +33,7 @@ export const Chatbox = () => {
     <>
       {/* <div className="flex min-h-screen w-full flex-col bg-gray-100"> */}
       {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
-      <main className="flex h-[100vh-5rem] w-full grow flex-col rounded-lg  bg-white">
+      <main className=" flex w-full grow flex-col overflow-auto rounded-lg bg-white">
         {/* Top */}
         <div className="grid grow-0 justify-items-center bg-gray-50 py-4">
           <h1 className="font-semibold">Johnny, {johnnyAge()}</h1>
@@ -42,16 +42,13 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" mb-2 flex grow flex-col-reverse gap-2 overflow-auto scroll-smooth border-t border-gray-200 px-2">
+        <div className=" mb-2 flex grow flex-col-reverse gap-2 overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2">
           <MessageBox />
         </div>
         {/* Chat Area End */}
 
         {/* Message Box */}
-        <form
-          onSubmit={submitMessage}
-          className="flex grow-0 gap-2 px-2 pb-4 pt-2"
-        >
+        <form onSubmit={submitMessage} className="flex grow-0 gap-2 px-2 pb-4">
           <span
             className="block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-xl bg-gray-100 p-2 empty:before:text-gray-400 empty:before:content-['Message'] focus:outline-none"
             ref={textareaRef}
@@ -67,7 +64,7 @@ export const Chatbox = () => {
           />
 
           <button type="submit" className=" px-2">
-            <PaperAirplaneIcon className="h-6 w-6" />
+            <PaperAirplaneIcon className="h-6 w-6 transition-colors hover:text-main" />
           </button>
         </form>
         {/* Message Box End */}

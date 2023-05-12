@@ -5,12 +5,14 @@ import Description from "./Description";
 
 const MobilePage = () => {
   return (
-    <div className="relative flex h-screen flex-col-reverse border border-red-500">
-      {/* <Chatbox /> */}
+    <>
+      <div className=" flex h-screen flex-col bg-secondary">
+        {/* <Chatbox /> */}
 
-      <Description />
-      <MobileMenu />
-    </div>
+        <Description />
+        <MobileMenu />
+      </div>
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
+import Image from "next/image";
 import React from "react";
 
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 // What im looking for in a person...
-// Deal breakers (optional)
 //
 
 const Description = () => {
@@ -44,7 +44,22 @@ const Description = () => {
   return (
     <>
       {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
-      <main className=" flex h-[100vh-5rem]  w-full grow flex-col  gap-1 overflow-auto rounded-lg bg-secondary px-1 pt-2">
+      <main className="flex  w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2">
+        {/* Image */}
+        {/* <div className="w-36 max-w-full"> */}
+        <div className="relative h-auto w-48 self-center border border-red-500">
+          <Image
+            width="0"
+            height="0"
+            sizes="100vw"
+            className=" h-auto w-48 object-cover"
+            src="/images/jungkook2.jpeg"
+            alt="Jungkook in place of Johnny"
+            priority
+          />
+        </div>
+        {/* </div> */}
+        {/* Image End */}
         {/* Basic Information */}
         <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
           <h1 className=" w-fit  font-semibold">A little about me...</h1>
@@ -110,6 +125,16 @@ const Description = () => {
         </div>
         {/* Aspirations End */}
 
+        {/* What I bring to the tablefor */}
+        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+          <h2 className="w-fit font-semibold">What I bring to the table...</h2>
+          <p className="text-sm text-grayText">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
+            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
+            modi sapiente excepturi, praesentium quibusdam assumenda.
+          </p>
+        </div>
+        {/* What I bring to the table End */}
         {/* What I'm looking for */}
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
           <h2 className="w-fit font-semibold">What I&apos;m looking for...</h2>
