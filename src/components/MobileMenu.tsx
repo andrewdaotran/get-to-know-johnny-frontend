@@ -15,10 +15,10 @@ const MobileMenu = () => {
           <ChatBubbleLeftRightIcon className="h-6 w-6" />
         </button>
         <button className=" px-12">
-          <PhotoIcon className="h-6 w-6" />
+          <DocumentTextIcon className="h-6 w-6" />
         </button>
         <button className=" px-12">
-          <DocumentTextIcon className="h-6 w-6" />
+          <PhotoIcon className="h-6 w-6" />
         </button>
       </div>
       {/* Menu Bottom End*/}

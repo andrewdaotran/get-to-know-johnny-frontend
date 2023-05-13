@@ -1,4 +1,4 @@
-import { johnnyAge } from "andrewdaotran/utils/johnnyInfo";
+import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
 import { useState, ChangeEvent, useRef, FormEvent } from "react";
 
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
@@ -36,7 +36,7 @@ export const Chatbox = () => {
       <main className=" flex w-full grow flex-col overflow-auto rounded-lg bg-white">
         {/* Top */}
         <div className="grid grow-0 justify-items-center bg-gray-50 py-4">
-          <h1 className="font-semibold">Johnny, {johnnyAge()}</h1>
+          <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-gray-400">Orange County</h2>
         </div>
         {/* Top End */}

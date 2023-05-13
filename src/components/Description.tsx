@@ -1,5 +1,5 @@
+import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
 import Image from "next/image";
-import React from "react";
 
 // Need to pull descriptions from database so Johnny can edit it anytime
 
@@ -43,23 +43,25 @@ const Description = () => {
   ];
   return (
     <>
-      {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
-      <main className="flex  w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2">
+      <main className="flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2">
         {/* Image */}
-        {/* <div className="w-36 max-w-full"> */}
-        <div className="relative h-auto w-48 self-center border border-red-500">
+        <div className="relative  min-h-[33rem]  w-full max-w-4xl self-center rounded-md">
           <Image
-            width="0"
-            height="0"
-            sizes="100vw"
-            className=" h-auto w-48 object-cover"
+            fill
+            className="rounded-md object-cover object-top"
             src="/images/jungkook2.jpeg"
             alt="Jungkook in place of Johnny"
             priority
           />
+          <div className="absolute bottom-8 left-4 grid ">
+            <h2 className=" flex align-middle font-semibold text-white">
+              {johnnyNameAndAge}
+            </h2>
+            <h3 className="text-sm text-main">Lorem, ipsum dolor.</h3>
+          </div>
         </div>
-        {/* </div> */}
         {/* Image End */}
+
         {/* Basic Information */}
         <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
           <h1 className=" w-fit  font-semibold">A little about me...</h1>

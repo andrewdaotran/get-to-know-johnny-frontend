@@ -15,3 +15,5 @@ export const johnnyAge = () => {
 
   return age;
 };
+
+export const johnnyNameAndAge = `Johnny, ${johnnyAge()}`;
