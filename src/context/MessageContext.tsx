@@ -1,12 +1,10 @@
-import { ReactNode, createContext, useState } from "react";
-
-type MessageProviderProps = {
-  children: ReactNode;
-};
+import { createContext, useState } from "react";
+import { ChildrenNodeType } from "typings";
 
 type Message = {
   user: string;
   answer: string;
+  createdAt: string;
 };
 
 type MessageContextType = {
@@ -16,7 +14,7 @@ type MessageContextType = {
 
 const MessageContext = createContext<MessageContextType | null>(null);
 
-export const MessageProvider = ({ children }: MessageProviderProps) => {
+export const MessageProvider = ({ children }: ChildrenNodeType) => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   const sendMessage = (message: Message) => {
