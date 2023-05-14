@@ -21,8 +21,8 @@ const MobilePage = () => {
   return (
     <>
       <div className=" flex h-screen flex-col bg-secondary">
-        {menu.isChat && <Chatbox />}
-        {menu.isDescription && <Description />}
+        {menu?.isChat && <Chatbox />}
+        {menu?.isDescription && <Description />}
         <MobileMenu />
       </div>
     </>

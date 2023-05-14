@@ -22,12 +22,13 @@ const defaultMenu = {
   isGallery: false,
 };
 
-const defaultState = {
-  menu: defaultMenu,
-  changeMenu: (menuString: string) => {},
-};
+// const defaultState = {
+//   menu: defaultMenu,
+//   changeMenu: (menuString: string) => {},
+// };
 
-const MobileMenuContext = createContext<MobileMenuContextType>(defaultState);
+// const MobileMenuContext = createContext<MobileMenuContextType>(defaultState);
+const MobileMenuContext = createContext<MobileMenuContextType | null>(null);
 
 export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
   const [menu, setMenu] = useState<Menu>(defaultMenu);
