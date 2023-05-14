@@ -6,7 +6,7 @@ import { api } from "andrewdaotran/utils/api";
 
 import "andrewdaotran/styles/globals.css";
 
-// import { MessageProvider } from "andrewdaotran/context/MessageContext";
+import { MessageProvider } from "andrewdaotran/context/MessageContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,9 +14,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      {/* <MessageProvider> */}
-      <Component {...pageProps} />
-      {/* </MessageProvider> */}
+      <MessageProvider>
+        <Component {...pageProps} />
+      </MessageProvider>
     </SessionProvider>
   );
 };

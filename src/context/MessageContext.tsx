@@ -1,45 +1,33 @@
-// import {
-//   Dispatch,
-//   ReactNode,
-//   SetStateAction,
-//   createContext,
-//   useState,
-// } from "react";
+import { ReactNode, createContext, useState } from "react";
 
-// type Messages = {
-//   user: string;
-//   answer: string;
-// };
+type MessageProviderProps = {
+  children: ReactNode;
+};
 
-// interface MessageContextInterface {
-//   messages: Messages[];
-//   setMessages: Dispatch<SetStateAction<Messages[]>>;
-// }
+type Message = {
+  user: string;
+  answer: string;
+};
 
-// const defaultState = {
-//   messages: [{ user: "", answer: "" }],
-//   setMessages: (messages: Messages[]) => {},
-// } as MessageContextInterface;
+type MessageContextType = {
+  messages: Message[];
+  sendMessage: (message: Message) => void;
+};
 
-// const MessageContext = createContext<MessageContextInterface>(defaultState);
+const MessageContext = createContext<MessageContextType | null>(null);
 
-// type MessageProviderProps = {
-//   children: ReactNode;
-// };
+export const MessageProvider = ({ children }: MessageProviderProps) => {
+  const [messages, setMessages] = useState<Message[]>([]);
 
-// export const MessageProvider = ({ children }: MessageProviderProps) => {
-//   const [messages, setMessages] = useState<Messages[]>([
-//     {
-//       user: "",
-//       answer: "",
-//     },
-//   ]);
+  const sendMessage = (message: Message) => {
+    setMessages([...messages, message]);
+  };
 
-//   return (
-//     <MessageContext.Provider value={{ messages, setMessages }}>
-//       {children}
-//     </MessageContext.Provider>
-//   );
-// };
+  return (
+    <MessageContext.Provider value={{ messages, sendMessage }}>
+      {children}
+    </MessageContext.Provider>
+  );
+};
 
-// export default MessageContext;
+export default MessageContext;
