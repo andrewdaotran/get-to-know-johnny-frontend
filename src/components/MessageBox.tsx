@@ -41,19 +41,19 @@ const MessageBox = () => {
   return (
     <>
       {/* User Box */}
-      <div
+      {/* <div
         // ref={messageRef}
-        className="relative border border-red-500"
+        className="relative w-fit border border-red-500"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => {
           setDisplayTime(false);
           setIsHovering(false);
         }}
-      >
-        <div className=" h-fit w-fit max-w-[75%] self-end rounded-3xl rounded-ee-none bg-orange-500 px-4 py-2 text-left text-sm text-white">
-          <h2>Lorem</h2>
-        </div>
-        <p
+      > */}
+      <div className=" h-fit w-fit max-w-[75%] self-end rounded-3xl rounded-ee-none bg-orange-500 px-4 py-2 text-left text-sm text-white">
+        <h2>Lorem</h2>
+      </div>
+      {/* <p
           className={`absolute left-3 top-3 ${
             displayTime
               ? `block top-${mousePos.y} left-${mousePos.x}`
@@ -61,8 +61,9 @@ const MessageBox = () => {
           }  `}
         >
           {mousePos.x}
-        </p>
-      </div>
+        </p> */}
+      {/* </div> */}
+      {/* User Box End */}
 
       {/* Johnny Box */}
       <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-gray-500">

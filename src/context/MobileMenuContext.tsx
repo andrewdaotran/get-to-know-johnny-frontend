@@ -11,28 +11,33 @@ export const CHAT_ACTION = "Chat";
 export const DESCRIPTION_ACTION = "Description";
 export const GALLERY_ACTION = "Gallery";
 
-type MobileMenuContextType = {
+export type MobileMenuContextType = {
   menu: Menu;
   changeMenu: (menuString: string) => void;
 };
 
-const defaultState = {
+const defaultMenu = {
   isChat: false,
   isDescription: false,
   isGallery: false,
 };
 
-const MobileMenuContext = createContext<MobileMenuContextType | null>(null);
+const defaultState = {
+  menu: defaultMenu,
+  changeMenu: (menuString: string) => {},
+};
+
+const MobileMenuContext = createContext<MobileMenuContextType>(defaultState);
 
 export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
-  const [menu, setMenu] = useState<Menu>(defaultState);
+  const [menu, setMenu] = useState<Menu>(defaultMenu);
 
   const changeMenu = (menuString: string) => {
-    if (menuString === CHAT_ACTION) setMenu({ ...defaultState, isChat: true });
+    if (menuString === CHAT_ACTION) setMenu({ ...defaultMenu, isChat: true });
     if (menuString === DESCRIPTION_ACTION)
-      setMenu({ ...defaultState, isDescription: true });
+      setMenu({ ...defaultMenu, isDescription: true });
     if (menuString === GALLERY_ACTION)
-      setMenu({ ...defaultState, isGallery: true });
+      setMenu({ ...defaultMenu, isGallery: true });
   };
 
   return (

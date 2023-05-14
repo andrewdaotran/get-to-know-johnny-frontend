@@ -7,6 +7,7 @@ import { api } from "andrewdaotran/utils/api";
 import "andrewdaotran/styles/globals.css";
 
 import { MessageProvider } from "andrewdaotran/context/MessageContext";
+import { MobileMenuProvider } from "andrewdaotran/context/MobileMenuContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,9 +15,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <MessageProvider>
-        <Component {...pageProps} />
-      </MessageProvider>
+      <MobileMenuProvider>
+        <MessageProvider>
+          <Component {...pageProps} />
+        </MessageProvider>
+      </MobileMenuProvider>
     </SessionProvider>
   );
 };
