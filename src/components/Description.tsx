@@ -1,16 +1,14 @@
 import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
 import Image from "next/image";
+import BasicDescriptionBox from "./BasicDescriptionBox";
+import IconAndTag from "./IconAndTag";
 
 // Need to pull descriptions from database so Johnny can edit it anytime
-
-// What im looking for in a person...
-//
 
 const Description = () => {
   const johnnyBasicInformation = [
     {
       title: "Height",
-      // &apos; to replace '
       description: `5'8"`,
     },
     {
@@ -40,6 +38,29 @@ const Description = () => {
     { hobby: "Gaming", icon: "🎮" },
     { hobby: "Food Adventures", icon: "🍗" },
     { hobby: "Gym", icon: "💪🏼" },
+  ];
+
+  const johnnyBasicDescriptions = [
+    {
+      title: "Aspirations",
+      description:
+        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
+    },
+    {
+      title: "What I bring to the table...",
+      description:
+        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
+    },
+    {
+      title: "What I'm looking for...",
+      description:
+        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
+    },
+    {
+      title: "Deal breakers...",
+      description:
+        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
+    },
   ];
   return (
     <>
@@ -104,60 +125,26 @@ const Description = () => {
           <ul className=" flex flex-wrap gap-2 ">
             {johnnyHobbies.map((hobby) => {
               return (
-                <li
+                <IconAndTag
+                  icon={hobby.icon}
+                  hobby={hobby.hobby}
                   key={hobby.hobby}
-                  className="rounded-2xl bg-secondary px-3 py-1 text-sm"
-                >
-                  {hobby.icon} {hobby.hobby}
-                </li>
+                />
               );
             })}
           </ul>
         </div>
         {/* Hobbies End */}
 
-        {/* Aspirations */}
-        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">My aspirations...</h2>
-          <p className="text-sm text-grayText">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
-            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
-            modi sapiente excepturi, praesentium quibusdam assumenda.
-          </p>
-        </div>
-        {/* Aspirations End */}
-
-        {/* What I bring to the tablefor */}
-        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">What I bring to the table...</h2>
-          <p className="text-sm text-grayText">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
-            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
-            modi sapiente excepturi, praesentium quibusdam assumenda.
-          </p>
-        </div>
-        {/* What I bring to the table End */}
-        {/* What I'm looking for */}
-        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">What I&apos;m looking for...</h2>
-          <p className="text-sm text-grayText">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
-            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
-            modi sapiente excepturi, praesentium quibusdam assumenda.
-          </p>
-        </div>
-        {/* What I'm looking for End */}
-
-        {/* Deal Breakers */}
-        <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">Deal breakers...</h2>
-          <p className="text-sm text-grayText">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt,
-            pariatur quod cumque ipsum quo, ducimus minima commodi voluptate
-            modi sapiente excepturi, praesentium quibusdam assumenda.
-          </p>
-        </div>
-        {/* Deal Breakers End */}
+        {johnnyBasicDescriptions.map((box) => {
+          return (
+            <BasicDescriptionBox
+              title={box.title}
+              description={box.description}
+              key={box.title}
+            />
+          );
+        })}
       </main>
     </>
   );
