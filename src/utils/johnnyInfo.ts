@@ -19,10 +19,28 @@ export const johnnyAge = () => {
 export const johnnyNameAndAge = `Johnny, ${johnnyAge()}`;
 
 export const johnnyGalleryImages = [
-  "/images/jungkook_gallery_1.webp",
-  "/images/jungkook_gallery_2.jpeg",
-  "/images/jungkook_gallery_3.webp",
-  "/images/jungkook_gallery_4.jpeg",
-  "/images/jungkook_gallery_5.jpeg",
-  "/images/jungkook_gallery_6.jpeg",
+  {
+    image: "/images/jungkook_gallery_1.webp",
+    alt: "Jungkook in place of Johnny gallery image 1",
+  },
+  {
+    image: "/images/jungkook_gallery_2.jpeg",
+    alt: "Jungkook in place of Johnny gallery image 2",
+  },
+  {
+    image: "/images/jungkook_gallery_3.webp",
+    alt: "Jungkook in place of Johnny gallery image 3",
+  },
+  {
+    image: "/images/jungkook_gallery_4.jpeg",
+    alt: "Jungkook in place of Johnny gallery image 4",
+  },
+  {
+    image: "/images/jungkook_gallery_5.jpeg",
+    alt: "Jungkook in place of Johnny gallery image 5",
+  },
+  {
+    image: "/images/jungkook_gallery_6.jpeg",
+    alt: "Jungkook in place of Johnny gallery image 6",
+  },
 ];

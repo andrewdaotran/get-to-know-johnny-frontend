@@ -2,10 +2,10 @@ import Image from "next/image";
 
 type Props = {
   image: string;
-  index: number;
+  alt: string;
 };
 
-const GalleryImage = ({ image, index }: Props) => {
+const GalleryImage = ({ image, alt }: Props) => {
   return (
     <div
       className="relative  min-h-[33rem]  w-full max-w-4xl self-center rounded-md"
@@ -15,7 +15,7 @@ const GalleryImage = ({ image, index }: Props) => {
         fill
         className="rounded-md object-cover object-top"
         src={image}
-        alt={`Jungkook in place of Johnny gallery image ${index + 1}`}
+        alt={alt}
         priority
       />
     </div>
