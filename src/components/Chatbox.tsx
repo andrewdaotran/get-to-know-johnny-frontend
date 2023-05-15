@@ -31,8 +31,6 @@ export const Chatbox = () => {
 
   return (
     <>
-      {/* <div className="flex min-h-screen w-full flex-col bg-gray-100"> */}
-      {/* h-[100vh-5rem] is for mobile to account for the mobile menu */}
       <main className=" flex w-full grow flex-col overflow-auto rounded-lg bg-white">
         {/* Top */}
         <div className="grid grow-0 justify-items-center bg-gray-50 py-4">
@@ -69,7 +67,6 @@ export const Chatbox = () => {
         </form>
         {/* Message Box End */}
       </main>
-      {/* </div> */}
     </>
   );
 };

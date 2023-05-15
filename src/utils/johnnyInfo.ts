@@ -17,3 +17,12 @@ export const johnnyAge = () => {
 };
 
 export const johnnyNameAndAge = `Johnny, ${johnnyAge()}`;
+
+export const johnnyGalleryImages = [
+  "/images/jungkook_gallery_1.webp",
+  "/images/jungkook_gallery_2.jpeg",
+  "/images/jungkook_gallery_3.webp",
+  "/images/jungkook_gallery_4.jpeg",
+  "/images/jungkook_gallery_5.jpeg",
+  "/images/jungkook_gallery_6.jpeg",
+];

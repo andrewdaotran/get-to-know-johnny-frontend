@@ -6,6 +6,7 @@ import MobileMenuContext, {
   CHAT_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
+import Gallery from "./Gallery";
 
 const MobilePage = () => {
   const { menu, changeMenu } = useContext(
@@ -23,6 +24,7 @@ const MobilePage = () => {
       <div className=" flex h-screen flex-col bg-secondary">
         {menu?.isChat && <Chatbox />}
         {menu?.isDescription && <Description />}
+        {menu?.isGallery && <Gallery />}
         <MobileMenu />
       </div>
     </>

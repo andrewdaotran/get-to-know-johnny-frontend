@@ -18,7 +18,7 @@ const MobileMenu = () => {
   return (
     <>
       {/* Menu Bottom */}
-      <div className=" grid min-h-[5rem] w-full grow-0 grid-cols-3 justify-items-center bg-gray-100">
+      <div className=" grid min-h-[5rem] w-screen grow-0 grid-cols-3 justify-items-center  bg-gray-100">
         {/* Chat Button */}
         <button className=" px-12" onClick={() => changeMenu(CHAT_ACTION)}>
           <ChatBubbleLeftRightIcon
