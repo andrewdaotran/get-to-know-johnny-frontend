@@ -2,15 +2,17 @@ import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
 import Image from "next/image";
 import BasicDescriptionBox from "./BasicDescriptionBox";
 import IconAndTag from "./IconAndTag";
-// import { api } from "../utils/api";
+import { api } from "../utils/api";
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
-  // const {
-  //   data: descriptions,
-  //   isLoading,
-  //   isError,
-  // } = api.description.getAll.useQuery();
+  const {
+    data: descriptions,
+    isLoading,
+    isError,
+  } = api.description.getAll.useQuery();
+
+  console.log("stuff", descriptions);
 
   const johnnyBasicInformation = [
     {
@@ -46,28 +48,6 @@ const Description = () => {
     { hobby: "Gym", icon: "💪🏼" },
   ];
 
-  const johnnyBasicDescriptions = [
-    {
-      title: "Aspirations",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
-    },
-    {
-      title: "What I bring to the table...",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
-    },
-    {
-      title: "What I'm looking for...",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
-    },
-    {
-      title: "Deal breakers...",
-      description:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sunt, pariatur quod cumque ipsum quo, ducimus minima commodi voluptate modi sapiente excepturi, praesentium quibusdam assumenda.",
-    },
-  ];
   return (
     <>
       <main className="flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2">
@@ -142,12 +122,12 @@ const Description = () => {
         </div>
         {/* Hobbies End */}
 
-        {johnnyBasicDescriptions.map((box) => {
+        {descriptions?.map((box) => {
           return (
             <BasicDescriptionBox
               title={box.title}
               description={box.description}
-              key={box.title}
+              key={box.id}
             />
           );
         })}
