@@ -2,10 +2,16 @@ import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
 import Image from "next/image";
 import BasicDescriptionBox from "./BasicDescriptionBox";
 import IconAndTag from "./IconAndTag";
-
+// import { api } from "../utils/api";
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
+  // const {
+  //   data: descriptions,
+  //   isLoading,
+  //   isError,
+  // } = api.description.getAll.useQuery();
+
   const johnnyBasicInformation = [
     {
       title: "Height",
