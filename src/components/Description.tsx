@@ -125,9 +125,11 @@ const Description = () => {
         {descriptions?.map((box) => {
           return (
             <BasicDescriptionBox
+              id={box.id}
               title={box.title}
               description={box.description}
               key={box.id}
+              isEditing={false}
             />
           );
         })}
