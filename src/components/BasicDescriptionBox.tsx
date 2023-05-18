@@ -1,6 +1,6 @@
-import type { Description } from "andrewdaotran/pages/edit";
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useRef, useState } from "react";
+import { Description } from "typings";
 
 type Props = {
   title: string;

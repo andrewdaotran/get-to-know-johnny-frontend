@@ -6,12 +6,7 @@ import MobileMenuContext, {
 } from "andrewdaotran/context/MobileMenuContext";
 import { api } from "andrewdaotran/utils/api";
 import { useContext, useEffect, useState } from "react";
-
-export type Description = {
-  id?: string;
-  title: string;
-  description: string;
-};
+import { Description } from "typings";
 
 const Edit = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
