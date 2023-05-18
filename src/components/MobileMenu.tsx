@@ -26,7 +26,7 @@ const MobileMenu = () => {
         <button className="   " onClick={() => changeMenu(CHAT_ACTION)}>
           <Link
             href={"/"}
-            className={`${menu.isChat && "pointer-events-none"}`}
+            className={`${menu.isChat ? "pointer-events-none" : ""}`}
           >
             <ChatBubbleLeftRightIcon
               className={`${menu.isChat ? "text-main" : ""} mx-auto h-6 w-6 `}
@@ -38,7 +38,7 @@ const MobileMenu = () => {
         <button className=" " onClick={() => changeMenu(DESCRIPTION_ACTION)}>
           <Link
             href={"/"}
-            className={`${menu.isDescription && "pointer-events-none"}`}
+            className={`${menu.isDescription ? "pointer-events-none" : ""}`}
           >
             <DocumentTextIcon
               className={` ${
@@ -52,7 +52,7 @@ const MobileMenu = () => {
         <button className="  " onClick={() => changeMenu(GALLERY_ACTION)}>
           <Link
             href={"/"}
-            className={`${menu.isGallery && "pointer-events-none"}`}
+            className={`${menu.isGallery ? "pointer-events-none" : ""}`}
           >
             <PhotoIcon
               className={`${menu.isGallery ? "text-main" : ""} mx-auto h-6 w-6`}
@@ -70,7 +70,7 @@ const MobileMenu = () => {
         >
           <Link
             href={"/edit"}
-            className={`${menu.isEdit && "pointer-events-none"}`}
+            className={`${menu.isEdit ? "pointer-events-none" : ""}`}
           >
             {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}
             <PencilSquareIcon
