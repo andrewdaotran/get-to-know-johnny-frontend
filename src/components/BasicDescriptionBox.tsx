@@ -7,7 +7,7 @@ type Props = {
   description: string;
   id?: string;
   isEditing: boolean;
-  onSubmit: ({ description, title, id }: Description) => void;
+  onSubmit?: ({ description, title, id }: Description) => void;
 };
 
 type Data = {
@@ -42,6 +42,7 @@ const BasicDescriptionBox = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!onSubmit) return;
                 if (id) {
                   onSubmit({
                     description: data.description,
