@@ -1,7 +1,11 @@
 import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
-import Description from "andrewdaotran/components/Description";
+import MobileMenu from "andrewdaotran/components/MobileMenu";
+import MobileMenuContext, {
+  EDIT_ACTION,
+  MobileMenuContextType,
+} from "andrewdaotran/context/MobileMenuContext";
 import { api } from "andrewdaotran/utils/api";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export type Description = {
   id?: string;
@@ -12,6 +16,14 @@ export type Description = {
 const Edit = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
+
+  useEffect(() => {
+    changeMenu(EDIT_ACTION);
+  }, []);
 
   const { data, isLoading, isError } = api.description.getAll.useQuery();
   const { mutate: create } =
@@ -44,6 +56,7 @@ const Edit = () => {
           />
         ))}
         {/* Descriptions Mapped End */}
+
         {/* New Description Box */}
         {isNewDescription && (
           <BasicDescriptionBox
@@ -54,6 +67,7 @@ const Edit = () => {
           />
         )}
         {/* New Description Box End */}
+
         {/* Start Edit or Add Description Button */}
         <button
           className="mx-6 my-4 grid gap-2 self-center rounded-md border border-secondary bg-secondary px-6 py-4"
@@ -72,6 +86,7 @@ const Edit = () => {
             : "Cancel"}
         </button>
         {/* Start Edit or Add Description Button End */}
+
         {/* Cancel Edit Button */}
         {isEditing && !isNewDescription && (
           <button
@@ -86,6 +101,7 @@ const Edit = () => {
         {/* Cancel Edit Button End */}
       </div>
       {/* Descriptions End */}
+      <MobileMenu />
     </>
   );
 };

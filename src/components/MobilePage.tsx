@@ -13,9 +13,9 @@ const MobilePage = () => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  useEffect(() => {
-    changeMenu(CHAT_ACTION);
-  }, []);
+  // useEffect(() => {
+  //   changeMenu(CHAT_ACTION);
+  // }, []);
 
   // May need to figure out a new way to default to chat page as default but maybe not
 

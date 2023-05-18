@@ -2,13 +2,16 @@ import {
   PhotoIcon,
   ChatBubbleLeftRightIcon,
   DocumentTextIcon,
+  PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import MobileMenuContext, {
   CHAT_ACTION,
   DESCRIPTION_ACTION,
+  EDIT_ACTION,
   GALLERY_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
+import Link from "next/link";
 import { useContext } from "react";
 
 const MobileMenu = () => {
@@ -18,31 +21,64 @@ const MobileMenu = () => {
   return (
     <>
       {/* Menu Bottom */}
-      <div className=" grid min-h-[5rem] w-screen grow-0 grid-cols-3 justify-items-center  bg-gray-100">
+      <div className="grid min-h-[5rem] w-screen grow-0 grid-flow-col  bg-gray-100   ">
         {/* Chat Button */}
-        <button className=" px-12" onClick={() => changeMenu(CHAT_ACTION)}>
-          <ChatBubbleLeftRightIcon
-            className={`${menu.isChat ? "text-main" : ""} h-6 w-6`}
-          />
+        <button className="   " onClick={() => changeMenu(CHAT_ACTION)}>
+          <Link
+            href={"/"}
+            className={`${menu.isChat && "pointer-events-none"}`}
+          >
+            <ChatBubbleLeftRightIcon
+              className={`${menu.isChat ? "text-main" : ""} mx-auto h-6 w-6 `}
+            />
+          </Link>
         </button>
         {/* Chat Button End */}
         {/* Description Button */}
-        <button
-          className=" px-12"
-          onClick={() => changeMenu(DESCRIPTION_ACTION)}
-        >
-          <DocumentTextIcon
-            className={` ${menu.isDescription ? "text-main" : ""} h-6 w-6`}
-          />
+        <button className=" " onClick={() => changeMenu(DESCRIPTION_ACTION)}>
+          <Link
+            href={"/"}
+            className={`${menu.isDescription && "pointer-events-none"}`}
+          >
+            <DocumentTextIcon
+              className={` ${
+                menu.isDescription ? "text-main" : ""
+              } mx-auto h-6 w-6`}
+            />
+          </Link>
         </button>
         {/* Description Button End */}
         {/* Gallery Button */}
-        <button className=" px-12" onClick={() => changeMenu(GALLERY_ACTION)}>
-          <PhotoIcon
-            className={`${menu.isGallery ? "text-main" : ""} h-6 w-6`}
-          />
+        <button className="  " onClick={() => changeMenu(GALLERY_ACTION)}>
+          <Link
+            href={"/"}
+            className={`${menu.isGallery && "pointer-events-none"}`}
+          >
+            <PhotoIcon
+              className={`${menu.isGallery ? "text-main" : ""} mx-auto h-6 w-6`}
+            />
+          </Link>
         </button>
         {/* Gallery Button End */}
+        {/* Edit Button */}
+
+        <button
+          className=""
+          onClick={() => {
+            changeMenu(EDIT_ACTION);
+          }}
+        >
+          <Link
+            href={"/edit"}
+            className={`${menu.isEdit && "pointer-events-none"}`}
+          >
+            {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}
+            <PencilSquareIcon
+              className={`${menu.isEdit ? "text-main" : ""} mx-auto h-6 w-6`}
+            />
+          </Link>
+        </button>
+        {/* Edit Button End */}
       </div>
       {/* Menu Bottom End*/}
     </>

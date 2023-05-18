@@ -3,6 +3,11 @@ import Image from "next/image";
 import BasicDescriptionBox from "./BasicDescriptionBox";
 import IconAndTag from "./IconAndTag";
 import { api } from "../utils/api";
+import MobileMenuContext, {
+  DESCRIPTION_ACTION,
+  MobileMenuContextType,
+} from "andrewdaotran/context/MobileMenuContext";
+import { useContext, useEffect } from "react";
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
@@ -12,7 +17,13 @@ const Description = () => {
     isError,
   } = api.description.getAll.useQuery();
 
-  console.log("stuff", descriptions);
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
+
+  useEffect(() => {
+    changeMenu(DESCRIPTION_ACTION);
+  }, []);
 
   const johnnyBasicInformation = [
     {

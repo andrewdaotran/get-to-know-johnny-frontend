@@ -5,11 +5,13 @@ type Menu = {
   isChat: boolean;
   isDescription: boolean;
   isGallery: boolean;
+  isEdit: boolean;
 };
 
 export const CHAT_ACTION = "Chat";
 export const DESCRIPTION_ACTION = "Description";
 export const GALLERY_ACTION = "Gallery";
+export const EDIT_ACTION = "Edit";
 
 export type MobileMenuContextType = {
   menu: Menu;
@@ -20,6 +22,7 @@ const defaultMenu = {
   isChat: false,
   isDescription: false,
   isGallery: false,
+  isEdit: false,
 };
 
 // const defaultState = {
@@ -39,6 +42,7 @@ export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
       setMenu({ ...defaultMenu, isDescription: true });
     if (menuString === GALLERY_ACTION)
       setMenu({ ...defaultMenu, isGallery: true });
+    if (menuString === EDIT_ACTION) setMenu({ ...defaultMenu, isEdit: true });
   };
 
   return (
