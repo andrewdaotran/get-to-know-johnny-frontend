@@ -1,11 +1,13 @@
+import type { Description } from "andrewdaotran/pages/Edit";
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useRef, useState } from "react";
 
 type Props = {
   title: string;
   description: string;
-  id: string;
+  id?: string;
   isEditing: boolean;
+  onSubmit: ({ description, title, id }: Description) => void;
 };
 
 type Data = {
@@ -13,10 +15,15 @@ type Data = {
   description: string;
 };
 
-const BasicDescriptionBox = ({ title, description, id, isEditing }: Props) => {
+const BasicDescriptionBox = ({
+  title,
+  description,
+  id,
+  isEditing,
+  onSubmit,
+}: Props) => {
   const [data, setData] = useState<Data>({ title, description });
   const textareaRef = useRef<HTMLSpanElement>(null);
-  const { mutate } = api.description.editDescription.useMutation();
 
   const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
     setData({ ...data, description: String(e.currentTarget.textContent) });
@@ -32,17 +39,23 @@ const BasicDescriptionBox = ({ title, description, id, isEditing }: Props) => {
           </>
         ) : (
           <>
-            {" "}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                mutate({
-                  description: data.description,
-                  title: data.title,
-                  id,
-                });
+                if (id) {
+                  onSubmit({
+                    description: data.description,
+                    title: data.title,
+                    id,
+                  });
+                } else {
+                  onSubmit({
+                    description: data.description,
+                    title: data.title,
+                  });
+                }
               }}
-              className="grid gap-2 rounded-md border border-secondary bg-main px-6 py-4"
+              className="grid justify-items-center gap-2 rounded-md border border-secondary bg-main px-6 py-4"
             >
               <input
                 type="text"
@@ -62,7 +75,12 @@ const BasicDescriptionBox = ({ title, description, id, isEditing }: Props) => {
               >
                 {data.description}
               </span>
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                className="w-fit rounded-md border border-secondary px-4 py-2"
+              >
+                Submit
+              </button>
             </form>
           </>
         )}

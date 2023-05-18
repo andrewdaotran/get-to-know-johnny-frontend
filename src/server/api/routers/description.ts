@@ -47,7 +47,14 @@ export const descriptionRouter = createTRPCRouter({
       });
       return description;
     }),
-
+  addBasicDescriptionBox: publicProcedure
+    .input(z.object({ title: z.string(), description: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const description = await ctx.prisma.descriptionBox.create({
+        data: { description: input.description, title: input.title },
+      });
+      return description;
+    }),
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
