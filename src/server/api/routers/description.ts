@@ -5,6 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "andrewdaotran/server/api/trpc";
+import { descriptionInput } from "zodTypings";
 
 export const descriptionRouter = createTRPCRouter({
   // hello: publicProcedure
@@ -47,8 +48,8 @@ export const descriptionRouter = createTRPCRouter({
       });
       return description;
     }),
-  addBasicDescriptionBox: publicProcedure
-    .input(z.object({ title: z.string(), description: z.string() }))
+  createBasicDescriptionBox: publicProcedure
+    .input(descriptionInput)
     .mutation(async ({ ctx, input }) => {
       const description = await ctx.prisma.descriptionBox.create({
         data: { description: input.description, title: input.title },
@@ -58,7 +59,7 @@ export const descriptionRouter = createTRPCRouter({
   removeBasicDescriptionBox: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.descriptionBox.delete({
+      return await ctx.prisma.descriptionBox.delete({
         where: {
           id: input,
         },

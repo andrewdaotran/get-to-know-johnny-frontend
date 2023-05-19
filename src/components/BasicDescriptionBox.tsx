@@ -1,6 +1,5 @@
-import { XCircleIcon } from "@heroicons/react/24/solid";
 import { api } from "andrewdaotran/utils/api";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Description } from "typings";
 
 type Props = {
@@ -10,6 +9,8 @@ type Props = {
   isEditing: boolean;
   onSubmit?: ({ description, title, id }: Description) => void;
   onDelete?: (id: string) => void;
+  isNewDescription: boolean;
+  setIsNewDescription?: Dispatch<SetStateAction<boolean>>;
 };
 
 type Data = {
@@ -24,12 +25,18 @@ const BasicDescriptionBox = ({
   isEditing,
   onSubmit,
   onDelete,
+  isNewDescription,
+  setIsNewDescription,
 }: Props) => {
   const [data, setData] = useState<Data>({ title, description });
   const textareaRef = useRef<HTMLSpanElement>(null);
 
   const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
     setData({ ...data, description: String(e.currentTarget.textContent) });
+  };
+
+  const cancelNewDescription = () => {
+    if (setIsNewDescription) setIsNewDescription(false);
   };
 
   return (
@@ -68,11 +75,16 @@ const BasicDescriptionBox = ({
                 onChange={(e) => {
                   setData({ ...data, title: e.target.value });
                 }}
+                placeholder={`${isNewDescription ? "Title" : ""}`}
                 className="w-full grow rounded-md border border-secondary p-2 font-semibold outline-none"
               />
 
               <span
-                className={`block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-md bg-gray-100 p-2  focus:outline-none`}
+                className={`block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-md bg-gray-100 p-2  focus:outline-none ${
+                  isNewDescription
+                    ? 'empty:before:text-gray-400 empty:before:content-["Description"]'
+                    : ""
+                }`}
                 ref={textareaRef}
                 onBlur={typeMessage}
                 contentEditable
@@ -88,15 +100,20 @@ const BasicDescriptionBox = ({
                 >
                   Submit
                 </button>
+
                 <button
                   className=" w-fit rounded-md border border-secondary px-4 py-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (!onDelete) return;
-                    if (id) onDelete(id);
-                  }}
+                  onClick={
+                    isNewDescription
+                      ? cancelNewDescription
+                      : (e) => {
+                          e.preventDefault();
+                          if (!onDelete) return;
+                          if (id) onDelete(id);
+                        }
+                  }
                 >
-                  Delete
+                  {isNewDescription ? "Cancel" : "Delete"}
                 </button>
               </div>
               {/* Submit and cancel buttons end */}

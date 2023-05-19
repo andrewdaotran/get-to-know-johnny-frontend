@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { ChildrenNodeType } from "typings";
+import type { ChildrenNodeType } from "typings";
 
 type Menu = {
   isChat: boolean;

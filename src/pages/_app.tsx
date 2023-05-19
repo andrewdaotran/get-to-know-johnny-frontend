@@ -8,6 +8,7 @@ import "andrewdaotran/styles/globals.css";
 
 import { MessageProvider } from "andrewdaotran/context/MessageContext";
 import { MobileMenuProvider } from "andrewdaotran/context/MobileMenuContext";
+import { Toaster } from "react-hot-toast";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -18,6 +19,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <MobileMenuProvider>
         <MessageProvider>
           <Component {...pageProps} />
+          <Toaster />
         </MessageProvider>
       </MobileMenuProvider>
     </SessionProvider>

@@ -141,6 +141,7 @@ const Description = () => {
               description={box.description}
               key={box.id}
               isEditing={false}
+              isNewDescription={false}
             />
           );
         })}
