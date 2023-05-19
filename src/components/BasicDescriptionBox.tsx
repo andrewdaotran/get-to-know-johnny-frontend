@@ -1,3 +1,4 @@
+import { XCircleIcon } from "@heroicons/react/24/solid";
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useRef, useState } from "react";
 import { Description } from "typings";
@@ -8,6 +9,7 @@ type Props = {
   id?: string;
   isEditing: boolean;
   onSubmit?: ({ description, title, id }: Description) => void;
+  onDelete?: (id: string) => void;
 };
 
 type Data = {
@@ -21,6 +23,7 @@ const BasicDescriptionBox = ({
   id,
   isEditing,
   onSubmit,
+  onDelete,
 }: Props) => {
   const [data, setData] = useState<Data>({ title, description });
   const textareaRef = useRef<HTMLSpanElement>(null);
@@ -34,7 +37,8 @@ const BasicDescriptionBox = ({
       <div className="grid gap-2 rounded-md bg-main px-6 py-4">
         {!isEditing ? (
           <>
-            <h2 className="w-fit font-semibold">{title}</h2>
+            <h2 className="w-fit grow  font-semibold">{title}</h2>
+
             <p className="text-sm text-grayText">{description}</p>
           </>
         ) : (
@@ -64,7 +68,7 @@ const BasicDescriptionBox = ({
                 onChange={(e) => {
                   setData({ ...data, title: e.target.value });
                 }}
-                className="w-full rounded-md border border-secondary p-2 font-semibold outline-none"
+                className="w-full grow rounded-md border border-secondary p-2 font-semibold outline-none"
               />
 
               <span
@@ -76,12 +80,26 @@ const BasicDescriptionBox = ({
               >
                 {data.description}
               </span>
-              <button
-                type="submit"
-                className="w-fit rounded-md border border-secondary px-4 py-2"
-              >
-                Submit
-              </button>
+              {/* Submit and cancel buttons */}
+              <div className=" flex gap-2">
+                <button
+                  type="submit"
+                  className="w-fit rounded-md bg-secondary px-4 py-2 "
+                >
+                  Submit
+                </button>
+                <button
+                  className=" w-fit rounded-md border border-secondary px-4 py-2"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!onDelete) return;
+                    if (id) onDelete(id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+              {/* Submit and cancel buttons end */}
             </form>
           </>
         )}

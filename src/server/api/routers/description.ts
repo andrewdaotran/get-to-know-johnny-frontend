@@ -55,6 +55,15 @@ export const descriptionRouter = createTRPCRouter({
       });
       return description;
     }),
+  removeBasicDescriptionBox: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.descriptionBox.delete({
+        where: {
+          id: input,
+        },
+      });
+    }),
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),

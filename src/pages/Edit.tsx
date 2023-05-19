@@ -24,6 +24,8 @@ const Edit = () => {
   const { mutate: create } =
     api.description.addBasicDescriptionBox.useMutation();
   const { mutate: edit } = api.description.editDescription.useMutation();
+  const { mutate: remove } =
+    api.description.removeBasicDescriptionBox.useMutation();
 
   const editDescription = ({ description, title, id }: Description) => {
     if (id) edit({ description, title, id });
@@ -31,6 +33,10 @@ const Edit = () => {
 
   const createDescription = ({ description, title }: Description) => {
     create({ description, title });
+  };
+
+  const removeDescription = (id: string) => {
+    remove(id);
   };
   return (
     <>
@@ -48,6 +54,7 @@ const Edit = () => {
             description={description.description}
             isEditing={isEditing}
             onSubmit={editDescription}
+            onDelete={removeDescription}
           />
         ))}
         {/* Descriptions Mapped End */}
@@ -63,7 +70,7 @@ const Edit = () => {
         )}
         {/* New Description Box End */}
 
-        {/* Start Edit or Add Description Button */}
+        {/* Edit or Add Description Button */}
         <button
           className="mx-6 my-4 grid gap-2 self-center rounded-md border border-secondary bg-secondary px-6 py-4"
           onClick={() => {
@@ -80,7 +87,7 @@ const Edit = () => {
             ? "Add Description Box"
             : "Cancel"}
         </button>
-        {/* Start Edit or Add Description Button End */}
+        {/* Edit or Add Description Button End */}
 
         {/* Cancel Edit Button */}
         {isEditing && !isNewDescription && (
