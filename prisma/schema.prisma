@@ -72,8 +72,9 @@ model DescriptionBox {
     description String
 }
 
-model IconAndTag {
+model Hobby {
     id            String    @id @default(cuid())
     icon    String
     hobby   String
 }
+
