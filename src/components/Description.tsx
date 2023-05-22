@@ -17,6 +17,8 @@ const Description = () => {
     isError,
   } = api.description.getAll.useQuery();
 
+  const { data: hobbies } = api.hobby.getAll.useQuery();
+
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
@@ -50,13 +52,6 @@ const Description = () => {
       title: "Job Title",
       description: "Unemployed",
     },
-  ];
-
-  const johnnyHobbies = [
-    { hobby: "Basketball", icon: "🏀" },
-    { hobby: "Gaming", icon: "🎮" },
-    { hobby: "Food Adventures", icon: "🍗" },
-    { hobby: "Gym", icon: "💪🏼" },
   ];
 
   return (
@@ -120,7 +115,7 @@ const Description = () => {
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
           <h2 className="w-fit font-semibold">My hobbies...</h2>
           <ul className=" flex flex-wrap gap-2 ">
-            {johnnyHobbies.map((hobby) => {
+            {hobbies?.map((hobby) => {
               return (
                 <IconAndTag
                   icon={hobby.icon}

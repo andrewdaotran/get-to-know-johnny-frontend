@@ -1,6 +1,6 @@
 import { createTRPCRouter } from "andrewdaotran/server/api/trpc";
 import { descriptionRouter } from "andrewdaotran/server/api/routers/description";
-import { hobbyRouter } from "./routers/hobbies";
+import { hobbyRouter } from "andrewdaotran/server/api/routers/hobby";
 
 /**
  * This is the primary router for your server.

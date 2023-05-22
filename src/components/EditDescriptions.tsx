@@ -1,10 +1,7 @@
 import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
-import MobileMenuContext, {
-  EDIT_ACTION,
-  MobileMenuContextType,
-} from "andrewdaotran/context/MobileMenuContext";
+
 import { api } from "andrewdaotran/utils/api";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Description } from "typings";
 import { descriptionInput } from "zodTypings";
@@ -12,14 +9,6 @@ import { descriptionInput } from "zodTypings";
 const EditDescriptions = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  const { menu, changeMenu } = useContext(
-    MobileMenuContext
-  ) as MobileMenuContextType;
-
-  useEffect(() => {
-    changeMenu(EDIT_ACTION);
-  }, []);
 
   const trpc = api.useContext();
 
@@ -87,7 +76,7 @@ const EditDescriptions = () => {
   return (
     <>
       {/* Descriptions */}
-      <div className="grid py-4 ">
+      <div className="grid  ">
         <h2 className="mx-6 my-4  border border-red-500 text-center">
           Description
         </h2>
