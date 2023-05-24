@@ -6,8 +6,7 @@ type Props = {
   buttonColor?: string;
 };
 
-const StandardButton = ({ onClick, buttonText, buttonColor }: Props) => {
-  console.log(buttonText, buttonColor);
+const ButtonWidthFull = ({ onClick, buttonText, buttonColor }: Props) => {
   return (
     <button
       className={` mx-6 my-4 grid gap-2 self-center rounded-md border border-secondary ${
@@ -20,4 +19,4 @@ const StandardButton = ({ onClick, buttonText, buttonColor }: Props) => {
   );
 };
 
-export default StandardButton;
+export default ButtonWidthFull;

@@ -37,7 +37,7 @@ const BasicDescriptionBox = ({
   setIsNewDescription,
 }: Props) => {
   const [data, setData] = useState<Data>({ title, description });
-  const textareaRef = useRef<HTMLSpanElement>(null);
+  const contentEditableRef = useRef<HTMLSpanElement>(null);
 
   const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
     setData({ ...data, description: String(e.currentTarget.textContent) });
@@ -98,7 +98,7 @@ const BasicDescriptionBox = ({
                   ? 'empty:before:text-gray-400 empty:before:content-["Description"]'
                   : ""
               }`}
-              ref={textareaRef}
+              ref={contentEditableRef}
               onBlur={typeMessage}
               contentEditable
               suppressContentEditableWarning

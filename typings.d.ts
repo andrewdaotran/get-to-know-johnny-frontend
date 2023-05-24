@@ -8,3 +8,9 @@ export type Description = {
   title: string;
   description: string;
 };
+
+export type Hobby = {
+  id?: string;
+  icon: string;
+  hobby: string;
+};

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Description } from "typings";
 import { descriptionInput } from "zodTypings";
-import StandardButton from "./StandardButton";
+import StandardButton from "./ButtonWidthFull";
 
 const EditDescriptions = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
