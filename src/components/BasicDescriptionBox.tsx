@@ -1,6 +1,14 @@
 import { api } from "andrewdaotran/utils/api";
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useRef,
+  useState,
+} from "react";
 import { Description } from "typings";
+import ButtonContentFit from "./ButtonContentFit";
 
 type Props = {
   title: string;
@@ -99,27 +107,20 @@ const BasicDescriptionBox = ({
             </span>
             {/* Submit and cancel buttons */}
             <div className=" flex gap-2">
-              <button
-                type="submit"
-                className="w-fit rounded-md bg-secondary px-4 py-2 "
-              >
-                Submit
-              </button>
-
-              <button
-                className=" w-fit rounded-md border border-secondary px-4 py-2"
+              <ButtonContentFit isSubmit={true} buttonText={`Submit`} />
+              <ButtonContentFit
                 onClick={
                   isNewDescription
                     ? cancelNewDescription
-                    : (e) => {
+                    : (e: MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault();
                         if (!onDelete) return;
                         if (id) onDelete(id);
                       }
                 }
-              >
-                {isNewDescription ? "Cancel" : "Delete"}
-              </button>
+                buttonText={isNewDescription ? "Cancel" : "Delete"}
+                buttonColor="white"
+              />
             </div>
             {/* Submit and cancel buttons end */}
           </form>
