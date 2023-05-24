@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Description } from "typings";
 import { descriptionInput } from "zodTypings";
+import StandardButton from "./StandardButton";
 
 const EditDescriptions = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
@@ -109,8 +110,14 @@ const EditDescriptions = () => {
         {/* New Description Box End */}
 
         {/* Edit or Add Description Button */}
-        <button
-          className="mx-6 my-4 grid gap-2 self-center rounded-md border border-secondary bg-secondary px-6 py-4"
+        <StandardButton
+          buttonText={
+            !isEditing
+              ? "Edit"
+              : !isNewDescription
+              ? "Add Description Box"
+              : "Cancel"
+          }
           onClick={() => {
             if (isEditing) {
               setIsNewDescription(!isNewDescription);
@@ -118,25 +125,18 @@ const EditDescriptions = () => {
               setIsEditing(!isEditing);
             }
           }}
-        >
-          {!isEditing
-            ? "Edit"
-            : !isNewDescription
-            ? "Add Description Box"
-            : "Cancel"}
-        </button>
+        />
+
         {/* Edit or Add Description Button End */}
 
         {/* Cancel Edit Button */}
         {isEditing && !isNewDescription && (
-          <button
-            className="mx-6 my-4 grid gap-2 self-center rounded-md border border-secondary bg-secondary px-6 py-4"
+          <StandardButton
+            buttonText={"Cancel"}
             onClick={() => {
               setIsEditing(!isEditing);
             }}
-          >
-            Cancel
-          </button>
+          />
         )}
         {/* Cancel Edit Button End */}
       </div>
