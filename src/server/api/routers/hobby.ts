@@ -5,7 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "andrewdaotran/server/api/trpc";
-import { hobbyInput } from "zodTypings";
+import { hobbyInput, hobbyInputWithId } from "zodTypings";
 
 export const hobbyRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -13,13 +13,8 @@ export const hobbyRouter = createTRPCRouter({
     return hobbies;
   }),
   editHobby: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        hobby: z.string(),
-        icon: z.string(),
-      })
-    )
+    .input(hobbyInputWithId)
+
     .mutation(async ({ ctx, input }) => {
       const hobby = await ctx.prisma.hobby.update({
         where: {

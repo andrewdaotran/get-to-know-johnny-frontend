@@ -5,7 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "andrewdaotran/server/api/trpc";
-import { descriptionInput } from "zodTypings";
+import { descriptionInput, descriptionInputWithId } from "zodTypings";
 
 export const descriptionRouter = createTRPCRouter({
   // hello: publicProcedure
@@ -29,13 +29,7 @@ export const descriptionRouter = createTRPCRouter({
     return descriptions;
   }),
   editDescription: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        title: z.string(),
-        description: z.string(),
-      })
-    )
+    .input(descriptionInputWithId)
     .mutation(async ({ ctx, input }) => {
       const description = await ctx.prisma.descriptionBox.update({
         where: {

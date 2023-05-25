@@ -9,6 +9,8 @@ import { ChangeEvent, useRef, useState } from "react";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
 import { set } from "zod";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
+import { hobbyInput, hobbyInputWithId } from "zodTypings";
+import { toast } from "react-hot-toast";
 
 type Props = {
   icon: string;
@@ -50,12 +52,40 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
 
   const editHobby = () => {
     if (id) edit({ icon: iconText, hobby: hobbyText, id });
+
+    const result = hobbyInputWithId.safeParse({
+      icon: iconText,
+      hobby: hobbyText,
+    });
+    if (!result.success) {
+      if (
+        result.error.issues[1]?.path[0] === "icon" &&
+        result.error.issues[1]?.code === "too_small"
+      )
+        toast.error(`Must have one emoji`);
+      if (
+        result.error.issues[1]?.path[0] === "icon" &&
+        result.error.issues[1]?.code === "too_big"
+      )
+        toast.error(`You can only have one emoji`);
+
+      if (
+        result.error.issues[1]?.path[0] === "hobby" &&
+        result.error.issues[1]?.code === "too_small"
+      )
+        toast.error(`Hobby must contain at least one character`);
+      if (
+        result.error.issues[1]?.path[0] === "hobby" &&
+        result.error.issues[1]?.code === "too_big"
+      )
+        toast.error(`Hobby cannot contain more than 50 characters`);
+      return;
+    }
     setIsHobbySubmitted(true);
     setIsFocused(false);
     setTimeout(() => {
       setIsHobbySubmitted(false);
     }, 2000);
-    // needs toaster error handling
   };
 
   const removeHobby = () => {
@@ -64,10 +94,39 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
 
   const createHobby = () => {
     create({ hobby: hobbyText, icon: iconText });
+    const result = hobbyInput.safeParse({
+      icon: iconText,
+      hobby: hobbyText,
+    });
+    if (!result.success) {
+      if (
+        result.error.issues[0]?.path[0] === "icon" &&
+        result.error.issues[0]?.code === "too_small"
+      )
+        toast.error(`Must have one emoji`);
+
+      if (
+        result.error.issues[0]?.path[0] === "icon" &&
+        result.error.issues[0]?.code === "too_big"
+      )
+        toast.error(`You can only have one emoji`);
+
+      if (
+        result.error.issues[0]?.path[0] === "hobby" &&
+        result.error.issues[0]?.code === "too_small"
+      )
+        toast.error(`Hobby must contain at least one character`);
+      if (
+        result.error.issues[0]?.path[0] === "hobby" &&
+        result.error.issues[0]?.code === "too_big"
+      )
+        toast.error(`Hobby cannot contain more than 50 characters`);
+
+      return;
+    }
     setIconText(defaultIcon);
     setHobbyText(defaultHobby);
     setIsMakingNewPuck(false);
-    // needs toaster error handling
   };
 
   const typeIcon = (e: ChangeEvent<HTMLSpanElement>) => {

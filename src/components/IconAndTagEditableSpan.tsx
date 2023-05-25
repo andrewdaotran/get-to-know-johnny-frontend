@@ -25,7 +25,7 @@ const IconAndTagEditableSpan = ({
     <>
       <span className="flex gap-1">
         <span
-          className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md bg-transparent text-sm underline empty:before:text-gray-400 empty:before:content-["📲"] focus:outline-none`}
+          className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md bg-transparent text-sm underline empty:before:text-gray-400 empty:before:content-[":)"] focus:outline-none`}
           ref={iconRef}
           onBlur={typeIcon}
           onFocus={onFocus}

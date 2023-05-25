@@ -4,7 +4,7 @@ import { api } from "andrewdaotran/utils/api";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Description } from "typings";
-import { descriptionInput } from "zodTypings";
+import { descriptionInput, descriptionInputWithId } from "zodTypings";
 import StandardButton from "./ButtonWidthFull";
 
 const EditDescriptions = () => {
@@ -39,7 +39,31 @@ const EditDescriptions = () => {
 
   // Edit Descriptions
   const editDescription = ({ description, title, id }: Description) => {
-    if (id) edit({ description, title, id });
+    if (id) {
+      edit({ description, title, id });
+      const result = descriptionInputWithId.safeParse({ description, title });
+
+      if (!result.success) {
+        if (
+          result.error.issues[1]?.path[0] === "title" &&
+          result.error.issues[1]?.code === "too_small"
+        )
+          toast.error(`Title must contain at least one character`);
+        console.log(result);
+        if (
+          result.error.issues[1]?.path[0] === "title" &&
+          result.error.issues[1]?.code === "too_big"
+        )
+          toast.error(`Title cannot contain more than 50 characters`);
+
+        if (
+          result.error.issues[1]?.path[0] === "description" &&
+          result.error.issues[1]?.code === "too_small"
+        )
+          toast.error(`Description must contain at least one character`);
+        return;
+      }
+    }
   };
 
   // Create Descriptions
