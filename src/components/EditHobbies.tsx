@@ -1,5 +1,7 @@
 import { api } from "andrewdaotran/utils/api";
 import IconAndTag from "./IconAndTag";
+import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
+import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 
 // type Props = {
 
@@ -21,10 +23,18 @@ const EditHobbies = () => {
                 isEditing={true}
                 id={id}
                 key={id}
+                defaultNewPuck={false}
               />
             );
           })}
-          {/* Add a puck to add a hobby */}
+          {/* New hobby puck */}
+          <IconAndTag
+            isEditing={false}
+            defaultNewPuck={true}
+            icon={defaultIcon}
+            hobby={defaultHobby}
+          />
+          {/* New hobby puck end */}
         </ul>
       </div>
     </>

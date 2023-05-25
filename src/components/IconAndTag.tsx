@@ -1,20 +1,29 @@
-import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/24/solid";
+import {
+  CheckCircleIcon,
+  MinusCircleIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/solid";
 import { useIsMutating } from "@tanstack/react-query";
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useRef, useState } from "react";
+import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
+import { set } from "zod";
+import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 
 type Props = {
   icon: string;
   hobby: string;
   isEditing: boolean;
   id?: string;
+  defaultNewPuck: boolean;
 };
 
-const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
+const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
   const trpc = api.useContext();
   const [iconText, setIconText] = useState(icon);
   const [hobbyText, setHobbyText] = useState(hobby);
   const [isFocused, setIsFocused] = useState(false);
+  const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
 
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
 
@@ -27,6 +36,18 @@ const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
     },
   });
 
+  const { mutate: remove } = api.hobby.removeHobby.useMutation({
+    onSettled: async () => {
+      await trpc.hobby.invalidate();
+    },
+  });
+
+  const { mutate: create } = api.hobby.createHobby.useMutation({
+    onSettled: async () => {
+      await trpc.hobby.invalidate();
+    },
+  });
+
   const editHobby = () => {
     if (id) edit({ icon: iconText, hobby: hobbyText, id });
     setIsHobbySubmitted(true);
@@ -34,6 +55,19 @@ const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
     setTimeout(() => {
       setIsHobbySubmitted(false);
     }, 2000);
+    // needs toaster error handling
+  };
+
+  const removeHobby = () => {
+    if (id) remove(id);
+  };
+
+  const createHobby = () => {
+    create({ hobby: hobbyText, icon: iconText });
+    setIconText(defaultIcon);
+    setHobbyText(defaultHobby);
+    setIsMakingNewPuck(false);
+    // needs toaster error handling
   };
 
   const typeIcon = (e: ChangeEvent<HTMLSpanElement>) => {
@@ -48,41 +82,41 @@ const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
     setIsFocused(true);
   };
 
+  const toggleNewPuck = () => {
+    setIsMakingNewPuck(true);
+    setIconText("");
+    setHobbyText("");
+  };
+
   return (
     <li
       className={`flex gap-2 rounded-2xl  px-3 py-1 text-sm transition duration-200 ease-in-out ${
         isHobbySubmitted ? "bg-black" : "bg-secondary"
       }`}
     >
-      {!isEditing ? (
+      {/* Hobbies for display */}
+      {!isEditing && !defaultNewPuck && (
         <>
           {icon} {hobby}
         </>
-      ) : (
-        <>
-          <span className="flex gap-1">
-            <span
-              className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md bg-transparent text-sm focus:outline-none`}
-              ref={iconRef}
-              onBlur={typeIcon}
-              onFocus={onFocus}
-              contentEditable
-              suppressContentEditableWarning
-            >
-              {iconText}
-            </span>
-            <span
-              className={`block h-fit w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md  bg-transparent text-sm focus:outline-none`}
-              ref={hobbyRef}
-              onBlur={typeHobby}
-              onFocus={onFocus}
-              contentEditable
-              suppressContentEditableWarning
-            >
-              {hobbyText}
-            </span>
-          </span>
+      )}
+      {/* Hobbies for display end*/}
 
+      {/* Hobbies to be edited */}
+      {isEditing && !defaultNewPuck && (
+        <>
+          <IconAndTagEditableSpan
+            iconText={iconText}
+            hobbyText={hobbyText}
+            iconRef={iconRef}
+            hobbyRef={hobbyRef}
+            typeIcon={typeIcon}
+            typeHobby={typeHobby}
+            onFocus={onFocus}
+            isMakingNewPuck={false}
+          />
+
+          {/* Edit and remove buttons */}
           {!isHobbySubmitted && (
             <>
               {isFocused ? (
@@ -90,7 +124,7 @@ const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
                   <CheckCircleIcon className="my-auto h-4 w-4 text-blue-600" />
                 </button>
               ) : (
-                <button className="">
+                <button className="" onClick={removeHobby}>
                   <MinusCircleIcon className="my-auto h-4 w-4 text-red-600" />
                 </button>
               )}
@@ -98,6 +132,42 @@ const IconAndTag = ({ icon, hobby, isEditing, id }: Props) => {
           )}
         </>
       )}
+      {/* Edit and remove buttons end */}
+
+      {/* Hobbies to be edited end */}
+
+      {/* Default new puck */}
+      {defaultNewPuck && !isMakingNewPuck && (
+        <>
+          <span className="flex">
+            {icon} {hobby}
+          </span>
+          <button onClick={toggleNewPuck}>
+            <PlusCircleIcon className="my-auto h-4 w-4" />
+          </button>
+        </>
+      )}
+      {/* Default new puck end */}
+
+      {/* Editable new puck */}
+      {defaultNewPuck && isMakingNewPuck && (
+        <>
+          <IconAndTagEditableSpan
+            iconText={iconText}
+            hobbyText={hobbyText}
+            iconRef={iconRef}
+            hobbyRef={hobbyRef}
+            typeIcon={typeIcon}
+            typeHobby={typeHobby}
+            onFocus={onFocus}
+            isMakingNewPuck={true}
+          />
+          <button onClick={createHobby}>
+            <CheckCircleIcon className="my-auto h-4 w-4 " />
+          </button>
+        </>
+      )}
+      {/* Editable new puck end */}
     </li>
   );
 };

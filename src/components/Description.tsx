@@ -121,6 +121,8 @@ const Description = () => {
                   icon={hobby.icon}
                   hobby={hobby.hobby}
                   key={hobby.hobby}
+                  isEditing={false}
+                  defaultNewPuck={false}
                 />
               );
             })}
