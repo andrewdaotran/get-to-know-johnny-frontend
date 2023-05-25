@@ -108,19 +108,20 @@ const BasicDescriptionBox = ({
             {/* Submit and cancel buttons */}
             <div className=" flex gap-2">
               <ButtonContentFit isSubmit={true} buttonText={`Submit`} />
-              <ButtonContentFit
-                onClick={
-                  isNewDescription
-                    ? cancelNewDescription
-                    : (e: MouseEvent<HTMLButtonElement>) => {
-                        e.preventDefault();
-                        if (!onDelete) return;
-                        if (id) onDelete(id);
-                      }
-                }
-                buttonText={isNewDescription ? "Cancel" : "Delete"}
-                buttonColor="white"
-              />
+              {onDelete && (
+                <ButtonContentFit
+                  onClick={
+                    isNewDescription
+                      ? cancelNewDescription
+                      : (e: MouseEvent<HTMLButtonElement>) => {
+                          e.preventDefault();
+                          if (id) onDelete(id);
+                        }
+                  }
+                  buttonText={isNewDescription ? "Cancel" : "Delete"}
+                  buttonColor="white"
+                />
+              )}
             </div>
             {/* Submit and cancel buttons end */}
           </form>

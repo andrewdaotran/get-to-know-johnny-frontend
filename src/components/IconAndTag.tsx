@@ -3,11 +3,9 @@ import {
   MinusCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/solid";
-import { useIsMutating } from "@tanstack/react-query";
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useRef, useState } from "react";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
-import { set } from "zod";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 import { hobbyInput, hobbyInputWithId } from "zodTypings";
 import { toast } from "react-hot-toast";
@@ -172,7 +170,6 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
             typeIcon={typeIcon}
             typeHobby={typeHobby}
             onFocus={onFocus}
-            isMakingNewPuck={false}
           />
 
           {/* Edit and remove buttons */}
@@ -192,7 +189,6 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
         </>
       )}
       {/* Edit and remove buttons end */}
-
       {/* Hobbies to be edited end */}
 
       {/* Default new puck */}
@@ -219,7 +215,6 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
             typeIcon={typeIcon}
             typeHobby={typeHobby}
             onFocus={onFocus}
-            isMakingNewPuck={true}
           />
           <button onClick={createHobby}>
             <CheckCircleIcon className="my-auto h-4 w-4 " />

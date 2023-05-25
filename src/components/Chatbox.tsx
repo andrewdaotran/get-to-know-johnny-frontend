@@ -13,7 +13,6 @@ export const Chatbox = () => {
   const submitMessage = (e: FormEvent) => {
     e.preventDefault();
     if (textareaRef.current !== null) {
-      console.log(textareaRef.current.textContent);
       textareaRef.current.textContent = "";
     }
   };

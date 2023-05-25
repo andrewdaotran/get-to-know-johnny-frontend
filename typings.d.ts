@@ -14,3 +14,9 @@ export type Hobby = {
   icon: string;
   hobby: string;
 };
+
+export type BasicInformation = {
+  id?: string;
+  title: string;
+  description: string;
+};

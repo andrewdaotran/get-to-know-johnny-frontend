@@ -14,6 +14,7 @@ import MobileMenuContext, {
 } from "andrewdaotran/context/MobileMenuContext";
 import { useContext, useEffect } from "react";
 import EditHobbies from "andrewdaotran/components/EditHobbies";
+import BasicInformation from "andrewdaotran/components/BasicInformation";
 
 type Props = {
   data: Description;
@@ -30,6 +31,7 @@ const Edit = () => {
   return (
     <>
       <div>
+        <BasicInformation isViewOnly={false} />
         <EditHobbies />
         <EditDescriptions />
       </div>

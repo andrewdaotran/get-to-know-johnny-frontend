@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "andrewdaotran/server/api/trpc";
 import { descriptionRouter } from "andrewdaotran/server/api/routers/description";
 import { hobbyRouter } from "andrewdaotran/server/api/routers/hobby";
+import { basicInformationRouter } from "andrewdaotran/server/api/routers/basicInformation";
 
 /**
  * This is the primary router for your server.
@@ -10,6 +11,7 @@ import { hobbyRouter } from "andrewdaotran/server/api/routers/hobby";
 export const appRouter = createTRPCRouter({
   description: descriptionRouter,
   hobby: hobbyRouter,
+  basicInformation: basicInformationRouter,
 });
 
 // export type definition of API

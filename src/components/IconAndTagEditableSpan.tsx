@@ -8,7 +8,6 @@ type Props = {
   typeIcon: (e: ChangeEvent<HTMLSpanElement>) => void;
   typeHobby: (e: ChangeEvent<HTMLSpanElement>) => void;
   onFocus: (e: ChangeEvent<HTMLSpanElement>) => void;
-  isMakingNewPuck: boolean;
 };
 
 const IconAndTagEditableSpan = ({
@@ -19,7 +18,6 @@ const IconAndTagEditableSpan = ({
   typeIcon,
   typeHobby,
   onFocus,
-  isMakingNewPuck,
 }: Props) => {
   return (
     <>
@@ -32,7 +30,6 @@ const IconAndTagEditableSpan = ({
           contentEditable
           suppressContentEditableWarning
         >
-          {/* {!isMakingNewPuck ? iconText : ""} */}
           {iconText}
         </span>
         <span
@@ -44,7 +41,6 @@ const IconAndTagEditableSpan = ({
           suppressContentEditableWarning
         >
           {hobbyText}
-          {/* {!isMakingNewPuck ? hobbyText : ""} */}
         </span>
       </span>
     </>

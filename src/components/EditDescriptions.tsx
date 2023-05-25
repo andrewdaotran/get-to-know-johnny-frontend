@@ -49,7 +49,6 @@ const EditDescriptions = () => {
           result.error.issues[1]?.code === "too_small"
         )
           toast.error(`Title must contain at least one character`);
-        console.log(result);
         if (
           result.error.issues[1]?.path[0] === "title" &&
           result.error.issues[1]?.code === "too_big"

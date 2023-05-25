@@ -8,6 +8,7 @@ import MobileMenuContext, {
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
 import { useContext, useEffect } from "react";
+import BasicInformation from "./BasicInformation";
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
@@ -26,33 +27,6 @@ const Description = () => {
   useEffect(() => {
     changeMenu(DESCRIPTION_ACTION);
   }, []);
-
-  const johnnyBasicInformation = [
-    {
-      title: "Height",
-      description: `5'8"`,
-    },
-    {
-      title: "Location",
-      description: "Orange County",
-    },
-    {
-      title: "Employer",
-      description: "Unemployed",
-    },
-    {
-      title: "Religion",
-      description: "Buddhist / Catholic",
-    },
-    {
-      title: "Degree",
-      description: "Information Systems",
-    },
-    {
-      title: "Job Title",
-      description: "Unemployed",
-    },
-  ];
 
   return (
     <>
@@ -75,41 +49,7 @@ const Description = () => {
         </div>
         {/* Image End */}
 
-        {/* Basic Information */}
-        <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
-          <h1 className=" w-fit  font-semibold">A little about me...</h1>
-          <p className="text-sm text-grayText">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
-            corporis laborum architecto obcaecati accusantium sed?
-          </p>
-
-          {/* Information Boxes */}
-          <ul className="grid grid-cols-3 grid-rows-2  ">
-            {johnnyBasicInformation.map((info, index) => {
-              return (
-                <li
-                  className={`${
-                    index === 0
-                      ? "rounded-tl-md"
-                      : index === 2
-                      ? "rounded-tr-md"
-                      : index === 3
-                      ? "rounded-bl-md"
-                      : index === 5
-                      ? "rounded-br-md"
-                      : ""
-                  } overflow-hidden bg-main p-2 text-sm outline outline-secondary`}
-                  key={info.title}
-                >
-                  <h2 className="text-grayText">{info.title}</h2>
-                  <h2 className="">{info.description}</h2>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        {/* Information Boxes End */}
-        {/* Basic Information End */}
+        <BasicInformation isViewOnly={true} />
 
         {/* Hobbies */}
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
