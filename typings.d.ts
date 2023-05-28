@@ -20,3 +20,9 @@ export type BasicInformation = {
   title: string;
   description: string;
 };
+
+export type InformationBox = {
+  id?: string;
+  title: string;
+  description: string;
+};
