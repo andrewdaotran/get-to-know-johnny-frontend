@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { InformationBox } from "typings";
-import { isDeepStrictEqual } from "util";
 
 type Props = {
   informationArray: InformationBox[] | undefined;
@@ -10,12 +9,16 @@ type Props = {
     title: string,
     description: string
   ) => void;
+  // setEditedInformationArray: Dispatch<
+  //   SetStateAction<InformationBox[] | undefined>
+  // >;
 };
 
 const InformationBox = ({
   informationArray,
   isEditing,
-}: // editInformationBox,
+}: // setEditedInformationArray,
+// editInformationBox,
 Props) => {
   return (
     <ul className="grid grid-cols-3 grid-rows-2  ">

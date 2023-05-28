@@ -25,4 +25,5 @@ export type InformationBox = {
   id?: string;
   title: string;
   description: string;
+  basicInformationId: string;
 };

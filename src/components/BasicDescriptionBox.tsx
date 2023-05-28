@@ -4,21 +4,34 @@ import {
   Dispatch,
   MouseEvent,
   SetStateAction,
+  useContext,
   useRef,
   useState,
 } from "react";
-import { Description } from "typings";
+import { BasicInformation, Description } from "typings";
 import ButtonContentFit from "./ButtonContentFit";
+import BasicInformationContext, {
+  BasicInformationContextType,
+} from "andrewdaotran/context/BasicInformationContext";
 
 type Props = {
-  title: string;
-  description: string;
   id?: string;
   isEditing: boolean;
   onSubmit?: ({ description, title, id }: Description) => void;
   onDelete?: (id: string) => void;
   isNewDescription: boolean;
   setIsNewDescription?: Dispatch<SetStateAction<boolean>>;
+  mainData: BasicInformation;
+  mainDataArray?: BasicInformation[];
+  setMainData?: Dispatch<
+    SetStateAction<{
+      title: string;
+      description: string;
+      id?: string | undefined;
+    }>
+  >;
+  setMainDataArray?: Dispatch<SetStateAction<Description[]>>;
+  index?: number;
 };
 
 type Data = {
@@ -27,20 +40,54 @@ type Data = {
 };
 
 const BasicDescriptionBox = ({
-  title,
-  description,
   id,
   isEditing,
   onSubmit,
   onDelete,
   isNewDescription,
   setIsNewDescription,
+  mainData,
+  mainDataArray,
+  setMainData,
+  setMainDataArray,
+  index,
 }: Props) => {
-  const [data, setData] = useState<Data>({ title, description });
   const contentEditableRef = useRef<HTMLSpanElement>(null);
 
-  const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
-    setData({ ...data, description: String(e.currentTarget.textContent) });
+  // const { mainData, setMainData } = useContext(
+  //   BasicInformationContext
+  // ) as BasicInformationContextType;
+
+  const typeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    if (setMainData)
+      setMainData({
+        ...mainData,
+        title: e.target.value,
+      });
+    if (setMainDataArray && mainDataArray)
+      setMainDataArray(
+        mainDataArray.map((item, idx) =>
+          idx === index ? { ...item, title: e.target.value } : item
+        )
+      );
+  };
+  const typeDescription = (e: ChangeEvent<HTMLSpanElement>) => {
+    if (setMainData)
+      setMainData({
+        ...mainData,
+        description: String(e.currentTarget.textContent),
+      });
+    if (setMainDataArray && mainDataArray)
+      setMainDataArray(
+        mainDataArray.map((item, idx) =>
+          idx === index
+            ? {
+                ...item,
+                description: e.currentTarget.textContent || "",
+              }
+            : item
+        )
+      );
   };
 
   const cancelNewDescription = () => {
@@ -53,9 +100,9 @@ const BasicDescriptionBox = ({
         // Not editing descriptions
         <>
           <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-            <h2 className="w-fit grow  font-semibold">{title}</h2>
+            <h2 className="w-fit grow  font-semibold">{mainData.title}</h2>
 
-            <p className="text-sm text-grayText">{description}</p>
+            <p className="text-sm text-grayText">{mainData.description}</p>
           </div>
         </>
       ) : (
@@ -69,14 +116,14 @@ const BasicDescriptionBox = ({
               if (!onSubmit) return;
               if (id) {
                 onSubmit({
-                  description: data.description,
-                  title: data.title,
+                  description: mainData.description,
+                  title: mainData.title,
                   id,
                 });
               } else {
                 onSubmit({
-                  description: data.description,
-                  title: data.title,
+                  description: mainData.description,
+                  title: mainData.title,
                 });
               }
             }}
@@ -84,10 +131,12 @@ const BasicDescriptionBox = ({
           >
             <input
               type="text"
-              value={data.title}
-              onChange={(e) => {
-                setData({ ...data, title: e.target.value });
-              }}
+              // value={data.title}
+              value={mainData.title}
+              // onChange={(e) => {
+              //   setData({ ...data, title: e.target.value });
+              // }}
+              onChange={(e) => typeTitle(e)}
               placeholder={`${isNewDescription ? "Title" : ""}`}
               className="w-full grow rounded-md border border-secondary p-2 font-semibold outline-none"
             />
@@ -99,30 +148,35 @@ const BasicDescriptionBox = ({
                   : ""
               }`}
               ref={contentEditableRef}
-              onBlur={typeMessage}
+              onBlur={typeDescription}
+              // onBlur={typeMessage}
               contentEditable
               suppressContentEditableWarning
             >
-              {data.description}
+              {/* {data.description} */}
+              {mainData.description}
             </span>
             {/* Submit and cancel buttons */}
-            <div className=" flex gap-2">
-              <ButtonContentFit isSubmit={true} buttonText={`Submit`} />
-              {onDelete && (
-                <ButtonContentFit
-                  onClick={
-                    isNewDescription
-                      ? cancelNewDescription
-                      : (e: MouseEvent<HTMLButtonElement>) => {
-                          e.preventDefault();
-                          if (id) onDelete(id);
-                        }
-                  }
-                  buttonText={isNewDescription ? "Cancel" : "Delete"}
-                  buttonColor="white"
-                />
-              )}
-            </div>
+            {onSubmit && (
+              <div className=" flex gap-2">
+                <ButtonContentFit isSubmit={true} buttonText={`Submit`} />
+                {onDelete && (
+                  <ButtonContentFit
+                    onClick={
+                      isNewDescription
+                        ? cancelNewDescription
+                        : (e: MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
+                            if (id) onDelete(id);
+                          }
+                    }
+                    buttonText={isNewDescription ? "Cancel" : "Delete"}
+                    buttonColor="white"
+                  />
+                )}
+              </div>
+            )}
+
             {/* Submit and cancel buttons end */}
           </form>
           {/* Editing descriptions end */}

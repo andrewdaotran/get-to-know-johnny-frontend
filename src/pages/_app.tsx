@@ -9,6 +9,8 @@ import "andrewdaotran/styles/globals.css";
 import { MessageProvider } from "andrewdaotran/context/MessageContext";
 import { MobileMenuProvider } from "andrewdaotran/context/MobileMenuContext";
 import { Toaster } from "react-hot-toast";
+import { BasicInforomationProvider } from "andrewdaotran/context/BasicInformationContext";
+import { DescriptionProvider } from "andrewdaotran/context/DescriptionContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -16,12 +18,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <MobileMenuProvider>
-        <MessageProvider>
-          <Component {...pageProps} />
-          <Toaster />
-        </MessageProvider>
-      </MobileMenuProvider>
+      <BasicInforomationProvider>
+        <DescriptionProvider>
+          <MobileMenuProvider>
+            <MessageProvider>
+              <Component {...pageProps} />
+              <Toaster />
+            </MessageProvider>
+          </MobileMenuProvider>
+        </DescriptionProvider>
+      </BasicInforomationProvider>
     </SessionProvider>
   );
 };

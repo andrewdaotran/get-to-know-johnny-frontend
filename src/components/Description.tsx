@@ -7,22 +7,36 @@ import MobileMenuContext, {
   DESCRIPTION_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
-import { useContext, useEffect } from "react";
+import { FormEvent, use, useContext, useEffect } from "react";
 import BasicInformation from "./BasicInformation";
+import DescriptionContext, {
+  DescriptionContextType,
+} from "andrewdaotran/context/DescriptionContext";
+import { Description } from "typings";
 // Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
-  const {
-    data: descriptions,
-    isLoading,
-    isError,
-  } = api.description.getAll.useQuery();
+  // const {
+  //   data: descriptions,
+  //   isLoading,
+  //   isError,
+  // } = api.description.getAll.useQuery();
 
   const { data: hobbies } = api.hobby.getAll.useQuery();
+
+  const { mutate: edit } = api.description.editDescription.useMutation();
+
+  const editDescription = ({ description, title, id }: Description) => {
+    if (id) edit({ id, description, title });
+  };
 
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
+
+  const { mainDataArray } = useContext(
+    DescriptionContext
+  ) as DescriptionContextType;
 
   useEffect(() => {
     changeMenu(DESCRIPTION_ACTION);
@@ -70,7 +84,18 @@ const Description = () => {
         </div>
         {/* Hobbies End */}
 
-        {descriptions?.map((box) => {
+        {mainDataArray?.map((box, index) => {
+          return (
+            <BasicDescriptionBox
+              id={box.id}
+              key={box.id}
+              isEditing={false}
+              isNewDescription={false}
+              mainData={box}
+            />
+          );
+        })}
+        {/* {descriptions?.map((box) => {
           return (
             <BasicDescriptionBox
               id={box.id}
@@ -81,7 +106,7 @@ const Description = () => {
               isNewDescription={false}
             />
           );
-        })}
+        })} */}
       </main>
     </>
   );

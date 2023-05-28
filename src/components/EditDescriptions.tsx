@@ -1,11 +1,14 @@
 import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
 
 import { api } from "andrewdaotran/utils/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Description } from "typings";
 import { descriptionInput, descriptionInputWithId } from "zodTypings";
 import StandardButton from "./ButtonWidthFull";
+import DescriptionContext, {
+  DescriptionContextType,
+} from "andrewdaotran/context/DescriptionContext";
 
 const EditDescriptions = () => {
   const [isNewDescription, setIsNewDescription] = useState(false);
@@ -13,8 +16,9 @@ const EditDescriptions = () => {
 
   const trpc = api.useContext();
 
-  // Get Descriptions
-  const { data, isLoading, isError } = api.description.getAll.useQuery();
+  const { mainDataArray, setMainDataArray } = useContext(
+    DescriptionContext
+  ) as DescriptionContextType;
 
   // Create Description
   const { mutate: create } =
@@ -41,23 +45,27 @@ const EditDescriptions = () => {
   const editDescription = ({ description, title, id }: Description) => {
     if (id) {
       edit({ description, title, id });
-      const result = descriptionInputWithId.safeParse({ description, title });
+      const result = descriptionInputWithId.safeParse({
+        description,
+        title,
+        id,
+      });
 
       if (!result.success) {
         if (
-          result.error.issues[1]?.path[0] === "title" &&
-          result.error.issues[1]?.code === "too_small"
+          result.error.issues[0]?.path[0] === "title" &&
+          result.error.issues[0]?.code === "too_small"
         )
           toast.error(`Title must contain at least one character`);
         if (
-          result.error.issues[1]?.path[0] === "title" &&
-          result.error.issues[1]?.code === "too_big"
+          result.error.issues[0]?.path[0] === "title" &&
+          result.error.issues[0]?.code === "too_big"
         )
           toast.error(`Title cannot contain more than 50 characters`);
 
         if (
-          result.error.issues[1]?.path[0] === "description" &&
-          result.error.issues[1]?.code === "too_small"
+          result.error.issues[0]?.path[0] === "description" &&
+          result.error.issues[0]?.code === "too_small"
         )
           toast.error(`Description must contain at least one character`);
         return;
@@ -105,16 +113,18 @@ const EditDescriptions = () => {
           Description
         </h2>
         {/* Descriptions Mapped */}
-        {data?.map((description) => (
+        {mainDataArray?.map((description, index) => (
           <BasicDescriptionBox
             key={description.id}
             id={description.id}
-            title={description.title}
-            description={description.description}
             isEditing={isEditing}
             onSubmit={editDescription}
             onDelete={removeDescription}
             isNewDescription={false}
+            mainData={description}
+            setMainDataArray={setMainDataArray}
+            mainDataArray={mainDataArray}
+            index={index}
           />
         ))}
         {/* Descriptions Mapped End */}
@@ -122,12 +132,11 @@ const EditDescriptions = () => {
         {/* New Description Box */}
         {isNewDescription && (
           <BasicDescriptionBox
-            title=""
-            description=""
             isEditing={isNewDescription}
             onSubmit={createDescription}
             isNewDescription={isNewDescription}
             setIsNewDescription={setIsNewDescription}
+            mainData={{ title: "", description: "" }}
           />
         )}
         {/* New Description Box End */}
