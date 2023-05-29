@@ -12,23 +12,9 @@ import BasicInformation from "./BasicInformation";
 import DescriptionContext, {
   DescriptionContextType,
 } from "andrewdaotran/context/DescriptionContext";
-import { Description } from "typings";
-// Need to pull descriptions from database so Johnny can edit it anytime
 
 const Description = () => {
-  // const {
-  //   data: descriptions,
-  //   isLoading,
-  //   isError,
-  // } = api.description.getAll.useQuery();
-
   const { data: hobbies } = api.hobby.getAll.useQuery();
-
-  const { mutate: edit } = api.description.editDescription.useMutation();
-
-  const editDescription = ({ description, title, id }: Description) => {
-    if (id) edit({ id, description, title });
-  };
 
   const { menu, changeMenu } = useContext(
     MobileMenuContext
@@ -95,18 +81,6 @@ const Description = () => {
             />
           );
         })}
-        {/* {descriptions?.map((box) => {
-          return (
-            <BasicDescriptionBox
-              id={box.id}
-              title={box.title}
-              description={box.description}
-              key={box.id}
-              isEditing={false}
-              isNewDescription={false}
-            />
-          );
-        })} */}
       </main>
     </>
   );
