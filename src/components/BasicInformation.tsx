@@ -16,51 +16,16 @@ type Props = {
 };
 
 const BasicInformation = ({ isViewOnly }: Props) => {
-  const trpc = api.useContext();
-  const [isEditing, setIsEditing] = useState(false);
-
-  const { mainData, informationBoxes, setMainData } = useContext(
-    BasicInformationContext
-  ) as BasicInformationContextType;
-
-  const { mutate: edit } =
-    api.basicInformation.editBasicInformation.useMutation({
-      onSettled: async () => {
-        await trpc.basicInformation.invalidate();
-      },
-    });
-
-  const editBasicInformation = () => {
-    edit({
-      title: mainData.title,
-      description: mainData.description,
-    });
-
-    const result = basicInformationInput.safeParse({
-      title: mainData.title,
-      description: mainData.description,
-    });
-    if (!result.success) {
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Title must contain at least one character`);
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_big"
-      )
-        toast.error(`Title cannot exceed 50 characters`);
-
-      if (
-        result.error.issues[0]?.path[0] === "description" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Description must contain at least one character`);
-      return;
-    }
-    setIsEditing(false);
-  };
+  const {
+    mainData,
+    informationBoxes,
+    isEditing,
+    setIsEditing,
+    resetMainData,
+    resetInformationBoxes,
+    setMainData,
+    editBasicInformation,
+  } = useContext(BasicInformationContext) as BasicInformationContextType;
 
   return (
     <>
@@ -87,12 +52,12 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           />
         )}
         {/* Basic Information End */}
-        {/* <InformationBox
+        <InformationBox
           // informationArray={[{ title: "hello", description: "whats up" }]}
           informationArray={informationBoxes}
           isEditing={isEditing}
           // editInformationBox={editInformationBox}
-        /> */}
+        />
         {/* Editing basic information */}
         {/* Editing basic information end */}
         <ButtonContentFit
@@ -101,7 +66,11 @@ const BasicInformation = ({ isViewOnly }: Props) => {
         />
         {!isViewOnly && (
           <ButtonWidthFull
-            onClick={() => setIsEditing(!isEditing)}
+            onClick={() => {
+              setIsEditing(!isEditing);
+              resetMainData();
+              resetInformationBoxes();
+            }}
             buttonText={isEditing ? "Cancel" : "Edit"}
           />
         )}

@@ -1,4 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import BasicInformationContext, {
+  BasicInformationContextType,
+} from "andrewdaotran/context/BasicInformationContext";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { InformationBox } from "typings";
 
 type Props = {
@@ -20,6 +23,9 @@ const InformationBox = ({
 }: // setEditedInformationArray,
 // editInformationBox,
 Props) => {
+  const { typeSingleInformationBox, typeSingleInformationTitle } = useContext(
+    BasicInformationContext
+  ) as BasicInformationContextType;
   return (
     <ul className="grid grid-cols-3 grid-rows-2  ">
       {informationArray?.map((info, index) => {
@@ -51,24 +57,25 @@ Props) => {
             )}
             {isEditing && (
               <>
-                <input
+                {/* <input
                   type="text"
                   placeholder="Title"
                   value={info.title}
                   className="rounded-md border pl-2 outline-none"
-                  // onChange={(e) =>
-                  //   editInformationBox(index, e.target.value, editedDescription)
-                  // }
-                />
-                <input
+                  onChange={(e) => {
+                    e.preventDefault();
+                    typeSingleInformationTitle(info.id || "", e.target.value);
+                  }}
+                /> */}
+                {/* <input
                   type="text"
                   placeholder="Description"
                   value={info.description}
                   className="rounded-md border pl-2 outline-none"
                   // onChange={(e) =>
                   //   editInformationBox(index, editedTitle, e.target.value)
-                  // }
-                />
+                  // } */}
+                {/* /> */}
               </>
             )}
           </li>

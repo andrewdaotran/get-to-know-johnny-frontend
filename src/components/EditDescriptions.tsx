@@ -1,10 +1,5 @@
 import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
-
-import { api } from "andrewdaotran/utils/api";
-import { useContext, useState } from "react";
-import { toast } from "react-hot-toast";
-import { Description } from "typings";
-import { descriptionInput, descriptionInputWithId } from "zodTypings";
+import { useContext } from "react";
 import StandardButton from "./ButtonWidthFull";
 import DescriptionContext, {
   DescriptionContextType,

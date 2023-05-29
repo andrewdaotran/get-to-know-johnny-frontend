@@ -5,7 +5,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "andrewdaotran/server/api/trpc";
-import { basicInformationInput } from "zodTypings";
+import { basicInformationInput, informationBoxInputWithId } from "zodTypings";
 
 export const basicInformationRouter = createTRPCRouter({
   get: publicProcedure.query(async ({ ctx }) => {
@@ -19,10 +19,18 @@ export const basicInformationRouter = createTRPCRouter({
     .input(basicInformationInput)
     .mutation(async ({ ctx, input }) => {
       const basicInformation = await ctx.prisma.basicInformation.update({
-        // where: { id: input.id },
         where: { id: "cli3ggh2z0000v5najtojhykc" },
         data: { description: input.description, title: input.title },
       });
       return basicInformation;
+    }),
+  editInformationBoxes: publicProcedure
+    .input(informationBoxInputWithId)
+    .mutation(async ({ ctx, input }) => {
+      const informationBox = await ctx.prisma.informationBox.update({
+        where: { id: input.id },
+        data: { description: input.description, title: input.title },
+      });
+      return informationBox;
     }),
 });
