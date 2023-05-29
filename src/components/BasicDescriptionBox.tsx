@@ -131,11 +131,7 @@ const BasicDescriptionBox = ({
           >
             <input
               type="text"
-              // value={data.title}
               value={mainData.title}
-              // onChange={(e) => {
-              //   setData({ ...data, title: e.target.value });
-              // }}
               onChange={(e) => typeTitle(e)}
               placeholder={`${isNewDescription ? "Title" : ""}`}
               className="w-full grow rounded-md border border-secondary p-2 font-semibold outline-none"
@@ -149,11 +145,9 @@ const BasicDescriptionBox = ({
               }`}
               ref={contentEditableRef}
               onBlur={typeDescription}
-              // onBlur={typeMessage}
               contentEditable
               suppressContentEditableWarning
             >
-              {/* {data.description} */}
               {mainData.description}
             </span>
             {/* Submit and cancel buttons */}

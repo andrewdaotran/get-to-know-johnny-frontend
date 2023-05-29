@@ -11,99 +11,20 @@ import DescriptionContext, {
 } from "andrewdaotran/context/DescriptionContext";
 
 const EditDescriptions = () => {
-  const [isNewDescription, setIsNewDescription] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-
-  const trpc = api.useContext();
-
-  const { mainDataArray, setMainDataArray } = useContext(
-    DescriptionContext
-  ) as DescriptionContextType;
-
-  // Create Description
-  const { mutate: create } =
-    api.description.createBasicDescriptionBox.useMutation({
-      onSettled: async () => {
-        await trpc.description.invalidate();
-      },
-    });
-  const { mutate: edit } = api.description.editDescription.useMutation({
-    onSettled: async () => {
-      await trpc.description.invalidate();
-    },
-  });
-
-  // Remove Description
-  const { mutate: remove } =
-    api.description.removeBasicDescriptionBox.useMutation({
-      onSettled: async () => {
-        await trpc.description.invalidate();
-      },
-    });
-
-  // Edit Descriptions
-  const editDescription = ({ description, title, id }: Description) => {
-    if (id) {
-      edit({ description, title, id });
-      const result = descriptionInputWithId.safeParse({
-        description,
-        title,
-        id,
-      });
-
-      if (!result.success) {
-        if (
-          result.error.issues[0]?.path[0] === "title" &&
-          result.error.issues[0]?.code === "too_small"
-        )
-          toast.error(`Title must contain at least one character`);
-        if (
-          result.error.issues[0]?.path[0] === "title" &&
-          result.error.issues[0]?.code === "too_big"
-        )
-          toast.error(`Title cannot contain more than 50 characters`);
-
-        if (
-          result.error.issues[0]?.path[0] === "description" &&
-          result.error.issues[0]?.code === "too_small"
-        )
-          toast.error(`Description must contain at least one character`);
-        return;
-      }
-    }
-  };
-
-  // Create Descriptions
-  const createDescription = ({ description, title }: Description) => {
-    create({ description, title });
-    const result = descriptionInput.safeParse({ description, title });
-    if (!result.success) {
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Title must contain at least one character`);
-
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_big"
-      )
-        toast.error(`Title cannot contain more than 50 characters`);
-
-      if (
-        result.error.issues[0]?.path[0] === "description" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Description must contain at least one character`);
-      return;
-    }
-    setIsNewDescription(false);
-  };
-
-  // Remove Descriptions
-  const removeDescription = (id: string) => {
-    remove(id);
-  };
+  const {
+    mainDataArray,
+    newDescription,
+    setNewDescription,
+    isNewDescription,
+    setIsNewDescription,
+    isEditing,
+    setIsEditing,
+    setMainDataArray,
+    createDescription,
+    editDescription,
+    resetMainData,
+    removeDescription,
+  } = useContext(DescriptionContext) as DescriptionContextType;
 
   return (
     <>
@@ -136,7 +57,8 @@ const EditDescriptions = () => {
             onSubmit={createDescription}
             isNewDescription={isNewDescription}
             setIsNewDescription={setIsNewDescription}
-            mainData={{ title: "", description: "" }}
+            mainData={newDescription}
+            setMainData={setNewDescription}
           />
         )}
         {/* New Description Box End */}
@@ -167,6 +89,7 @@ const EditDescriptions = () => {
             buttonText={"Cancel"}
             onClick={() => {
               setIsEditing(!isEditing);
+              resetMainData();
             }}
           />
         )}

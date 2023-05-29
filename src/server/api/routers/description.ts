@@ -8,14 +8,6 @@ import {
 import { descriptionInput, descriptionInputWithId } from "zodTypings";
 
 export const descriptionRouter = createTRPCRouter({
-  // hello: publicProcedure
-  //   .input(z.object({ text: z.string() }))
-  //   .query(({ input }) => {
-  //     return {
-  //       greeting: `Hello ${input.text}`,
-  //     };
-  //   }),
-
   // getAll: protectedProcedure.query(async ({ctx}) => {
   //   const descriptions = await ctx.prisma.descriptionBox.findMany({
   //     where: {
