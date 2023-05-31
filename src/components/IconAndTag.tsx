@@ -6,12 +6,11 @@ import {
 import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useContext, useRef, useState } from "react";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
-import { hobbyInput, hobbyInputWithId } from "zodTypings";
-import { toast } from "react-hot-toast";
 import HobbyContext, {
   HobbyContextType,
 } from "andrewdaotran/context/HobbyContext";
 import { Hobby } from "typings";
+import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 
 type Props = {
   isEditing: boolean;
@@ -23,63 +22,26 @@ type Props = {
 };
 
 const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
-  const [iconText, setIconText] = useState(icon);
-  const [hobbyText, setHobbyText] = useState(hobby);
   const [isFocused, setIsFocused] = useState(false);
   const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
+  const [newIcon, setNewIcon] = useState<string>(defaultIcon);
+  const [newHobby, setNewHobby] = useState<string>(defaultHobby);
 
-  const { mainDataArray, setMainDataArray } = useContext(
-    HobbyContext
-  ) as HobbyContextType;
+  const {
+    mainDataArray,
+    setMainDataArray,
+    editHobby,
+    createHobby,
+    removeHobby,
+  } = useContext(HobbyContext) as HobbyContextType;
 
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
 
-  const trpc = api.useContext();
-
-  const { mutate: edit } = api.hobby.editHobby.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
-  const editHobby = () => {
-    if (id) {
-      edit({
-        icon,
-        hobby,
-        id,
-      });
-
-      const result = hobbyInputWithId.safeParse({
-        icon,
-        hobby,
-      });
-      if (!result.success) {
-        if (
-          result.error.issues[1]?.path[0] === "icon" &&
-          result.error.issues[1]?.code === "too_small"
-        )
-          toast.error(`Must have one emoji`);
-        if (
-          result.error.issues[1]?.path[0] === "icon" &&
-          result.error.issues[1]?.code === "too_big"
-        )
-          toast.error(`You can only have one emoji`);
-
-        if (
-          result.error.issues[1]?.path[0] === "hobby" &&
-          result.error.issues[1]?.code === "too_small"
-        )
-          toast.error(`Hobby must contain at least one character`);
-        if (
-          result.error.issues[1]?.path[0] === "hobby" &&
-          result.error.issues[1]?.code === "too_big"
-        )
-          toast.error(`Hobby cannot contain more than 50 characters`);
-        return;
-      }
+  const edit = () => {
+    const success = editHobby({ id, hobby, icon });
+    if (success) {
       setIsHobbySubmitted(true);
       setIsFocused(false);
       setTimeout(() => {
@@ -88,66 +50,21 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
     }
   };
 
-  const { mutate: remove } = api.hobby.removeHobby.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
-  const { mutate: create } = api.hobby.createHobby.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
-  const removeHobby = () => {
-    if (id) remove(id);
+  const create = () => {
+    const success = createHobby({ icon: newIcon, hobby: newHobby });
+    if (success) {
+      setNewIcon(defaultIcon);
+      setNewHobby(defaultHobby);
+      setIsMakingNewPuck(false);
+    }
   };
 
-  // const createHobby = () => {
-  //   create({
-  //     hobby: hobbyText,
-  //     icon: iconText,
-  //     isFocused: false,
-  //     isHobbySubmitted: false,
-  //     isMakingNewPuck: false,
-  //   });
-  //   const result = hobbyInput.safeParse({
-  //     icon: iconText,
-  //     hobby: hobbyText,
-  //   });
-  //   if (!result.success) {
-  //     if (
-  //       result.error.issues[0]?.path[0] === "icon" &&
-  //       result.error.issues[0]?.code === "too_small"
-  //     )
-  //       toast.error(`Must have one emoji`);
-
-  //     if (
-  //       result.error.issues[0]?.path[0] === "icon" &&
-  //       result.error.issues[0]?.code === "too_big"
-  //     )
-  //       toast.error(`You can only have one emoji`);
-
-  //     if (
-  //       result.error.issues[0]?.path[0] === "hobby" &&
-  //       result.error.issues[0]?.code === "too_small"
-  //     )
-  //       toast.error(`Hobby must contain at least one character`);
-  //     if (
-  //       result.error.issues[0]?.path[0] === "hobby" &&
-  //       result.error.issues[0]?.code === "too_big"
-  //     )
-  //       toast.error(`Hobby cannot contain more than 50 characters`);
-
-  //     return;
-  //   }
-  //   setIconText(defaultIcon);
-  //   setHobbyText(defaultHobby);
-  //   setIsMakingNewPuck(false);
-  // };
+  const remove = () => {
+    if (id) removeHobby(id);
+  };
 
   const typeIcon = (e: ChangeEvent<HTMLSpanElement>) => {
+    if (isMakingNewPuck) setNewIcon(String(e.currentTarget.textContent));
     if (mainDataArray) {
       setMainDataArray(
         mainDataArray.map((item) =>
@@ -160,6 +77,7 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
   };
 
   const typeHobby = (e: ChangeEvent<HTMLSpanElement>) => {
+    if (isMakingNewPuck) setNewHobby(String(e.currentTarget.textContent));
     if (mainDataArray) {
       setMainDataArray(
         mainDataArray.map((item) =>
@@ -175,11 +93,11 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
     setIsFocused(true);
   };
 
-  // const toggleNewPuck = () => {
-  //   setIsMakingNewPuck(true);
-  //   setIconText("");
-  //   setHobbyText("");
-  // };
+  const toggleNewPuck = () => {
+    setIsMakingNewPuck(true);
+    setNewIcon("");
+    setNewHobby("");
+  };
 
   return (
     <li
@@ -199,8 +117,8 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
       {isEditing && !defaultNewPuck && (
         <>
           <IconAndTagEditableSpan
-            iconText={iconText}
-            hobbyText={hobbyText}
+            iconText={icon}
+            hobbyText={hobby}
             iconRef={iconRef}
             hobbyRef={hobbyRef}
             typeIcon={typeIcon}
@@ -212,11 +130,11 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
           {!isHobbySubmitted && (
             <>
               {isFocused ? (
-                <button onClick={editHobby}>
+                <button onClick={edit}>
                   <CheckCircleIcon className="my-auto h-4 w-4 text-blue-600" />
                 </button>
               ) : (
-                <button className="" onClick={removeHobby}>
+                <button className="" onClick={remove}>
                   <MinusCircleIcon className="my-auto h-4 w-4 text-red-600" />
                 </button>
               )}
@@ -233,8 +151,7 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
           <span className="flex">
             {icon} {hobby}
           </span>
-          <button onClick={() => {}}>
-            {/* <button onClick={toggleNewPuck}> */}
+          <button onClick={toggleNewPuck}>
             <PlusCircleIcon className="my-auto h-4 w-4" />
           </button>
         </>
@@ -245,18 +162,15 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
       {defaultNewPuck && isMakingNewPuck && (
         <>
           <IconAndTagEditableSpan
-            // iconText={iconText}
-            // hobbyText={hobbyText}
-            iconText={icon}
-            hobbyText={hobby}
+            iconText={newIcon}
+            hobbyText={newHobby}
             iconRef={iconRef}
             hobbyRef={hobbyRef}
             typeIcon={typeIcon}
             typeHobby={typeHobby}
             onFocus={onFocus}
           />
-          <button onClick={() => {}}>
-            {/* <button onClick={createHobby}> */}
+          <button onClick={create}>
             <CheckCircleIcon className="my-auto h-4 w-4 " />
           </button>
         </>
