@@ -4,5 +4,10 @@ export const time = () => {
   return time;
 };
 
-export const defaultIcon = "📲";
-export const defaultHobby = "Add New Hobby";
+export const defaultHobby = {
+  hobby: "Add New Hobby",
+  icon: "📲",
+  isFocused: false,
+  isHobbySubmitted: false,
+  isMakingNewPuck: false,
+};

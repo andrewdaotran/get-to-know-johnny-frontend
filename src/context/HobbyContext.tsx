@@ -10,13 +10,14 @@ import { toast } from "react-hot-toast";
 import { ChildrenNodeType, Hobby } from "typings";
 
 export type HobbyContextType = {
-  mainData: Hobby[];
+  mainDataArray: Hobby[];
+  setMainDataArray: Dispatch<SetStateAction<Hobby[]>>;
 };
 
 const HobbyContext = createContext<HobbyContextType | null>(null);
 
 export const HobbyProvider = ({ children }: ChildrenNodeType) => {
-  const [mainData, setMainData] = useState<Hobby[]>([
+  const [mainDataArray, setMainDataArray] = useState<Hobby[]>([
     {
       id: "",
       icon: "",
@@ -30,7 +31,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
   const trpc = api.useContext();
 
   const resetHobbies = () => {
-    if (data) setMainData(data);
+    if (data) setMainDataArray(data);
   };
 
   useEffect(() => {
@@ -81,7 +82,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
   //    }, 2000);
   //  };
   return (
-    <HobbyContext.Provider value={{ mainData }}>
+    <HobbyContext.Provider value={{ mainDataArray, setMainDataArray }}>
       {children}
     </HobbyContext.Provider>
   );

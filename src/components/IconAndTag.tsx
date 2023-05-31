@@ -4,35 +4,44 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/solid";
 import { api } from "andrewdaotran/utils/api";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useContext, useRef, useState } from "react";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
-import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 import { hobbyInput, hobbyInputWithId } from "zodTypings";
 import { toast } from "react-hot-toast";
-import { Hobby } from "typings";
+import HobbyContext, {
+  HobbyContextType,
+} from "andrewdaotran/context/HobbyContext";
 
 type Props = {
-  icon: string;
-  hobby: string;
   isEditing: boolean;
-  id?: string;
   defaultNewPuck: boolean;
-  mainData?: Hobby;
+  hobby: string;
+  icon: string;
+  id?: string;
+  isFocused?: boolean;
+  isMakingNewPuck: boolean;
+  isHobbySubmitted: boolean;
 };
 
 const IconAndTag = ({
-  icon,
-  hobby,
   isEditing,
-  id,
   defaultNewPuck,
-  mainData,
+  hobby,
+  icon,
+  id,
+  isFocused,
+  isMakingNewPuck,
+  isHobbySubmitted,
 }: Props) => {
   const [iconText, setIconText] = useState(icon);
   const [hobbyText, setHobbyText] = useState(hobby);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
-  const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
+  // const [isFocused, setIsFocused] = useState(false);
+  // const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
+  // const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
+
+  const { mainDataArray, setMainDataArray } = useContext(
+    HobbyContext
+  ) as HobbyContextType;
 
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
@@ -46,42 +55,60 @@ const IconAndTag = ({
   });
 
   const editHobby = () => {
-    if (id && mainData)
-      edit({ ...mainData, icon: iconText, hobby: hobbyText, id });
+    if (id && isFocused && isHobbySubmitted && isMakingNewPuck) {
+      edit({
+        icon,
+        hobby,
+        id,
+        isFocused: false,
+        isHobbySubmitted: true,
+        isMakingNewPuck,
+      });
+      setTimeout(() => {
+        edit({
+          icon,
+          hobby,
+          id,
+          isFocused: false,
+          isHobbySubmitted: false,
+          isMakingNewPuck,
+        });
+      }, 2000);
 
-    const result = hobbyInputWithId.safeParse({
-      icon,
-      hobby,
-    });
-    if (!result.success) {
-      if (
-        result.error.issues[1]?.path[0] === "icon" &&
-        result.error.issues[1]?.code === "too_small"
-      )
-        toast.error(`Must have one emoji`);
-      if (
-        result.error.issues[1]?.path[0] === "icon" &&
-        result.error.issues[1]?.code === "too_big"
-      )
-        toast.error(`You can only have one emoji`);
+      const result = hobbyInputWithId.safeParse({
+        icon,
+        hobby,
+      });
+      if (!result.success) {
+        if (
+          result.error.issues[1]?.path[0] === "icon" &&
+          result.error.issues[1]?.code === "too_small"
+        )
+          toast.error(`Must have one emoji`);
+        if (
+          result.error.issues[1]?.path[0] === "icon" &&
+          result.error.issues[1]?.code === "too_big"
+        )
+          toast.error(`You can only have one emoji`);
 
-      if (
-        result.error.issues[1]?.path[0] === "hobby" &&
-        result.error.issues[1]?.code === "too_small"
-      )
-        toast.error(`Hobby must contain at least one character`);
-      if (
-        result.error.issues[1]?.path[0] === "hobby" &&
-        result.error.issues[1]?.code === "too_big"
-      )
-        toast.error(`Hobby cannot contain more than 50 characters`);
-      return;
+        if (
+          result.error.issues[1]?.path[0] === "hobby" &&
+          result.error.issues[1]?.code === "too_small"
+        )
+          toast.error(`Hobby must contain at least one character`);
+        if (
+          result.error.issues[1]?.path[0] === "hobby" &&
+          result.error.issues[1]?.code === "too_big"
+        )
+          toast.error(`Hobby cannot contain more than 50 characters`);
+        return;
+      }
+      // setIsHobbySubmitted(true);
+      // setIsFocused(false);
+      // setTimeout(() => {
+      //   setIsHobbySubmitted(false);
+      // }, 2000);
     }
-    setIsHobbySubmitted(true);
-    setIsFocused(false);
-    setTimeout(() => {
-      setIsHobbySubmitted(false);
-    }, 2000);
   };
 
   const { mutate: remove } = api.hobby.removeHobby.useMutation({
@@ -100,66 +127,75 @@ const IconAndTag = ({
     if (id) remove(id);
   };
 
-  const createHobby = () => {
-    create({
-      hobby: hobbyText,
-      icon: iconText,
-      isFocused: false,
-      isHobbySubmitted: false,
-      isMakingNewPuck: false,
-    });
-    const result = hobbyInput.safeParse({
-      icon: iconText,
-      hobby: hobbyText,
-    });
-    if (!result.success) {
-      if (
-        result.error.issues[0]?.path[0] === "icon" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Must have one emoji`);
+  // const createHobby = () => {
+  //   create({
+  //     hobby: hobbyText,
+  //     icon: iconText,
+  //     isFocused: false,
+  //     isHobbySubmitted: false,
+  //     isMakingNewPuck: false,
+  //   });
+  //   const result = hobbyInput.safeParse({
+  //     icon: iconText,
+  //     hobby: hobbyText,
+  //   });
+  //   if (!result.success) {
+  //     if (
+  //       result.error.issues[0]?.path[0] === "icon" &&
+  //       result.error.issues[0]?.code === "too_small"
+  //     )
+  //       toast.error(`Must have one emoji`);
 
-      if (
-        result.error.issues[0]?.path[0] === "icon" &&
-        result.error.issues[0]?.code === "too_big"
-      )
-        toast.error(`You can only have one emoji`);
+  //     if (
+  //       result.error.issues[0]?.path[0] === "icon" &&
+  //       result.error.issues[0]?.code === "too_big"
+  //     )
+  //       toast.error(`You can only have one emoji`);
 
-      if (
-        result.error.issues[0]?.path[0] === "hobby" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Hobby must contain at least one character`);
-      if (
-        result.error.issues[0]?.path[0] === "hobby" &&
-        result.error.issues[0]?.code === "too_big"
-      )
-        toast.error(`Hobby cannot contain more than 50 characters`);
+  //     if (
+  //       result.error.issues[0]?.path[0] === "hobby" &&
+  //       result.error.issues[0]?.code === "too_small"
+  //     )
+  //       toast.error(`Hobby must contain at least one character`);
+  //     if (
+  //       result.error.issues[0]?.path[0] === "hobby" &&
+  //       result.error.issues[0]?.code === "too_big"
+  //     )
+  //       toast.error(`Hobby cannot contain more than 50 characters`);
 
-      return;
-    }
-    setIconText(defaultIcon);
-    setHobbyText(defaultHobby);
-    setIsMakingNewPuck(false);
-  };
+  //     return;
+  //   }
+  //   setIconText(defaultIcon);
+  //   setHobbyText(defaultHobby);
+  //   setIsMakingNewPuck(false);
+  // };
 
   const typeIcon = (e: ChangeEvent<HTMLSpanElement>) => {
-    setIconText(String(e.currentTarget.textContent));
+    // setIconText(String(e.currentTarget.textContent));
+    if (mainDataArray) {
+      setMainDataArray(
+        mainDataArray.map((item) =>
+          item.id === id
+            ? { ...item, icon: e.currentTarget.textContent || "" }
+            : item
+        )
+      );
+    }
   };
 
   const typeHobby = (e: ChangeEvent<HTMLSpanElement>) => {
     setHobbyText(String(e.currentTarget.textContent));
   };
 
-  const onFocus = (e: ChangeEvent<HTMLSpanElement>) => {
-    setIsFocused(true);
-  };
+  // const onFocus = (e: ChangeEvent<HTMLSpanElement>) => {
+  //   setIsFocused(true);
+  // };
 
-  const toggleNewPuck = () => {
-    setIsMakingNewPuck(true);
-    setIconText("");
-    setHobbyText("");
-  };
+  // const toggleNewPuck = () => {
+  //   setIsMakingNewPuck(true);
+  //   setIconText("");
+  //   setHobbyText("");
+  // };
 
   return (
     <li
@@ -185,7 +221,7 @@ const IconAndTag = ({
             hobbyRef={hobbyRef}
             typeIcon={typeIcon}
             typeHobby={typeHobby}
-            onFocus={onFocus}
+            // onFocus={onFocus}
           />
 
           {/* Edit and remove buttons */}
@@ -213,7 +249,8 @@ const IconAndTag = ({
           <span className="flex">
             {icon} {hobby}
           </span>
-          <button onClick={toggleNewPuck}>
+          <button onClick={() => {}}>
+            {/* <button onClick={toggleNewPuck}> */}
             <PlusCircleIcon className="my-auto h-4 w-4" />
           </button>
         </>
@@ -230,9 +267,10 @@ const IconAndTag = ({
             hobbyRef={hobbyRef}
             typeIcon={typeIcon}
             typeHobby={typeHobby}
-            onFocus={onFocus}
+            // onFocus={onFocus }
           />
-          <button onClick={createHobby}>
+          <button onClick={() => {}}>
+            {/* <button onClick={createHobby}> */}
             <CheckCircleIcon className="my-auto h-4 w-4 " />
           </button>
         </>

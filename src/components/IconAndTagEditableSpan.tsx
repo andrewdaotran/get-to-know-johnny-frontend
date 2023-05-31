@@ -7,7 +7,7 @@ type Props = {
   hobbyRef: RefObject<HTMLSpanElement>;
   typeIcon: (e: ChangeEvent<HTMLSpanElement>) => void;
   typeHobby: (e: ChangeEvent<HTMLSpanElement>) => void;
-  onFocus: (e: ChangeEvent<HTMLSpanElement>) => void;
+  // onFocus: (e: ChangeEvent<HTMLSpanElement>) => void;
 };
 
 const IconAndTagEditableSpan = ({
@@ -17,8 +17,8 @@ const IconAndTagEditableSpan = ({
   hobbyRef,
   typeIcon,
   typeHobby,
-  onFocus,
-}: Props) => {
+}: // onFocus,
+Props) => {
   return (
     <>
       <span className="flex gap-1">
@@ -26,7 +26,7 @@ const IconAndTagEditableSpan = ({
           className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md bg-transparent text-sm underline empty:before:text-gray-400 empty:before:content-[":)"] focus:outline-none`}
           ref={iconRef}
           onBlur={typeIcon}
-          onFocus={onFocus}
+          // onFocus={onFocus}
           contentEditable
           suppressContentEditableWarning
         >
@@ -36,7 +36,7 @@ const IconAndTagEditableSpan = ({
           className={`block h-fit  w-fit  flex-auto cursor-text resize-none overflow-auto scroll-smooth rounded-md text-sm underline empty:before:text-gray-400 empty:before:content-["AddNewHobby"] focus:outline-none`}
           ref={hobbyRef}
           onBlur={typeHobby}
-          onFocus={onFocus}
+          // onFocus={onFocus}
           contentEditable
           suppressContentEditableWarning
         >

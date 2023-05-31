@@ -58,8 +58,7 @@ const Description = () => {
             {hobbies?.map((hobby) => {
               return (
                 <IconAndTag
-                  icon={hobby.icon}
-                  hobby={hobby.hobby}
+                  {...hobby}
                   key={hobby.hobby}
                   isEditing={false}
                   defaultNewPuck={false}

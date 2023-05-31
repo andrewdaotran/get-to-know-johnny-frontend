@@ -1,7 +1,7 @@
 import { api } from "andrewdaotran/utils/api";
 import IconAndTag from "./IconAndTag";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
-import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
+import { defaultHobby } from "andrewdaotran/utils";
 import { useContext } from "react";
 import HobbyContext, {
   HobbyContextType,
@@ -12,23 +12,20 @@ import HobbyContext, {
 // };
 
 const EditHobbies = () => {
-  const { mainData } = useContext(HobbyContext) as HobbyContextType;
+  const { mainDataArray } = useContext(HobbyContext) as HobbyContextType;
 
   return (
     <>
       <h2 className="mx-6 my-4 border border-red-500 text-center">Hobbies</h2>
       <div className="grid">
         <ul className="flex flex-wrap gap-2 px-6 ">
-          {mainData?.map((item) => {
+          {mainDataArray?.map((item) => {
             return (
               <IconAndTag
-                icon={item.icon}
-                hobby={item.hobby}
                 isEditing={true}
-                id={item.id}
                 key={item.id}
                 defaultNewPuck={false}
-                mainData={item}
+                {...item}
               />
             );
           })}
@@ -36,8 +33,7 @@ const EditHobbies = () => {
           <IconAndTag
             isEditing={false}
             defaultNewPuck={true}
-            icon={defaultIcon}
-            hobby={defaultHobby}
+            {...defaultHobby}
           />
           {/* New hobby puck end */}
         </ul>
