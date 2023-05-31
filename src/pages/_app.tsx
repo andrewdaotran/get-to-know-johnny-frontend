@@ -11,6 +11,7 @@ import { MobileMenuProvider } from "andrewdaotran/context/MobileMenuContext";
 import { Toaster } from "react-hot-toast";
 import { BasicInforomationProvider } from "andrewdaotran/context/BasicInformationContext";
 import { DescriptionProvider } from "andrewdaotran/context/DescriptionContext";
+import { HobbyProvider } from "andrewdaotran/context/HobbyContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -20,12 +21,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <BasicInforomationProvider>
         <DescriptionProvider>
-          <MobileMenuProvider>
-            <MessageProvider>
-              <Component {...pageProps} />
-              <Toaster />
-            </MessageProvider>
-          </MobileMenuProvider>
+          <HobbyProvider>
+            <MobileMenuProvider>
+              <MessageProvider>
+                <Component {...pageProps} />
+                <Toaster />
+              </MessageProvider>
+            </MobileMenuProvider>
+          </HobbyProvider>
         </DescriptionProvider>
       </BasicInforomationProvider>
     </SessionProvider>

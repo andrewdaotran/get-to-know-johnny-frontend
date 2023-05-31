@@ -9,6 +9,7 @@ import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 import { hobbyInput, hobbyInputWithId } from "zodTypings";
 import { toast } from "react-hot-toast";
+import { Hobby } from "typings";
 
 type Props = {
   icon: string;
@@ -16,19 +17,27 @@ type Props = {
   isEditing: boolean;
   id?: string;
   defaultNewPuck: boolean;
+  mainData?: Hobby;
 };
 
-const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
-  const trpc = api.useContext();
+const IconAndTag = ({
+  icon,
+  hobby,
+  isEditing,
+  id,
+  defaultNewPuck,
+  mainData,
+}: Props) => {
   const [iconText, setIconText] = useState(icon);
   const [hobbyText, setHobbyText] = useState(hobby);
   const [isFocused, setIsFocused] = useState(false);
   const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
-
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
 
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
+
+  const trpc = api.useContext();
 
   const { mutate: edit } = api.hobby.editHobby.useMutation({
     onSettled: async () => {
@@ -36,24 +45,13 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
     },
   });
 
-  const { mutate: remove } = api.hobby.removeHobby.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
-  const { mutate: create } = api.hobby.createHobby.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
   const editHobby = () => {
-    if (id) edit({ icon: iconText, hobby: hobbyText, id });
+    if (id && mainData)
+      edit({ ...mainData, icon: iconText, hobby: hobbyText, id });
 
     const result = hobbyInputWithId.safeParse({
-      icon: iconText,
-      hobby: hobbyText,
+      icon,
+      hobby,
     });
     if (!result.success) {
       if (
@@ -86,12 +84,30 @@ const IconAndTag = ({ icon, hobby, isEditing, id, defaultNewPuck }: Props) => {
     }, 2000);
   };
 
+  const { mutate: remove } = api.hobby.removeHobby.useMutation({
+    onSettled: async () => {
+      await trpc.hobby.invalidate();
+    },
+  });
+
+  const { mutate: create } = api.hobby.createHobby.useMutation({
+    onSettled: async () => {
+      await trpc.hobby.invalidate();
+    },
+  });
+
   const removeHobby = () => {
     if (id) remove(id);
   };
 
   const createHobby = () => {
-    create({ hobby: hobbyText, icon: iconText });
+    create({
+      hobby: hobbyText,
+      icon: iconText,
+      isFocused: false,
+      isHobbySubmitted: false,
+      isMakingNewPuck: false,
+    });
     const result = hobbyInput.safeParse({
       icon: iconText,
       hobby: hobbyText,

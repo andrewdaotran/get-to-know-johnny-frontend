@@ -13,6 +13,9 @@ export type Hobby = {
   id?: string;
   icon: string;
   hobby: string;
+  isFocused: boolean;
+  isMakingNewPuck: boolean;
+  isHobbySubmitted: boolean;
 };
 
 export type BasicInformation = {

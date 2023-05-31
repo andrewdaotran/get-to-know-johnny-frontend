@@ -88,7 +88,10 @@ model DescriptionBox {
 }
 
 model Hobby {
-    id    String @id @default(cuid())
-    icon  String
-    hobby String
+    id               String  @id @default(cuid())
+    icon             String
+    hobby            String
+    isFocused        Boolean @default(false)
+    isMakingNewPuck  Boolean @default(false)
+    isHobbySubmitted Boolean @default(false)
 }

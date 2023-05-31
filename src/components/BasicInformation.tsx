@@ -1,9 +1,6 @@
-import { api } from "andrewdaotran/utils/api";
 import BasicDescriptionBox from "./BasicDescriptionBox";
-import { basicInformationInput } from "zodTypings";
-import { toast } from "react-hot-toast";
-import { useContext, useEffect, useState } from "react";
-import { BasicInformation as BasicInformationType } from "typings";
+import { useContext } from "react";
+
 import ButtonWidthFull from "./ButtonWidthFull";
 import InformationBox from "./InformationBox";
 import BasicInformationContext, {

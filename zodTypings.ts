@@ -28,10 +28,16 @@ export const descriptionInputWithId = z.object({
 export const hobbyInput = z.object({
   hobby: z.string({ required_error: "Type in a hobby" }).min(1).max(50),
   icon: z.string({ required_error: "Type in an emoji" }).min(1).max(2),
+  isFocused: z.boolean(),
+  isMakingNewPuck: z.boolean(),
+  isHobbySubmitted: z.boolean(),
 });
 
 export const hobbyInputWithId = z.object({
   id: z.string(),
   hobby: z.string({ required_error: "Type in a hobby" }).min(1).max(50),
   icon: z.string({ required_error: "Type in an emoji" }).min(1).max(2),
+  isFocused: z.boolean(),
+  isMakingNewPuck: z.boolean(),
+  isHobbySubmitted: z.boolean(),
 });

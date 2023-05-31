@@ -54,10 +54,6 @@ const BasicDescriptionBox = ({
 }: Props) => {
   const contentEditableRef = useRef<HTMLSpanElement>(null);
 
-  // const { mainData, setMainData } = useContext(
-  //   BasicInformationContext
-  // ) as BasicInformationContextType;
-
   const typeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     if (setMainData)
       setMainData({

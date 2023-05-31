@@ -20,7 +20,13 @@ export const hobbyRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
-        data: { hobby: input.hobby, icon: input.icon },
+        data: {
+          hobby: input.hobby,
+          icon: input.icon,
+          isFocused: input.isFocused || false,
+          isMakingNewPuck: input.isMakingNewPuck || false,
+          isHobbySubmitted: input.isHobbySubmitted || false,
+        },
       });
       return hobby;
     }),
