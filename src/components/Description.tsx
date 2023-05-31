@@ -63,6 +63,7 @@ const Description = () => {
                   key={hobby.hobby}
                   isEditing={false}
                   defaultNewPuck={false}
+                  mainData={hobby}
                 />
               );
             })}
