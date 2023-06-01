@@ -3,7 +3,6 @@ import {
   MinusCircleIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/solid";
-import { api } from "andrewdaotran/utils/api";
 import { ChangeEvent, useContext, useRef, useState } from "react";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
 import HobbyContext, {

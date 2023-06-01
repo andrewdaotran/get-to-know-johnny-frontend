@@ -1,6 +1,5 @@
 import BasicDescriptionBox from "./BasicDescriptionBox";
 import { useContext } from "react";
-
 import ButtonWidthFull from "./ButtonWidthFull";
 import InformationBox from "./InformationBox";
 import BasicInformationContext, {
@@ -26,8 +25,11 @@ const BasicInformation = ({ isViewOnly }: Props) => {
   } = useContext(BasicInformationContext) as BasicInformationContextType;
 
   const submit = () => {
-    editBasicInformation();
-    editInformationBoxes();
+    const basicInformationSuccess = editBasicInformation();
+    const informationBoxesSuccess = editInformationBoxes();
+
+    if (!basicInformationSuccess || !informationBoxesSuccess) return;
+    setIsEditing(false);
   };
 
   return (
@@ -70,11 +72,7 @@ const BasicInformation = ({ isViewOnly }: Props) => {
             );
           })}
         </ul>
-        <ButtonContentFit
-          onClick={submit}
-          // onClick={editBasicInformation}
-          buttonText={`Submit`}
-        />
+        <ButtonContentFit onClick={submit} buttonText={`Submit`} />
         {!isViewOnly && (
           <ButtonWidthFull
             onClick={() => {
@@ -86,7 +84,6 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           />
         )}
       </>
-      {/* )} */}
     </>
   );
 };

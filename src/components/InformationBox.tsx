@@ -1,14 +1,7 @@
 import BasicInformationContext, {
   BasicInformationContextType,
 } from "andrewdaotran/context/BasicInformationContext";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, useContext, useRef } from "react";
 
 type Props = {
   isEditing: boolean;
@@ -76,7 +69,7 @@ const InformationBox = ({
         <>
           <span className="flex-col gap-1 ">
             <span
-              className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md border  bg-transparent empty:before:text-gray-400 empty:before:content-["Title"] focus:outline-none`}
+              className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md border bg-transparent px-2 py-1 empty:before:text-gray-400 empty:before:content-["Title"] focus:outline-none`}
               ref={titleRef}
               onBlur={typeTitle}
               // onFocus={onFocus}
@@ -86,7 +79,7 @@ const InformationBox = ({
               {title}
             </span>
             <span
-              className={`block h-fit  w-fit  flex-auto cursor-text resize-none overflow-auto scroll-smooth rounded-md border  empty:before:text-gray-400 empty:before:content-["Description"] focus:outline-none`}
+              className={`block h-fit  w-fit  flex-auto cursor-text resize-none overflow-auto scroll-smooth rounded-md border px-2 py-1 empty:before:text-gray-400 empty:before:content-["Description"] focus:outline-none`}
               ref={descriptionRef}
               onBlur={typeDescription}
               // onFocus={onFocus}
@@ -96,26 +89,6 @@ const InformationBox = ({
               {description}
             </span>
           </span>
-          {/* <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            className="rounded-md border pl-2 outline-none"
-            onChange={(e) => {
-              // e.preventDefault();
-              // typeSingleInformationTitle(id || '');
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            value={description}
-            className="rounded-md border pl-2 outline-none"
-            onChange={
-              (e) => {}
-              // editInformationBox(index, editedTitle, e.target.value)
-            }
-          /> */}
         </>
       )}
     </li>

@@ -21,13 +21,6 @@ export const Chatbox = () => {
     setMessage(e.currentTarget.textContent);
   };
 
-  // Only works inline?
-  // const submitOnEnter = (e) => {
-  //   if (e.key === "Enter") {
-  //     submitMessage(e);
-  //   }
-  // };
-
   return (
     <>
       <main className=" flex w-full grow flex-col overflow-auto rounded-lg bg-white">

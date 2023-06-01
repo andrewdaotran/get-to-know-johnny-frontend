@@ -1,6 +1,4 @@
-import { api } from "andrewdaotran/utils/api";
 import IconAndTag from "./IconAndTag";
-import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 import { useContext } from "react";
 import HobbyContext, {

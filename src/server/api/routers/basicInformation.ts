@@ -36,22 +36,7 @@ export const basicInformationRouter = createTRPCRouter({
       });
       return basicInformation;
     }),
-  editInformationBoxes: publicProcedure
-    .input(informationBoxesInput)
-    .mutation(async ({ ctx, input }) => {
-      const informationBoxes = await ctx.prisma.informationBox.findMany();
-      informationBoxes.map(async (box, index) => {
-        await ctx.prisma.informationBox.update({
-          where: { id: box.id },
-          data: {
-            ...box,
-            title: input[index]?.title,
-            description: input[index]?.description,
-          },
-        });
-      });
-      return informationBoxes;
-    }),
+
   editInformationBox: publicProcedure
     .input(informationBoxInput)
     .mutation(async ({ ctx, input }) => {

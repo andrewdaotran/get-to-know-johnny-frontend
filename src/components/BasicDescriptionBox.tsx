@@ -1,18 +1,12 @@
-import { api } from "andrewdaotran/utils/api";
 import {
   ChangeEvent,
   Dispatch,
   MouseEvent,
   SetStateAction,
-  useContext,
   useRef,
-  useState,
 } from "react";
 import { BasicInformation, Description } from "typings";
 import ButtonContentFit from "./ButtonContentFit";
-import BasicInformationContext, {
-  BasicInformationContextType,
-} from "andrewdaotran/context/BasicInformationContext";
 
 type Props = {
   id?: string;
@@ -32,11 +26,6 @@ type Props = {
   >;
   setMainDataArray?: Dispatch<SetStateAction<Description[]>>;
   index?: number;
-};
-
-type Data = {
-  title: string;
-  description: string;
 };
 
 const BasicDescriptionBox = ({

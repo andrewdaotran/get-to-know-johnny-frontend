@@ -8,11 +8,7 @@ import {
 } from "react";
 import { toast } from "react-hot-toast";
 import { BasicInformation, ChildrenNodeType, InformationBox } from "typings";
-import {
-  basicInformationInput,
-  informationBoxInput,
-  informationBoxesInput,
-} from "zodTypings";
+import { basicInformationInput, informationBoxInput } from "zodTypings";
 
 export type BasicInformationContextType = {
   mainData: BasicInformation;
@@ -29,9 +25,8 @@ export type BasicInformationContextType = {
   setIsEditing: Dispatch<SetStateAction<boolean>>;
   resetMainData: () => void;
   resetInformationBoxes: () => void | null | undefined;
-  editBasicInformation: () => void;
-  // editInformationBox: ({ id, description, title }: InformationBox) => void;
-  editInformationBoxes: () => void;
+  editBasicInformation: () => boolean;
+  editInformationBoxes: () => boolean;
 };
 
 const BasicInformationContext =
@@ -106,19 +101,14 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
         result.error.issues[0]?.code === "too_small"
       )
         toast.error(`Description must contain at least one character`);
-      return;
+      return false;
     }
-    setIsEditing(false);
+    return true;
   };
 
   // Edit Information Box Mutation
-  const { mutate: edit2 } =
-    api.basicInformation.editInformationBoxes.useMutation({
-      onSettled: async () => {
-        await trpc.basicInformation.invalidate();
-      },
-    });
-  const { mutate: edit3 } = api.basicInformation.editInformationBox.useMutation(
+
+  const { mutate: edit2 } = api.basicInformation.editInformationBox.useMutation(
     {
       onSettled: async () => {
         await trpc.basicInformation.invalidate();
@@ -126,11 +116,10 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
     }
   );
 
-  // Edit Information Box
   const editInformationBoxes = () => {
-    informationBoxes.map((box, index) => {
+    const successArray = informationBoxes.map((box, index) => {
       if (box.id) {
-        edit3({
+        edit2({
           title: box.title,
           description: box.description,
           id: box.id,
@@ -141,6 +130,8 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
           id: box.id,
           basicInformationId: "cli3ggh2z0000v5najtojhykc",
         });
+
+        console.log("info", result);
         if (!result.success) {
           if (
             result.error.issues[0]?.path[0] === "title" &&
@@ -157,12 +148,17 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
             result.error.issues[0]?.code === "too_small"
           )
             toast.error(`Description must contain at least one character`);
-          return;
+          if (
+            result.error.issues[0]?.path[0] === "description" &&
+            result.error.issues[0]?.code === "too_big"
+          )
+            toast.error(`Description cannot exceed 20 characters`);
+          return false;
         }
       }
     });
-
-    setIsEditing(false);
+    if (successArray.includes(false)) return false;
+    return true;
   };
 
   return (
@@ -177,7 +173,6 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
         resetInformationBoxes,
         setMainData,
         editBasicInformation,
-        // editInformationBox,
         editInformationBoxes,
       }}
     >
