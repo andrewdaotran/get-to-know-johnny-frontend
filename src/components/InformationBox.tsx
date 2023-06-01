@@ -9,6 +9,7 @@ type Props = {
   description: string;
   index: number;
   id: string;
+  isViewOnly?: boolean;
 };
 
 const InformationBox = ({
@@ -17,6 +18,7 @@ const InformationBox = ({
   isEditing,
   index,
   id,
+  isViewOnly,
 }: Props) => {
   const { informationBoxes, setInformationBoxes } = useContext(
     BasicInformationContext
@@ -56,7 +58,9 @@ const InformationBox = ({
           : index === 5
           ? "rounded-br-md"
           : ""
-      } overflow-hidden bg-main p-2 text-sm outline outline-secondary`}
+      } overflow-hidden bg-main p-2 ${
+        isViewOnly && "px-6 "
+      } text-sm outline outline-secondary`}
       key={id}
     >
       {!isEditing && (
@@ -67,9 +71,9 @@ const InformationBox = ({
       )}
       {isEditing && (
         <>
-          <span className="flex-col gap-1 ">
+          <span className="grid gap-1 ">
             <span
-              className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md border bg-transparent px-2 py-1 empty:before:text-gray-400 empty:before:content-["Title"] focus:outline-none`}
+              className={`block w-fit flex-auto cursor-text  resize-none overflow-auto scroll-smooth  rounded-md border bg-transparent px-2 py-1 text-grayText empty:before:text-gray-400 empty:before:content-["Title"] focus:outline-none`}
               ref={titleRef}
               onBlur={typeTitle}
               // onFocus={onFocus}

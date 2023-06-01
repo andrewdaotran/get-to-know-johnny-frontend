@@ -34,56 +34,70 @@ const BasicInformation = ({ isViewOnly }: Props) => {
 
   return (
     <>
-      {/* {!isLoading && ( */}
-      <>
-        {/* Basic Information */}
-        {!isEditing && (
-          <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6 py-4 ">
-            <h1 className=" w-fit  font-semibold">{mainData?.title}</h1>
-            <p className="text-sm text-grayText">{mainData?.description}</p>
+      <div className={`${!isViewOnly && "grid gap-4"} border border-blue-400`}>
+        <>
+          {!isViewOnly && (
+            <h2 className="mx-6 my-4  border border-red-500 text-center">
+              Basic Description
+            </h2>
+          )}
 
-            {/* Information Boxes */}
+          {/* Basic Information */}
+          {!isEditing && (
+            <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6  ">
+              <h1 className=" w-fit  font-semibold">{mainData?.title}</h1>
+              <p className="text-sm text-grayText">{mainData?.description}</p>
+            </div>
+          )}
 
-            {/* Information Boxes End */}
-          </div>
-        )}
-        {isEditing && (
-          <BasicDescriptionBox
-            id={mainData?.id}
-            isEditing={true}
-            isNewDescription={false}
-            mainData={mainData}
-            setMainData={setMainData}
-          />
-        )}
-        {/* Basic Information End */}
-        <ul className="grid grid-cols-3 grid-rows-2  ">
-          {informationBoxes?.map((info, index) => {
-            return (
-              <InformationBox
-                // key={info.id}
-                key={index}
-                title={info.title}
-                description={info.description}
-                isEditing={isEditing}
-                index={index}
-                id={info.id || ""}
+          {isEditing && (
+            <BasicDescriptionBox
+              id={mainData?.id}
+              isEditing={true}
+              isNewDescription={false}
+              mainData={mainData}
+              setMainData={setMainData}
+            />
+          )}
+          {/* Basic Information End */}
+          <ul
+            className={` ${
+              !isViewOnly && " px-6 "
+            } grid grid-cols-3 grid-rows-2   `}
+          >
+            {informationBoxes?.map((info, index) => {
+              return (
+                <InformationBox
+                  // key={info.id}
+                  key={index}
+                  title={info.title}
+                  description={info.description}
+                  isEditing={isEditing}
+                  index={index}
+                  id={info.id || ""}
+                  isViewOnly={isViewOnly}
+                />
+              );
+            })}
+          </ul>
+          {/* <div className="grid justify-center border px-6 "> */}
+          {!isViewOnly && (
+            <>
+              {isEditing && (
+                <ButtonWidthFull onClick={submit} buttonText="Submit" />
+              )}
+              <ButtonWidthFull
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                  resetMainData();
+                  resetInformationBoxes();
+                }}
+                buttonText={isEditing ? "Cancel" : "Edit"}
               />
-            );
-          })}
-        </ul>
-        <ButtonContentFit onClick={submit} buttonText={`Submit`} />
-        {!isViewOnly && (
-          <ButtonWidthFull
-            onClick={() => {
-              setIsEditing(!isEditing);
-              resetMainData();
-              resetInformationBoxes();
-            }}
-            buttonText={isEditing ? "Cancel" : "Edit"}
-          />
-        )}
-      </>
+            </>
+          )}
+        </>
+      </div>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
 import { useContext } from "react";
-import StandardButton from "./ButtonWidthFull";
+import ButtonWidthFull from "./ButtonWidthFull";
 import DescriptionContext, {
   DescriptionContextType,
 } from "andrewdaotran/context/DescriptionContext";
@@ -24,7 +24,7 @@ const EditDescriptions = () => {
   return (
     <>
       {/* Descriptions */}
-      <div className="grid  ">
+      <div className="grid gap-4 ">
         <h2 className="mx-6 my-4  border border-red-500 text-center">
           Description
         </h2>
@@ -54,37 +54,37 @@ const EditDescriptions = () => {
             setIsNewDescription={setIsNewDescription}
             mainData={newDescription}
             setMainData={setNewDescription}
+            onDelete={() => {
+              setIsNewDescription(false);
+            }}
           />
         )}
         {/* New Description Box End */}
 
         {/* Edit or Add Description Button */}
-        <StandardButton
-          buttonText={
-            !isEditing
-              ? "Edit"
-              : !isNewDescription
-              ? "Add Description Box"
-              : "Cancel"
-          }
-          onClick={() => {
-            if (isEditing) {
-              setIsNewDescription(!isNewDescription);
-            } else {
-              setIsEditing(!isEditing);
-            }
-          }}
-        />
+        {(!isEditing || !isNewDescription) && (
+          <ButtonWidthFull
+            buttonText={!isEditing ? "Edit" : "Add New Description Box"}
+            onClick={() => {
+              if (isEditing) {
+                setIsNewDescription(!isNewDescription);
+              } else {
+                setIsEditing(!isEditing);
+              }
+            }}
+          />
+        )}
 
         {/* Edit or Add Description Button End */}
 
         {/* Cancel Edit Button */}
-        {isEditing && !isNewDescription && (
-          <StandardButton
-            buttonText={"Cancel"}
+        {isEditing && (
+          <ButtonWidthFull
+            buttonText={"Cancel Editing"}
             onClick={() => {
               setIsEditing(!isEditing);
               resetMainData();
+              setIsNewDescription(false);
             }}
           />
         )}

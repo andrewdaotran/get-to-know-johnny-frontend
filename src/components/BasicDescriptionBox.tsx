@@ -123,7 +123,7 @@ const BasicDescriptionBox = ({
             />
 
             <span
-              className={`block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-md bg-gray-100 p-2 text-sm focus:outline-none ${
+              className={`block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-md bg-gray-100 p-2 text-sm text-grayText focus:outline-none ${
                 isNewDescription
                   ? 'empty:before:text-gray-400 empty:before:content-["Description"]'
                   : ""
