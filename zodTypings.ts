@@ -5,7 +5,18 @@ export const basicInformationInput = z.object({
   description: z.string({ required_error: "Give a brief description" }).min(1),
 });
 
-export const informationBoxInputWithId = z.object({
+export const informationBoxesInput = z.array(
+  z.object({
+    title: z.string({ required_error: "Type in a title" }).min(1).max(15),
+    description: z
+      .string({ required_error: "Give a brief description" })
+      .min(1)
+      .max(20),
+    id: z.string(),
+  })
+);
+
+export const informationBoxInput = z.object({
   title: z.string({ required_error: "Type in a title" }).min(1).max(15),
   description: z
     .string({ required_error: "Give a brief description" })

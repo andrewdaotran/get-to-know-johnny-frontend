@@ -8,15 +8,14 @@ import {
 } from "react";
 import { toast } from "react-hot-toast";
 import { BasicInformation, ChildrenNodeType, InformationBox } from "typings";
-import { basicInformationInput, informationBoxInputWithId } from "zodTypings";
+import {
+  basicInformationInput,
+  informationBoxInput,
+  informationBoxesInput,
+} from "zodTypings";
 
 export type BasicInformationContextType = {
   mainData: BasicInformation;
-  informationBoxes: InformationBox[];
-  isEditing: boolean;
-  setIsEditing: Dispatch<SetStateAction<boolean>>;
-  resetMainData: () => void;
-  resetInformationBoxes: () => void | null | undefined;
   setMainData: Dispatch<
     SetStateAction<{
       title: string;
@@ -24,13 +23,15 @@ export type BasicInformationContextType = {
       id?: string;
     }>
   >;
+  informationBoxes: InformationBox[];
+  setInformationBoxes: Dispatch<SetStateAction<InformationBox[]>>;
+  isEditing: boolean;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
+  resetMainData: () => void;
+  resetInformationBoxes: () => void | null | undefined;
   editBasicInformation: () => void;
-  typeSingleInformationBox: ({
-    id,
-    description,
-    title,
-  }: InformationBox) => void;
-  typeSingleInformationTitle: (id: string, title: string) => void;
+  // editInformationBox: ({ id, description, title }: InformationBox) => void;
+  editInformationBoxes: () => void;
 };
 
 const BasicInformationContext =
@@ -47,44 +48,27 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
   ]);
   const [isEditing, setIsEditing] = useState(false);
 
-  const typeSingleInformationBox = ({
-    id,
-    description,
-    title,
-  }: InformationBox) => {
-    setInformationBoxes(
-      informationBoxes.map((item) =>
-        item.id === id ? { ...item, title, description } : item
-      )
-    );
-  };
-  const typeSingleInformationTitle = (id: string, title: string) => {
-    setInformationBoxes(
-      informationBoxes.map((item) =>
-        item.id === id ? { ...item, title } : item
-      )
-    );
-  };
-
   const trpc = api.useContext();
-  const { data } = api.basicInformation.get.useQuery();
+  const { data: basicInformation } = api.basicInformation.get.useQuery();
+  const { data: informationBoxesQuery } =
+    api.basicInformation.getInformationBoxes.useQuery();
 
   const resetMainData = () => {
-    data &&
+    basicInformation &&
       setMainData({
-        title: data.title,
-        description: data.description,
-        id: data.id,
+        title: basicInformation.title,
+        description: basicInformation.description,
+        id: basicInformation.id,
       });
   };
 
   const resetInformationBoxes = () =>
-    data && setInformationBoxes(data.InformationArray);
+    informationBoxesQuery && setInformationBoxes(informationBoxesQuery);
 
   useEffect(() => {
     resetMainData();
     resetInformationBoxes();
-  }, [data]);
+  }, [basicInformation, informationBoxesQuery]);
 
   // Edit Basic Information Mutation
   const { mutate: edit } =
@@ -134,41 +118,50 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
         await trpc.basicInformation.invalidate();
       },
     });
+  const { mutate: edit3 } = api.basicInformation.editInformationBox.useMutation(
+    {
+      onSettled: async () => {
+        await trpc.basicInformation.invalidate();
+      },
+    }
+  );
 
   // Edit Information Box
-  const editInformationBox = ({ id, description, title }: InformationBox) => {
-    if (id)
-      edit2({
-        title,
-        description,
-        id,
-      });
-
-    const result = informationBoxInputWithId.safeParse({
-      title,
-      description,
-      id,
-      basicInformationId: "cli3ggh2z0000v5najtojhykc",
+  const editInformationBoxes = () => {
+    informationBoxes.map((box, index) => {
+      if (box.id) {
+        edit3({
+          title: box.title,
+          description: box.description,
+          id: box.id,
+        });
+        const result = informationBoxInput.safeParse({
+          title: box.title,
+          description: box.description,
+          id: box.id,
+          basicInformationId: "cli3ggh2z0000v5najtojhykc",
+        });
+        if (!result.success) {
+          if (
+            result.error.issues[0]?.path[0] === "title" &&
+            result.error.issues[0]?.code === "too_small"
+          )
+            toast.error(`Title must contain at least one character`);
+          if (
+            result.error.issues[0]?.path[0] === "title" &&
+            result.error.issues[0]?.code === "too_big"
+          )
+            toast.error(`Title cannot exceed 50 characters`);
+          if (
+            result.error.issues[0]?.path[0] === "description" &&
+            result.error.issues[0]?.code === "too_small"
+          )
+            toast.error(`Description must contain at least one character`);
+          return;
+        }
+      }
     });
-    if (!result.success) {
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Title must contain at least one character`);
-      if (
-        result.error.issues[0]?.path[0] === "title" &&
-        result.error.issues[0]?.code === "too_big"
-      )
-        toast.error(`Title cannot exceed 50 characters`);
 
-      if (
-        result.error.issues[0]?.path[0] === "description" &&
-        result.error.issues[0]?.code === "too_small"
-      )
-        toast.error(`Description must contain at least one character`);
-      return;
-    }
     setIsEditing(false);
   };
 
@@ -177,14 +170,15 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
       value={{
         mainData,
         informationBoxes,
+        setInformationBoxes,
         isEditing,
         setIsEditing,
         resetMainData,
         resetInformationBoxes,
         setMainData,
         editBasicInformation,
-        typeSingleInformationBox,
-        typeSingleInformationTitle,
+        // editInformationBox,
+        editInformationBoxes,
       }}
     >
       {children}

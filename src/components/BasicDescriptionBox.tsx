@@ -63,7 +63,7 @@ const BasicDescriptionBox = ({
     if (setMainDataArray && mainDataArray)
       setMainDataArray(
         mainDataArray.map((item, idx) =>
-          idx === index ? { ...item, title: e.target.value } : item
+          idx === index ? { ...item, title: String(e.target.value) } : item
         )
       );
   };

@@ -22,7 +22,13 @@ const BasicInformation = ({ isViewOnly }: Props) => {
     resetInformationBoxes,
     setMainData,
     editBasicInformation,
+    editInformationBoxes,
   } = useContext(BasicInformationContext) as BasicInformationContextType;
+
+  const submit = () => {
+    editBasicInformation();
+    editInformationBoxes();
+  };
 
   return (
     <>
@@ -49,16 +55,24 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           />
         )}
         {/* Basic Information End */}
-        <InformationBox
-          // informationArray={[{ title: "hello", description: "whats up" }]}
-          informationArray={informationBoxes}
-          isEditing={isEditing}
-          // editInformationBox={editInformationBox}
-        />
-        {/* Editing basic information */}
-        {/* Editing basic information end */}
+        <ul className="grid grid-cols-3 grid-rows-2  ">
+          {informationBoxes?.map((info, index) => {
+            return (
+              <InformationBox
+                // key={info.id}
+                key={index}
+                title={info.title}
+                description={info.description}
+                isEditing={isEditing}
+                index={index}
+                id={info.id || ""}
+              />
+            );
+          })}
+        </ul>
         <ButtonContentFit
-          onClick={editBasicInformation}
+          onClick={submit}
+          // onClick={editBasicInformation}
           buttonText={`Submit`}
         />
         {!isViewOnly && (
