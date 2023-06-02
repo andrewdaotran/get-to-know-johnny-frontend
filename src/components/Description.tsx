@@ -71,6 +71,8 @@ const Description = () => {
         </div>
         {/* Hobbies End */}
 
+        {/* Descriptions */}
+
         {mainDataArray?.map((box, index) => {
           return (
             <BasicDescriptionBox
@@ -82,6 +84,7 @@ const Description = () => {
             />
           );
         })}
+        {/* Descriptions End */}
       </main>
     </>
   );

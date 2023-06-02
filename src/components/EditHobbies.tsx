@@ -14,32 +14,33 @@ const EditHobbies = () => {
 
   return (
     <>
-      <h2 className="mx-6 my-4 border border-red-500 text-center">Hobbies</h2>
-      <div className="grid">
-        <ul className="flex flex-wrap gap-2 px-6 ">
-          {mainDataArray?.map((item) => {
-            return (
-              <IconAndTag
-                icon={item.icon}
-                hobby={item.hobby}
-                isEditing={true}
-                id={item.id}
-                key={item.id}
-                defaultNewPuck={false}
-                mainData={item}
-              />
-            );
-          })}
-          {/* New hobby puck */}
-          <IconAndTag
-            isEditing={false}
-            defaultNewPuck={true}
-            icon={defaultIcon}
-            hobby={defaultHobby}
-            mainData={{ icon: defaultIcon, hobby: defaultHobby }}
-          />
-          {/* New hobby puck end */}
-        </ul>
+      <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+        <div className="grid">
+          <ul className="flex flex-wrap gap-2  ">
+            {mainDataArray?.map((item) => {
+              return (
+                <IconAndTag
+                  icon={item.icon}
+                  hobby={item.hobby}
+                  isEditing={true}
+                  id={item.id}
+                  key={item.id}
+                  defaultNewPuck={false}
+                  mainData={item}
+                />
+              );
+            })}
+            {/* New hobby puck */}
+            <IconAndTag
+              isEditing={false}
+              defaultNewPuck={true}
+              icon={defaultIcon}
+              hobby={defaultHobby}
+              mainData={{ icon: defaultIcon, hobby: defaultHobby }}
+            />
+            {/* New hobby puck end */}
+          </ul>
+        </div>
       </div>
     </>
   );

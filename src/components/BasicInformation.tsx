@@ -34,17 +34,11 @@ const BasicInformation = ({ isViewOnly }: Props) => {
 
   return (
     <>
-      <div className={`${!isViewOnly && "grid gap-4"} border border-blue-400`}>
+      <div className={`grid gap-2 rounded-md bg-main px-6 py-6`}>
         <>
-          {!isViewOnly && (
-            <h2 className="mx-6 my-4  border border-red-500 text-center">
-              Basic Description
-            </h2>
-          )}
-
           {/* Basic Information */}
           {!isEditing && (
-            <div className=" flex flex-col justify-center gap-2 rounded-md bg-main px-6  ">
+            <div className=" flex flex-col justify-center gap-2 rounded-md bg-main   ">
               <h1 className=" w-fit  font-semibold">{mainData?.title}</h1>
               <p className="text-sm text-grayText">{mainData?.description}</p>
             </div>
@@ -61,9 +55,9 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           )}
           {/* Basic Information End */}
           <ul
-            className={` ${
-              !isViewOnly && " px-6 "
-            } grid grid-cols-3 grid-rows-2   `}
+            // ${ !isViewOnly && " px-6 "}
+            className={` 
+              grid grid-cols-3 grid-rows-2   `}
           >
             {informationBoxes?.map((info, index) => {
               return (

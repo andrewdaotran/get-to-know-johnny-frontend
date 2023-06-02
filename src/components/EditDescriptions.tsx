@@ -24,10 +24,8 @@ const EditDescriptions = () => {
   return (
     <>
       {/* Descriptions */}
-      <div className="grid gap-4 ">
-        <h2 className="mx-6 my-4  border border-red-500 text-center">
-          Description
-        </h2>
+
+      <div className="  grid gap-1 rounded-md bg-secondary">
         {/* Descriptions Mapped */}
         {mainDataArray?.map((description, index) => (
           <BasicDescriptionBox
@@ -62,9 +60,12 @@ const EditDescriptions = () => {
         {/* New Description Box End */}
 
         {/* Edit or Add Description Button */}
+
         {(!isEditing || !isNewDescription) && (
           <ButtonWidthFull
-            buttonText={!isEditing ? "Edit" : "Add New Description Box"}
+            buttonText={
+              !isEditing ? "Edit Descriptions" : "Add New Description Box"
+            }
             onClick={() => {
               if (isEditing) {
                 setIsNewDescription(!isNewDescription);
@@ -72,6 +73,8 @@ const EditDescriptions = () => {
                 setIsEditing(!isEditing);
               }
             }}
+            buttonColor={"red-400"}
+            addClassName={""}
           />
         )}
 

@@ -30,7 +30,7 @@ const Edit = () => {
   }, []);
   return (
     <>
-      <div>
+      <div className=" grid gap-1 bg-secondary px-1 py-2 ">
         <BasicInformation isViewOnly={false} />
         <EditHobbies />
         <EditDescriptions />
