@@ -1,11 +1,15 @@
-import BasicDescriptionBox from "andrewdaotran/components/BasicDescriptionBox";
+import DescriptionBox from "andrewdaotran/components/BioComponents/DescriptionBox";
 import { useContext } from "react";
-import ButtonWidthFull from "./ButtonWidthFull";
+import ButtonWidthFull from "../UtilityComponents/ButtonWidthFull";
 import DescriptionContext, {
   DescriptionContextType,
 } from "andrewdaotran/context/DescriptionContext";
 
-const EditDescriptions = () => {
+type Props = {
+  isEditPage: boolean;
+};
+
+const Descriptions = ({ isEditPage }: Props) => {
   const {
     mainDataArray,
     newDescription,
@@ -28,40 +32,40 @@ const EditDescriptions = () => {
       <div className="  grid gap-1 rounded-md bg-secondary">
         {/* Descriptions Mapped */}
         {mainDataArray?.map((description, index) => (
-          <BasicDescriptionBox
+          <DescriptionBox
             key={description.id}
             id={description.id}
-            isEditing={isEditing}
+            index={index}
+            mainDataArray={mainDataArray}
+            setMainDataArray={setMainDataArray}
+            mainData={description}
+            isEditing={isEditPage ? isEditing : false}
             onSubmit={editDescription}
             onDelete={removeDescription}
             isNewDescription={false}
-            mainData={description}
-            setMainDataArray={setMainDataArray}
-            mainDataArray={mainDataArray}
-            index={index}
           />
         ))}
         {/* Descriptions Mapped End */}
 
         {/* New Description Box */}
         {isNewDescription && (
-          <BasicDescriptionBox
-            isEditing={isNewDescription}
-            onSubmit={createDescription}
-            isNewDescription={isNewDescription}
-            setIsNewDescription={setIsNewDescription}
+          <DescriptionBox
             mainData={newDescription}
             setMainData={setNewDescription}
+            isEditing={isNewDescription}
+            onSubmit={createDescription}
             onDelete={() => {
               setIsNewDescription(false);
             }}
+            isNewDescription={isNewDescription}
+            setIsNewDescription={setIsNewDescription}
           />
         )}
         {/* New Description Box End */}
 
         {/* Edit or Add Description Button */}
 
-        {(!isEditing || !isNewDescription) && (
+        {(!isEditing || !isNewDescription) && isEditPage && (
           <ButtonWidthFull
             buttonText={
               !isEditing ? "Edit Descriptions" : "Add New Description Box"
@@ -81,7 +85,7 @@ const EditDescriptions = () => {
         {/* Edit or Add Description Button End */}
 
         {/* Cancel Edit Button */}
-        {isEditing && (
+        {isEditing && isEditPage && (
           <ButtonWidthFull
             buttonText={"Cancel Editing"}
             onClick={() => {
@@ -98,4 +102,4 @@ const EditDescriptions = () => {
   );
 };
 
-export default EditDescriptions;
+export default Descriptions;

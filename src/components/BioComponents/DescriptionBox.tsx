@@ -6,7 +6,7 @@ import {
   useRef,
 } from "react";
 import { BasicInformation, Description } from "typings";
-import ButtonContentFit from "./ButtonContentFit";
+import ButtonContentFit from "../ButtonContentFit";
 
 type Props = {
   id?: string;
@@ -28,7 +28,7 @@ type Props = {
   index?: number;
 };
 
-const BasicDescriptionBox = ({
+const DescriptionBox = ({
   id,
   isEditing,
   onSubmit,
@@ -165,4 +165,4 @@ const BasicDescriptionBox = ({
   );
 };
 
-export default BasicDescriptionBox;
+export default DescriptionBox;

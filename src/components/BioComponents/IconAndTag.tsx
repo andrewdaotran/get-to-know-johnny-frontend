@@ -4,15 +4,16 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/solid";
 import { ChangeEvent, useContext, useRef, useState } from "react";
-import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
+
 import HobbyContext, {
   HobbyContextType,
 } from "andrewdaotran/context/HobbyContext";
 import { Hobby } from "typings";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
+import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
 
 type Props = {
-  isEditing: boolean;
+  isEditPage: boolean;
   defaultNewPuck: boolean;
   hobby: string;
   icon: string;
@@ -20,7 +21,7 @@ type Props = {
   mainData: Hobby;
 };
 
-const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
+const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
@@ -105,7 +106,7 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
       }`}
     >
       {/* Hobbies for display */}
-      {!isEditing && !defaultNewPuck && (
+      {!isEditPage && !defaultNewPuck && (
         <>
           {icon} {hobby}
         </>
@@ -113,7 +114,7 @@ const IconAndTag = ({ isEditing, defaultNewPuck, hobby, icon, id }: Props) => {
       {/* Hobbies for display end*/}
 
       {/* Hobbies to be edited */}
-      {isEditing && !defaultNewPuck && (
+      {isEditPage && !defaultNewPuck && (
         <>
           <IconAndTagEditableSpan
             iconText={icon}

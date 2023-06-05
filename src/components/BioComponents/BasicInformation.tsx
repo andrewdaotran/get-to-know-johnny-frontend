@@ -1,17 +1,16 @@
-import BasicDescriptionBox from "./BasicDescriptionBox";
+import DescriptionBox from "./DescriptionBox";
 import { useContext } from "react";
-import ButtonWidthFull from "./ButtonWidthFull";
-import InformationBox from "./InformationBox";
 import BasicInformationContext, {
   BasicInformationContextType,
 } from "andrewdaotran/context/BasicInformationContext";
-import ButtonContentFit from "./ButtonContentFit";
+import InformationBox from "./InformationBox";
+import ButtonWidthFull from "../UtilityComponents/ButtonWidthFull";
 
 type Props = {
-  isViewOnly: boolean;
+  isEditPage: boolean;
 };
 
-const BasicInformation = ({ isViewOnly }: Props) => {
+const BasicInformation = ({ isEditPage }: Props) => {
   const {
     mainData,
     informationBoxes,
@@ -45,7 +44,7 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           )}
 
           {isEditing && (
-            <BasicDescriptionBox
+            <DescriptionBox
               id={mainData?.id}
               isEditing={true}
               isNewDescription={false}
@@ -55,7 +54,6 @@ const BasicInformation = ({ isViewOnly }: Props) => {
           )}
           {/* Basic Information End */}
           <ul
-            // ${ !isViewOnly && " px-6 "}
             className={` 
               grid grid-cols-3 grid-rows-2   `}
           >
@@ -69,13 +67,11 @@ const BasicInformation = ({ isViewOnly }: Props) => {
                   isEditing={isEditing}
                   index={index}
                   id={info.id || ""}
-                  isViewOnly={isViewOnly}
                 />
               );
             })}
           </ul>
-          {/* <div className="grid justify-center border px-6 "> */}
-          {!isViewOnly && (
+          {isEditPage && (
             <>
               {isEditing && (
                 <ButtonWidthFull onClick={submit} buttonText="Submit" />

@@ -1,5 +1,5 @@
 import { johnnyGalleryImages } from "andrewdaotran/utils/johnnyInfo";
-import GalleryImage from "./GalleryImage";
+import GalleryImage from "./GalleryComponents/GalleryImage";
 import { useContext, useEffect } from "react";
 import MobileMenuContext, {
   GALLERY_ACTION,

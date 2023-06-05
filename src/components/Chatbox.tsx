@@ -3,7 +3,7 @@ import { useState, ChangeEvent, useRef, FormEvent } from "react";
 
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
-import MessageBox from "./MessageBox";
+import MessageBox from "./ChatboxComponents/MessageBox";
 
 export const Chatbox = () => {
   const [message, setMessage] = useState<string | null>("");

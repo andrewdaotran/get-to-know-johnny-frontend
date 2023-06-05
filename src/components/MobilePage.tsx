@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Chatbox from "./Chatbox";
 import MobileMenu from "./MobileMenu";
-import Description from "./Description";
+import Bio from "./Bio";
 import MobileMenuContext, {
   CHAT_ACTION,
   MobileMenuContextType,
@@ -23,7 +23,7 @@ const MobilePage = () => {
     <>
       <div className=" flex h-screen flex-col bg-secondary">
         {menu?.isChat && <Chatbox />}
-        {menu?.isDescription && <Description />}
+        {menu?.isDescription && <Bio isEditPage={false} />}
         {menu?.isGallery && <Gallery />}
         <MobileMenu />
       </div>

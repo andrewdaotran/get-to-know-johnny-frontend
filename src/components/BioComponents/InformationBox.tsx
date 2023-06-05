@@ -9,7 +9,6 @@ type Props = {
   description: string;
   index: number;
   id: string;
-  isViewOnly?: boolean;
 };
 
 const InformationBox = ({
@@ -18,7 +17,6 @@ const InformationBox = ({
   isEditing,
   index,
   id,
-  isViewOnly,
 }: Props) => {
   const { informationBoxes, setInformationBoxes } = useContext(
     BasicInformationContext

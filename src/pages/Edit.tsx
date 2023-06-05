@@ -4,20 +4,21 @@ import type {
   NextPageContext,
 } from "next";
 
-import EditDescriptions from "andrewdaotran/components/EditDescriptions";
+import EditDescriptions from "andrewdaotran/components/BioComponents/Descriptions";
 import MobileMenu from "andrewdaotran/components/MobileMenu";
-import { api } from "andrewdaotran/utils/api";
-import { Description } from "typings";
+import { Description as DescriptionType } from "typings";
 import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
 import { useContext, useEffect } from "react";
-import EditHobbies from "andrewdaotran/components/EditHobbies";
-import BasicInformation from "andrewdaotran/components/BasicInformation";
+import EditHobbies from "andrewdaotran/components/BioComponents/Hobbies";
+
+import Bio from "andrewdaotran/components/Bio";
+import BasicInformation from "andrewdaotran/components/BioComponents/BasicInformation";
 
 type Props = {
-  data: Description;
+  data: DescriptionType;
 };
 
 const Edit = () => {
@@ -31,9 +32,10 @@ const Edit = () => {
   return (
     <>
       <div className=" grid gap-1 bg-secondary px-1 py-2 ">
-        <BasicInformation isViewOnly={false} />
-        <EditHobbies />
-        <EditDescriptions />
+        {/* <BasicInformation isViewOnly={false} />
+        <EditHobbies isEditPage={true} />
+        <EditDescriptions /> */}
+        <Bio isEditPage={true} />
       </div>
       <MobileMenu />
     </>
