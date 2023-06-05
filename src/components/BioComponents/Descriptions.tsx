@@ -78,7 +78,6 @@ const Descriptions = ({ isEditPage }: Props) => {
               }
             }}
             buttonColor={"red-400"}
-            addClassName={""}
           />
         )}
 

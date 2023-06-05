@@ -6,7 +6,7 @@ import {
   useRef,
 } from "react";
 import { BasicInformation, Description } from "typings";
-import ButtonContentFit from "../ButtonContentFit";
+import ButtonContentFit from "../UtilityComponents/ButtonContentFit";
 
 type Props = {
   id?: string;
