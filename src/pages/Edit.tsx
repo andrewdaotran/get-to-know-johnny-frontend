@@ -31,13 +31,13 @@ const Edit = () => {
   }, []);
   return (
     <>
-      <div className=" grid gap-1 bg-secondary px-1 py-2 ">
+      <div className=" flex h-screen flex-col bg-secondary ">
         {/* <BasicInformation isViewOnly={false} />
         <EditHobbies isEditPage={true} />
         <EditDescriptions /> */}
         <Bio isEditPage={true} />
+        <MobileMenu />
       </div>
-      <MobileMenu />
     </>
   );
 };

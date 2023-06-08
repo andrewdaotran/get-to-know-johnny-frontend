@@ -4,7 +4,7 @@ import BasicInformationContext, {
   BasicInformationContextType,
 } from "andrewdaotran/context/BasicInformationContext";
 import InformationBox from "./InformationBox";
-import ButtonWidthFull from "../UtilityComponents/ButtonWidthFull";
+import Button from "../UtilityComponents/Button";
 
 type Props = {
   isEditPage: boolean;
@@ -36,17 +36,18 @@ const BasicInformation = ({ isEditPage }: Props) => {
       <div className={`grid gap-2 rounded-md bg-main px-6 py-6`}>
         <>
           {/* Basic Information */}
-          {!isEditing && (
+          {(!isEditing || !isEditPage) && (
             <div className=" flex flex-col justify-center gap-2 rounded-md bg-main   ">
               <h1 className=" w-fit  font-semibold">{mainData?.title}</h1>
               <p className="text-sm text-grayText">{mainData?.description}</p>
             </div>
           )}
 
-          {isEditing && (
+          {isEditing && isEditPage && (
             <DescriptionBox
               id={mainData?.id}
-              isEditing={true}
+              isEditPage={isEditPage}
+              isEditing={isEditPage ? isEditing : false}
               isNewDescription={false}
               mainData={mainData}
               setMainData={setMainData}
@@ -64,7 +65,8 @@ const BasicInformation = ({ isEditPage }: Props) => {
                   key={index}
                   title={info.title}
                   description={info.description}
-                  isEditing={isEditing}
+                  isEditing={isEditPage ? isEditing : false}
+                  isEditPage={isEditPage}
                   index={index}
                   id={info.id || ""}
                 />
@@ -74,15 +76,16 @@ const BasicInformation = ({ isEditPage }: Props) => {
           {isEditPage && (
             <>
               {isEditing && (
-                <ButtonWidthFull onClick={submit} buttonText="Submit" />
+                <Button onClick={submit} buttonText="Submit" customStyle="" />
               )}
-              <ButtonWidthFull
+              <Button
                 onClick={() => {
                   setIsEditing(!isEditing);
                   resetMainData();
                   resetInformationBoxes();
                 }}
                 buttonText={isEditing ? "Cancel" : "Edit"}
+                customStyle="bg-secondary"
               />
             </>
           )}

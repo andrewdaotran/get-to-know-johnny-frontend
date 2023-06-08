@@ -1,6 +1,6 @@
 import DescriptionBox from "andrewdaotran/components/BioComponents/DescriptionBox";
 import { useContext } from "react";
-import ButtonWidthFull from "../UtilityComponents/ButtonWidthFull";
+import ButtonWidthFull from "../UtilityComponents/Button";
 import DescriptionContext, {
   DescriptionContextType,
 } from "andrewdaotran/context/DescriptionContext";
@@ -29,12 +29,13 @@ const Descriptions = ({ isEditPage }: Props) => {
     <>
       {/* Descriptions */}
 
-      <div className="  grid gap-1 rounded-md bg-secondary">
+      <div className="  grid gap-2 rounded-md  bg-white px-6 py-6">
         {/* Descriptions Mapped */}
         {mainDataArray?.map((description, index) => (
           <DescriptionBox
             key={description.id}
             id={description.id}
+            isEditPage={isEditPage}
             index={index}
             mainDataArray={mainDataArray}
             setMainDataArray={setMainDataArray}
@@ -51,6 +52,7 @@ const Descriptions = ({ isEditPage }: Props) => {
         {isNewDescription && (
           <DescriptionBox
             mainData={newDescription}
+            isEditPage={isEditPage}
             setMainData={setNewDescription}
             isEditing={isNewDescription}
             onSubmit={createDescription}
@@ -77,7 +79,7 @@ const Descriptions = ({ isEditPage }: Props) => {
                 setIsEditing(!isEditing);
               }
             }}
-            buttonColor={"red-400"}
+            customStyle="bg-secondary"
           />
         )}
 
@@ -92,10 +94,12 @@ const Descriptions = ({ isEditPage }: Props) => {
               resetMainData();
               setIsNewDescription(false);
             }}
+            customStyle="bg-secondary"
           />
         )}
         {/* Cancel Edit Button End */}
       </div>
+
       {/* Descriptions End */}
     </>
   );

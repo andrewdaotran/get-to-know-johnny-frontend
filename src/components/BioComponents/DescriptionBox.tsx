@@ -6,10 +6,11 @@ import {
   useRef,
 } from "react";
 import { BasicInformation, Description } from "typings";
-import ButtonContentFit from "../UtilityComponents/ButtonContentFit";
+import Button from "../UtilityComponents/Button";
 
 type Props = {
   id?: string;
+  isEditPage: boolean;
   isEditing: boolean;
   onSubmit?: ({ description, title, id }: Description) => void;
   onDelete?: (id: string) => void;
@@ -30,6 +31,7 @@ type Props = {
 
 const DescriptionBox = ({
   id,
+  isEditPage,
   isEditing,
   onSubmit,
   onDelete,
@@ -81,17 +83,17 @@ const DescriptionBox = ({
 
   return (
     <>
-      {!isEditing ? (
+      {!isEditing && (
         // Not editing descriptions
         <>
-          <div className="grid gap-2 rounded-md bg-main px-6 py-4">
+          <div className="grid gap-2 rounded-md border border-secondary bg-main px-6 py-4">
             <h2 className="w-fit grow  font-semibold">{mainData.title}</h2>
-
             <p className="text-sm text-grayText">{mainData.description}</p>
           </div>
         </>
-      ) : (
-        // Not editing descriptions end
+      )}
+      {/* // Not editing descriptions end */}
+      {isEditing && (
         <>
           {/* Editing descriptions */}
 
@@ -138,9 +140,14 @@ const DescriptionBox = ({
             {/* Submit and cancel buttons */}
             {onSubmit && (
               <div className=" flex gap-2">
-                <ButtonContentFit isSubmit={true} buttonText={`Submit`} />
+                <Button
+                  isSubmit={true}
+                  buttonText={`Submit`}
+                  customStyle=""
+                  onClick={() => {}}
+                />
                 {onDelete && (
-                  <ButtonContentFit
+                  <Button
                     onClick={
                       isNewDescription
                         ? cancelNewDescription
@@ -150,7 +157,7 @@ const DescriptionBox = ({
                           }
                     }
                     buttonText={isNewDescription ? "Cancel" : "Delete"}
-                    buttonColor="white"
+                    customStyle=""
                   />
                 )}
               </div>

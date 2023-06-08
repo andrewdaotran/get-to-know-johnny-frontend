@@ -4,7 +4,9 @@ import BasicInformationContext, {
 import { ChangeEvent, useContext, useRef } from "react";
 
 type Props = {
+  isEditPage: boolean;
   isEditing: boolean;
+
   title: string;
   description: string;
   index: number;
@@ -13,6 +15,7 @@ type Props = {
 
 const InformationBox = ({
   title,
+  isEditPage,
   description,
   isEditing,
   index,
