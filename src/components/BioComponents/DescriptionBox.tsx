@@ -7,6 +7,7 @@ import {
 } from "react";
 import { BasicInformation, Description } from "typings";
 import Button from "../UtilityComponents/Button";
+import { TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   id?: string;
@@ -86,7 +87,20 @@ const DescriptionBox = ({
       {!isEditing && (
         // Not editing descriptions
         <>
-          <div className="grid gap-2 rounded-md border border-secondary bg-main px-6 py-4">
+          {/* border border-secondary */}
+          <div className="relative grid gap-2  rounded-md border border-secondary bg-main px-6 py-4">
+            {/* {isEditPage && (
+              <button
+                className="absolute right-5 top-4 text-red-600"
+                onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                  e.preventDefault();
+                  if (id && onDelete) onDelete(id);
+                }}
+              >
+                <XCircleIcon className=" h-6 w-6" />
+              </button>
+            )} */}
+
             <h2 className="w-fit grow  font-semibold">{mainData.title}</h2>
             <p className="text-sm text-grayText">{mainData.description}</p>
           </div>
@@ -114,22 +128,28 @@ const DescriptionBox = ({
                 });
               }
             }}
-            className="grid justify-items-center gap-2 rounded-md border border-secondary bg-main px-6 py-4"
+            // border border-secondary
+            className="relative grid justify-items-center gap-2  rounded-md bg-main "
           >
+            <button
+              className="absolute right-5 top-3 text-red-600"
+              onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault();
+                if (id && onDelete) onDelete(id);
+              }}
+            >
+              <XCircleIcon className=" h-6 w-6" />
+            </button>
             <input
               type="text"
               value={mainData.title}
               onChange={(e) => typeTitle(e)}
-              placeholder={`${isNewDescription ? "Title" : ""}`}
+              placeholder={`Title`}
               className="w-full grow rounded-md border border-secondary p-2 font-semibold outline-none"
             />
 
             <span
-              className={`block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-md bg-gray-100 p-2 text-sm text-grayText focus:outline-none ${
-                isNewDescription
-                  ? 'empty:before:text-gray-400 empty:before:content-["Description"]'
-                  : ""
-              }`}
+              className={`'empty:before:text-gray-400 block h-fit max-h-40 w-[100%] flex-auto  resize-none overflow-auto scroll-smooth rounded-md bg-gray-100 p-2 text-sm text-grayText empty:before:content-["Description"] focus:outline-none `}
               ref={contentEditableRef}
               onBlur={typeDescription}
               contentEditable
@@ -146,7 +166,7 @@ const DescriptionBox = ({
                   customStyle=""
                   onClick={() => {}}
                 />
-                {onDelete && (
+                {/* {onDelete && (
                   <Button
                     onClick={
                       isNewDescription
@@ -159,7 +179,7 @@ const DescriptionBox = ({
                     buttonText={isNewDescription ? "Cancel" : "Delete"}
                     customStyle=""
                   />
-                )}
+                )} */}
               </div>
             )}
 

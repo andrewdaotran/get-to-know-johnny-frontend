@@ -32,19 +32,21 @@ const Descriptions = ({ isEditPage }: Props) => {
       <div className="  grid gap-2 rounded-md  bg-white px-6 py-6">
         {/* Descriptions Mapped */}
         {mainDataArray?.map((description, index) => (
-          <DescriptionBox
-            key={description.id}
-            id={description.id}
-            isEditPage={isEditPage}
-            index={index}
-            mainDataArray={mainDataArray}
-            setMainDataArray={setMainDataArray}
-            mainData={description}
-            isEditing={isEditPage ? isEditing : false}
-            onSubmit={editDescription}
-            onDelete={removeDescription}
-            isNewDescription={false}
-          />
+          <button onClick={(e) => setIsEditing(true)} className="g">
+            <DescriptionBox
+              key={description.id}
+              id={description.id}
+              isEditPage={isEditPage}
+              index={index}
+              mainDataArray={mainDataArray}
+              setMainDataArray={setMainDataArray}
+              mainData={description}
+              isEditing={isEditPage ? isEditing : false}
+              onSubmit={editDescription}
+              onDelete={removeDescription}
+              isNewDescription={false}
+            />
+          </button>
         ))}
         {/* Descriptions Mapped End */}
 

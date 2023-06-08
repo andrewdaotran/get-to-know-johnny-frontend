@@ -15,7 +15,6 @@ type Props = {
 
 const InformationBox = ({
   title,
-  isEditPage,
   description,
   isEditing,
   index,
