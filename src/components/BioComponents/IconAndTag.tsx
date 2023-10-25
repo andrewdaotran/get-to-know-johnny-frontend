@@ -11,6 +11,7 @@ import HobbyContext, {
 import { Hobby } from "typings";
 import { defaultHobby, defaultIcon } from "andrewdaotran/utils";
 import IconAndTagEditableSpan from "./IconAndTagEditableSpan";
+import { set } from "zod";
 
 type Props = {
   isEditPage: boolean;
@@ -25,8 +26,8 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
-  const [newIcon, setNewIcon] = useState<string>(defaultIcon);
-  const [newHobby, setNewHobby] = useState<string>(defaultHobby);
+  const [iconText, setIconText] = useState<string>(defaultIcon);
+  const [hobbyText, setHobbyText] = useState<string>(defaultIcon);
 
   const {
     mainDataArray,
@@ -39,8 +40,12 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
 
+  console.log("HELLOOOOO", iconText.length);
+
   const edit = () => {
-    const success = editHobby({ id, hobby, icon });
+    // const success = editHobby({ id, hobby: hobbyText, icon: iconText });
+
+    const success = editHobby({ id, hobby: hobbyText, icon: iconText });
     if (success) {
       setIsHobbySubmitted(true);
       setIsFocused(false);
@@ -51,10 +56,10 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   };
 
   const create = () => {
-    const success = createHobby({ icon: newIcon, hobby: newHobby });
+    const success = createHobby({ icon: iconText, hobby: hobbyText });
     if (success) {
-      setNewIcon(defaultIcon);
-      setNewHobby(defaultHobby);
+      setIconText(defaultIcon);
+      setHobbyText(defaultHobby);
       setIsMakingNewPuck(false);
     }
   };
@@ -64,7 +69,10 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   };
 
   const typeIcon = (e: ChangeEvent<HTMLSpanElement>) => {
-    if (isMakingNewPuck) setNewIcon(String(e.currentTarget.textContent));
+    if (!isMakingNewPuck) {
+      setIconText(icon);
+    }
+    setIconText(String(e.currentTarget.textContent));
     if (mainDataArray) {
       setMainDataArray(
         mainDataArray.map((item) =>
@@ -77,7 +85,10 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   };
 
   const typeHobby = (e: ChangeEvent<HTMLSpanElement>) => {
-    if (isMakingNewPuck) setNewHobby(String(e.currentTarget.textContent));
+    if (!isMakingNewPuck) {
+      setHobbyText(hobby);
+    }
+    setHobbyText(String(e.currentTarget.textContent));
     if (mainDataArray) {
       setMainDataArray(
         mainDataArray.map((item) =>
@@ -95,8 +106,8 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
 
   const toggleNewPuck = () => {
     setIsMakingNewPuck(true);
-    setNewIcon("");
-    setNewHobby("");
+    setIconText("");
+    setHobbyText("");
   };
 
   return (
@@ -162,8 +173,8 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
       {defaultNewPuck && isMakingNewPuck && (
         <>
           <IconAndTagEditableSpan
-            iconText={newIcon}
-            hobbyText={newHobby}
+            iconText={iconText}
+            hobbyText={hobbyText}
             iconRef={iconRef}
             hobbyRef={hobbyRef}
             typeIcon={typeIcon}

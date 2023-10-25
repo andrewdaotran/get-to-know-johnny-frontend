@@ -1,9 +1,11 @@
 import { api } from "andrewdaotran/utils/api";
 import {
   Dispatch,
+  RefObject,
   SetStateAction,
   createContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { toast } from "react-hot-toast";
@@ -12,6 +14,9 @@ import { descriptionInput, descriptionInputWithId } from "zodTypings";
 
 export type DescriptionContextType = {
   mainDataArray: Description[];
+  editRef: RefObject<HTMLButtonElement>;
+  editComponent: string;
+  makeEditRef: (id: string) => void;
   newDescription: Description;
   setNewDescription: Dispatch<SetStateAction<Description>>;
   isNewDescription: boolean;
@@ -37,6 +42,16 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
   });
   const [isNewDescription, setIsNewDescription] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const editRef = useRef<HTMLButtonElement>(null);
+
+  const [editComponent, setEditComponent] = useState("");
+
+  const makeEditRef = (id: string) => {
+    if (editRef.current !== null) console.log(editRef);
+    setEditComponent(id);
+    setIsEditing(true);
+  };
 
   const { data } = api.description.getAll.useQuery();
 
@@ -142,6 +157,9 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
     <DescriptionContext.Provider
       value={{
         mainDataArray,
+        editRef,
+        editComponent,
+        makeEditRef,
         newDescription,
         setNewDescription,
         isNewDescription,

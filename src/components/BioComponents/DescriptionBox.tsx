@@ -3,11 +3,15 @@ import {
   Dispatch,
   MouseEvent,
   SetStateAction,
+  useContext,
   useRef,
 } from "react";
 import { BasicInformation, Description } from "typings";
 import Button from "../UtilityComponents/Button";
 import { TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import DescriptionContext, {
+  DescriptionContextType,
+} from "andrewdaotran/context/DescriptionContext";
 
 type Props = {
   id?: string;
@@ -45,6 +49,10 @@ const DescriptionBox = ({
   index,
 }: Props) => {
   const contentEditableRef = useRef<HTMLSpanElement>(null);
+
+  const { editRef, makeEditRef, editComponent } = useContext(
+    DescriptionContext
+  ) as DescriptionContextType;
 
   const typeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     if (setMainData)
@@ -88,7 +96,12 @@ const DescriptionBox = ({
         // Not editing descriptions
         <>
           {/* border border-secondary */}
-          <div className="relative grid gap-2  rounded-md border border-secondary bg-main px-6 py-4">
+          <button
+            className={`relative grid gap-2  rounded-md border border-secondary bg-main px-6 py-4 `}
+            disabled={!isEditPage}
+            ref={editRef}
+            onClick={() => id && makeEditRef(id)}
+          >
             {/* {isEditPage && (
               <button
                 className="absolute right-5 top-4 text-red-600"
@@ -103,7 +116,7 @@ const DescriptionBox = ({
 
             <h2 className="w-fit grow  font-semibold">{mainData.title}</h2>
             <p className="text-sm text-grayText">{mainData.description}</p>
-          </div>
+          </button>
         </>
       )}
       {/* // Not editing descriptions end */}
@@ -129,9 +142,11 @@ const DescriptionBox = ({
               }
             }}
             // border border-secondary
-            className="relative grid justify-items-center gap-2  rounded-md bg-main "
+            className={`relative grid justify-items-center gap-2  rounded-md bg-main  ${
+              isEditing && editComponent === id ? "absolute bg-red-500" : ""
+            }`}
           >
-            <button
+            {/* <button
               className="absolute right-5 top-3 text-red-600"
               onClick={(e: MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
@@ -139,7 +154,7 @@ const DescriptionBox = ({
               }}
             >
               <XCircleIcon className=" h-6 w-6" />
-            </button>
+            </button> */}
             <input
               type="text"
               value={mainData.title}
@@ -164,7 +179,9 @@ const DescriptionBox = ({
                   isSubmit={true}
                   buttonText={`Submit`}
                   customStyle=""
-                  onClick={() => {}}
+                  onClick={() => {
+                    return;
+                  }}
                 />
                 {/* {onDelete && (
                   <Button
