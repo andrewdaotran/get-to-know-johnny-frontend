@@ -1,6 +1,7 @@
-type Props = {};
+// type Props = {};
 
-const Loading = ({}: Props) => {
+const Loading = ({}) => {
+  // const Loading = ({}: Props) => {
   return (
     <div>
       <h1>Loading...</h1>
