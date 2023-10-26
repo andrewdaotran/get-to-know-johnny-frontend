@@ -8,9 +8,16 @@ import { GetServerSideProps } from "next";
 
 import { api } from "andrewdaotran/utils/api";
 import MobilePage from "andrewdaotran/components/MobilePage";
+import { useContext } from "react";
+import MobileMenuContext, {
+  MobileMenuContextType,
+} from "andrewdaotran/context/MobileMenuContext";
+import Loading from "andrewdaotran/components/Loading";
 
 const Home: NextPage = () => {
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const { isAllDataLoading } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
   return (
     <>
@@ -20,7 +27,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className=" flex min-h-screen flex-col items-center justify-center  ">
-        <MobilePage />
+        {isAllDataLoading ? <Loading /> : <MobilePage />}
       </main>
     </>
   );

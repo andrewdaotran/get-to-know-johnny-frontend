@@ -1,5 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { ChildrenNodeType } from "typings";
+import BasicInformationContext, {
+  BasicInformationContextType,
+} from "./BasicInformationContext";
+import DescriptionContext, {
+  DescriptionContextType,
+} from "./DescriptionContext";
+import Hobbies from "andrewdaotran/components/BioComponents/Hobbies";
+import HobbyContext, { HobbyContextType } from "./HobbyContext";
 
 type Menu = {
   isChat: boolean;
@@ -16,6 +24,7 @@ export const EDIT_ACTION = "Edit";
 export type MobileMenuContextType = {
   menu: Menu;
   changeMenu: (menuString: string) => void;
+  isAllDataLoading: boolean;
 };
 
 const defaultMenu = {
@@ -34,6 +43,37 @@ const defaultMenu = {
 const MobileMenuContext = createContext<MobileMenuContextType | null>(null);
 
 export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
+  useEffect(() => {
+    setMenu({ ...defaultMenu, isChat: true });
+  }, []);
+
+  // Context data to load to change loading state
+
+  const [isAllDataLoading, setIsAllDataLoading] = useState(true);
+
+  const { mainData: basicInformationData } = useContext(
+    BasicInformationContext
+  ) as BasicInformationContextType;
+
+  const { mainDataArray: descriptionDataArray } = useContext(
+    DescriptionContext
+  ) as DescriptionContextType;
+
+  const { mainDataArray: hobbyDataArray } = useContext(
+    HobbyContext
+  ) as HobbyContextType;
+
+  useEffect(() => {
+    if (
+      basicInformationData?.id &&
+      descriptionDataArray[0]?.id &&
+      hobbyDataArray[0]?.id
+    )
+      setIsAllDataLoading(false);
+  }, [basicInformationData, descriptionDataArray, hobbyDataArray]);
+
+  // End Context data
+
   const [menu, setMenu] = useState<Menu>(defaultMenu);
 
   const changeMenu = (menuString: string) => {
@@ -46,7 +86,7 @@ export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
   };
 
   return (
-    <MobileMenuContext.Provider value={{ menu, changeMenu }}>
+    <MobileMenuContext.Provider value={{ menu, changeMenu, isAllDataLoading }}>
       {children}
     </MobileMenuContext.Provider>
   );

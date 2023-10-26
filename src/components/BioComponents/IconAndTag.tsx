@@ -26,8 +26,8 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isMakingNewPuck, setIsMakingNewPuck] = useState(false);
   const [isHobbySubmitted, setIsHobbySubmitted] = useState(false);
-  const [iconText, setIconText] = useState<string>(defaultIcon);
-  const [hobbyText, setHobbyText] = useState<string>(defaultIcon);
+  const [iconText, setIconText] = useState<string>(icon);
+  const [hobbyText, setHobbyText] = useState<string>(hobby);
 
   const {
     mainDataArray,
@@ -58,8 +58,6 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const create = () => {
     const success = createHobby({ icon: iconText, hobby: hobbyText });
     if (success) {
-      setIconText(defaultIcon);
-      setHobbyText(defaultHobby);
       setIsMakingNewPuck(false);
     }
   };
