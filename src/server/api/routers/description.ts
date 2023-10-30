@@ -20,6 +20,27 @@ export const descriptionRouter = createTRPCRouter({
     const descriptions = await ctx.prisma.descriptionBox.findMany();
     return descriptions;
   }),
+  // editDescriptions: publicProcedure
+  //   .input(z.array(descriptionInputWithId))
+  //   .mutation(async ({ ctx, input }) => {
+  //     const descriptions = await ctx.prisma.descriptionBox.updateMany({
+  //       where: {
+  //         id: {
+  //           in: input.map((description) => description.id),
+  //         },
+  //       },
+  //       data: {
+  //         title: input.map((description) => description.title),
+  //         // {
+  //         //   set: input.map((description) => description.title),
+  //         // },
+  //         description: {
+  //           set: input.map((description) => description.description),
+  //         },
+  //       },
+  //     });
+  //     return descriptions;
+  //   }),
   editDescription: publicProcedure
     .input(descriptionInputWithId)
     .mutation(async ({ ctx, input }) => {

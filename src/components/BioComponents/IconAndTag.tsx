@@ -40,7 +40,7 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
 
-  console.log("HELLOOOOO", iconText.length);
+  // console.log("HELLOOOOO", iconText.length);
 
   const edit = () => {
     // const success = editHobby({ id, hobby: hobbyText, icon: iconText });
@@ -155,7 +155,7 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
       {/* Hobbies to be edited end */}
 
       {/* Default new puck */}
-      {defaultNewPuck && !isMakingNewPuck && (
+      {defaultNewPuck && !isMakingNewPuck && isEditPage && (
         <>
           <span className="flex">
             {icon} {hobby}
@@ -168,7 +168,7 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
       {/* Default new puck end */}
 
       {/* Editable new puck */}
-      {defaultNewPuck && isMakingNewPuck && (
+      {defaultNewPuck && isMakingNewPuck && isEditPage && (
         <>
           <IconAndTagEditableSpan
             iconText={iconText}

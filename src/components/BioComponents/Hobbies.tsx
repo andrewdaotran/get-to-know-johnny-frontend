@@ -25,13 +25,16 @@ const Hobbies = ({ hobbies, isEditPage }: Props) => {
           );
         })}
         {/* New hobby puck */}
-        <IconAndTag
-          isEditPage={false}
-          defaultNewPuck={true}
-          icon={defaultIcon}
-          hobby={defaultHobby}
-          mainData={{ icon: defaultIcon, hobby: defaultHobby }}
-        />
+        {isEditPage && (
+          <IconAndTag
+            isEditPage={isEditPage}
+            defaultNewPuck={true}
+            icon={defaultIcon}
+            hobby={defaultHobby}
+            mainData={{ icon: defaultIcon, hobby: defaultHobby }}
+          />
+        )}
+
         {/* New hobby puck end */}
       </ul>
     </>

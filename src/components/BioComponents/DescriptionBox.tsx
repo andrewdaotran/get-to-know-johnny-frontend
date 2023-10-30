@@ -97,7 +97,7 @@ const DescriptionBox = ({
         <>
           {/* border border-secondary */}
           <button
-            className={`relative grid gap-2  rounded-md border border-secondary bg-main px-6 py-4 `}
+            className={`relative grid gap-2 rounded-md border border-secondary bg-main px-6 py-4 text-start`}
             disabled={!isEditPage}
             ref={editRef}
             onClick={() => id && makeEditRef(id)}
@@ -142,7 +142,7 @@ const DescriptionBox = ({
               }
             }}
             // border border-secondary
-            className={`relative grid justify-items-center gap-2  rounded-md bg-main  ${
+            className={`relative grid justify-items-start gap-2  rounded-md bg-main  ${
               isEditing && editComponent === id ? "absolute bg-red-500" : ""
             }`}
           >
@@ -183,7 +183,7 @@ const DescriptionBox = ({
                     return;
                   }}
                 />
-                {/* {onDelete && (
+                {onDelete && (
                   <Button
                     onClick={
                       isNewDescription
@@ -196,7 +196,7 @@ const DescriptionBox = ({
                     buttonText={isNewDescription ? "Cancel" : "Delete"}
                     customStyle=""
                   />
-                )} */}
+                )}
               </div>
             )}
 
