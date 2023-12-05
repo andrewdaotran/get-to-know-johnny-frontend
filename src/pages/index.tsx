@@ -45,3 +45,31 @@ export default Home;
 
 //   return <></>;
 // };
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   // const { data: sessionData } = await api.auth.getSession.useQuery();
+
+//   // if (sessionData?.user) {
+//   //   return {
+//   //     props: {
+//   //       session: sessionData,
+//   //     },
+//   //   };
+//   // }
+
+//   // return {
+//   //   redirect: {
+//   //     destination: "/api/auth/signin",
+//   //     permanent: false,
+//   //   },
+//   // };
+
+//     const trpc = api.useContext();
+//     const { data: basicInformation } = api.basicInformation.get.useQuery();
+//     const { data: informationBoxesQuery } =
+//       api.basicInformation.getInformationBoxes.useQuery();
+
+//   return {
+//     props: {},
+//   };
+// }

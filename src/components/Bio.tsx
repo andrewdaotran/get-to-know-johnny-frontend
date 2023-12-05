@@ -9,25 +9,32 @@ import { useContext, useEffect } from "react";
 import BasicInformation from "./BioComponents/BasicInformation";
 import Hobbies from "./BioComponents/Hobbies";
 import Descriptions from "./BioComponents/Descriptions";
+import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import { ipadWidth } from "andrewdaotran/utils";
 
 type Props = {
   isEditPage: boolean;
 };
 
 const Bio = ({ isEditPage }: Props) => {
+  const windowSize = useWindowSize();
   const { data: hobbies } = api.hobby.getAll.useQuery();
 
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  useEffect(() => {
-    changeMenu(DESCRIPTION_ACTION);
-  }, []);
+  // useEffect(() => {
+  //   changeMenu(DESCRIPTION_ACTION);
+  // }, []);
 
   return (
     <>
-      <main className="flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2">
+      <main
+        className={`flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2 ${
+          windowSize.width >= ipadWidth && "bg-white "
+        }`}
+      >
         {/* Image */}
         {!isEditPage && (
           <div className="relative  min-h-[33rem]  w-full max-w-4xl self-center rounded-md">

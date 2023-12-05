@@ -4,8 +4,11 @@ import { useState, ChangeEvent, useRef, FormEvent } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 import MessageBox from "./ChatboxComponents/MessageBox";
+import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import { desktopWidth, ipadWidth, mobileWidth } from "andrewdaotran/utils";
 
 export const Chatbox = () => {
+  const windowSize = useWindowSize();
   const [message, setMessage] = useState<string | null>("");
 
   const textareaRef = useRef<HTMLSpanElement>(null);
@@ -23,9 +26,18 @@ export const Chatbox = () => {
 
   return (
     <>
-      <main className=" flex w-full grow flex-col overflow-auto rounded-lg bg-white">
+      <main
+        className={`flex w-full grow flex-col overflow-auto rounded-lg bg-white ${
+          windowSize.width >= ipadWidth && "h-[40rem] "
+        }
+        } ${windowSize.width >= desktopWidth && "fixed h-full w-1/2 "}`}
+      >
         {/* Top */}
-        <div className="grid grow-0 justify-items-center bg-gray-50 py-4">
+        <div
+          className={`grid grow-0 justify-items-center bg-gray-50 py-4 ${
+            windowSize.width >= ipadWidth && "bg-inherit"
+          }`}
+        >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-gray-400">Orange County</h2>
         </div>
