@@ -11,12 +11,12 @@ const Gallery = () => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  useEffect(() => {
-    changeMenu(GALLERY_ACTION);
-  }, []);
+  // useEffect(() => {
+  //   changeMenu(GALLERY_ACTION);
+  // }, []);
   return (
     <>
-      <main className="grid w-full gap-1 overflow-auto rounded-lg  bg-white px-1 py-2">
+      <main className=" flex w-full flex-col gap-1 overflow-auto  rounded-lg bg-white px-1 py-2">
         {johnnyGalleryImages.map((image) => {
           return (
             <GalleryImage
