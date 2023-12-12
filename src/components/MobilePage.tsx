@@ -7,8 +7,10 @@ import MobileMenuContext, {
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
 import Gallery from "./Gallery";
-import useWindowSize from "../CustomHooks/useWindowSize";
-import { desktopWidth, ipadWidth, mobileWidth } from "andrewdaotran/utils";
+import WindowSizeContext, {
+  WindowSizeContextType,
+} from "andrewdaotran/context/ScreenSizeContext";
+import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -23,9 +25,13 @@ const MobilePage = () => {
   // May need to figure out a new way to default to chat page as default but maybe not
   console.log(windowSize.width);
 
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
+
   return (
     <>
-      {windowSize.width <= mobileWidth && (
+      {screenWidth === "mobile" && (
         <div className={`flex h-screen flex-col bg-secondary`}>
           {menu?.isChat && <Chatbox />}
           {menu?.isDescription && <Bio isEditPage={false} />}
@@ -33,14 +39,14 @@ const MobilePage = () => {
           <MobileMenu />
         </div>
       )}
-      {windowSize.width >= ipadWidth && windowSize.width < desktopWidth && (
+      {screenWidth === "tablet" && (
         <div className={`flex flex-col gap-4 bg-white`}>
           <Chatbox />
           <Bio isEditPage={false} />
           <Gallery />
         </div>
       )}
-      {windowSize.width >= desktopWidth && (
+      {screenWidth === "desktop" && (
         <div className={`grid w-full grid-cols-2 gap-4  bg-white`}>
           <div className="col-start-1 col-end-2 w-1/2 ">
             <Chatbox />

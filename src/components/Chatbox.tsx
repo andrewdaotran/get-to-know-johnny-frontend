@@ -1,14 +1,22 @@
 import { johnnyNameAndAge } from "andrewdaotran/utils/johnnyInfo";
-import { useState, ChangeEvent, useRef, FormEvent } from "react";
+import {
+  useState,
+  ChangeEvent,
+  useRef,
+  FormEvent,
+  useEffect,
+  useContext,
+} from "react";
 
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 import MessageBox from "./ChatboxComponents/MessageBox";
-import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
-import { desktopWidth, ipadWidth, mobileWidth } from "andrewdaotran/utils";
+
+import WindowSizeContext, {
+  WindowSizeContextType,
+} from "andrewdaotran/context/ScreenSizeContext";
 
 export const Chatbox = () => {
-  const windowSize = useWindowSize();
   const [message, setMessage] = useState<string | null>("");
 
   const textareaRef = useRef<HTMLSpanElement>(null);
@@ -24,19 +32,18 @@ export const Chatbox = () => {
     setMessage(e.currentTarget.textContent);
   };
 
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
+
   return (
     <>
       <main
-        className={`flex w-full grow flex-col overflow-auto rounded-lg bg-white ${
-          windowSize.width >= ipadWidth && "h-[40rem] "
-        }
-        } ${windowSize.width >= desktopWidth && "fixed h-full w-1/2 "}`}
+        className={`flex w-full grow flex-col overflow-auto rounded-lg bg-white lg:h-[40-rem] 2xl:fixed 2xl:h-full 2xl:w-1/2 `}
       >
         {/* Top */}
         <div
-          className={`grid grow-0 justify-items-center bg-gray-50 py-4 ${
-            windowSize.width >= ipadWidth && "bg-inherit"
-          }`}
+          className={`grid grow-0 justify-items-center bg-gray-50 py-4 lg:bg-inherit `}
         >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-gray-400">Orange County</h2>
