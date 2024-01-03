@@ -34,6 +34,7 @@ const Edit = () => {
   return (
     <>
       <div className=" flex h-screen flex-col bg-secondary ">
+    
         {/* <BasicInformation isViewOnly={false} />
         <EditHobbies isEditPage={true} />
         <EditDescriptions /> */}

@@ -30,7 +30,7 @@ const Bio = ({ isEditPage }: Props) => {
   return (
     <>
       <main
-        className={`flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2 md:bg-white `}
+        className={`flex w-full grow flex-col gap-1 overflow-auto rounded-lg  bg-secondary px-1 py-2 lg:bg-white `}
       >
         {/* Image */}
         {!isEditPage && (

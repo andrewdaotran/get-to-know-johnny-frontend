@@ -30,7 +30,8 @@ const MobilePage = () => {
   ) as WindowSizeContextType;
 
   return (
-    <>
+    <div className="relative">
+      <div className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md border border-red-500"></div>
       {screenWidth === "mobile" && (
         <div className={`flex h-screen flex-col bg-secondary`}>
           {menu?.isChat && <Chatbox />}
@@ -47,7 +48,7 @@ const MobilePage = () => {
         </div>
       )}
       {screenWidth === "desktop" && (
-        <div className={`grid w-full grid-cols-2 gap-4  bg-white`}>
+        <div className={`grid w-full grid-cols-2 gap-4 bg-white  2xl:gap-20`}>
           <div className="col-start-1 col-end-2 w-1/2 ">
             <Chatbox />
           </div>
@@ -58,7 +59,7 @@ const MobilePage = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

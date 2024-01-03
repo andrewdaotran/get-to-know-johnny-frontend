@@ -2,12 +2,6 @@ import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
 import { createContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
 
-type Message = {
-  user: string;
-  answer: string;
-  createdAt: string;
-};
-
 export type WindowSizeContextType = {
   screenWidth: string;
   // screenHeight: string;

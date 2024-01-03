@@ -39,14 +39,14 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={`flex w-full grow flex-col overflow-auto rounded-lg bg-white lg:h-[40-rem] 2xl:fixed 2xl:h-full 2xl:w-1/2 `}
+        className={`flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white lg:h-[40-rem] 2xl:fixed 2xl:h-full 2xl:w-1/2 `}
       >
         {/* Top */}
         <div
           className={`grid grow-0 justify-items-center bg-gray-50 py-4 lg:bg-inherit `}
         >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
-          <h2 className="text-sm text-gray-400">Orange County</h2>
+          <h2 className="text-sm text-grayText">Orange County</h2>
         </div>
         {/* Top End */}
 
@@ -73,7 +73,7 @@ export const Chatbox = () => {
           />
 
           <button type="submit" className=" px-2">
-            <PaperAirplaneIcon className="h-6 w-6 transition-colors hover:text-main" />
+            <PaperAirplaneIcon className="h-6 w-6 transition-colors hover:text-appOrange" />
           </button>
         </form>
         {/* Message Box End */}

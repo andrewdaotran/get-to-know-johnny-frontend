@@ -13,6 +13,7 @@ import { BasicInforomationProvider } from "andrewdaotran/context/BasicInformatio
 import { DescriptionProvider } from "andrewdaotran/context/DescriptionContext";
 import { HobbyProvider } from "andrewdaotran/context/HobbyContext";
 import { WindowSizeProvider } from "andrewdaotran/context/ScreenSizeContext";
+import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -20,20 +21,22 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <WindowSizeProvider>
-        <BasicInforomationProvider>
-          <DescriptionProvider>
-            <HobbyProvider>
-              <MobileMenuProvider>
-                <MessageProvider>
-                  <Component {...pageProps} />
-                  <Toaster />
-                </MessageProvider>
-              </MobileMenuProvider>
-            </HobbyProvider>
-          </DescriptionProvider>
-        </BasicInforomationProvider>
-      </WindowSizeProvider>
+      <LoginButtonProvider>
+        <WindowSizeProvider>
+          <BasicInforomationProvider>
+            <DescriptionProvider>
+              <HobbyProvider>
+                <MobileMenuProvider>
+                  <MessageProvider>
+                    <Component {...pageProps} />
+                    <Toaster />
+                  </MessageProvider>
+                </MobileMenuProvider>
+              </HobbyProvider>
+            </DescriptionProvider>
+          </BasicInforomationProvider>
+        </WindowSizeProvider>
+      </LoginButtonProvider>
     </SessionProvider>
   );
 };
