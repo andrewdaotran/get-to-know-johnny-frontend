@@ -11,10 +11,10 @@ const WindowSizeContext = createContext<WindowSizeContextType | null>(null);
 
 export const WindowSizeProvider = ({ children }: ChildrenNodeType) => {
   const mobileWidth = 1023;
-  const ipadWidth = 1024;
+  const tabletWidth = 1024;
   const desktopWidth = 1536;
   // const mobileWidth = 1179;
-  // const ipadWidth = 1180;
+  // const tabletWidth = 1180;
   // const desktopWidth = 1728;
 
   const [screenWidth, setScreenWidth] = useState("mobile");
@@ -25,7 +25,7 @@ export const WindowSizeProvider = ({ children }: ChildrenNodeType) => {
     if (windowSize.width <= mobileWidth) {
       setScreenWidth("mobile");
     }
-    if (windowSize.width >= ipadWidth && windowSize.width < desktopWidth) {
+    if (windowSize.width >= tabletWidth && windowSize.width < desktopWidth) {
       setScreenWidth("tablet");
     }
     if (windowSize.width >= desktopWidth) {

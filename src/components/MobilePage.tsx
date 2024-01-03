@@ -22,9 +22,13 @@ const MobilePage = () => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  const { openLoginModal, closeLoginModal, isLoginModalOpen } = useContext(
-    LoginModalContext
-  ) as LoginModalContextType;
+  const {
+    openLoginModal,
+    closeLoginModal,
+    isLoginModalOpen,
+    modalSize,
+    modalMargin,
+  } = useContext(LoginModalContext) as LoginModalContextType;
 
   // useEffect(() => {
   //   changeMenu(CHAT_ACTION);
@@ -42,11 +46,28 @@ const MobilePage = () => {
       {/* Login Modal */}
 
       {isLoginModalOpen && (
-        <div className="fixed">
+        <div
+          className="fixed left-1/2 top-1/3 z-20 "
+          style={
+            screenWidth === "mobile"
+              ? modalMargin.mobile
+              : screenWidth === "tablet"
+              ? modalMargin.tablet
+              : modalMargin.desktop
+          }
+        >
           <LoginModal />
         </div>
       )}
       {/* Login Modal End */}
+      {/* Login Modal Gray Background */}
+      {isLoginModalOpen && (
+        <div
+          className="fixed left-0 top-0 z-10 h-full w-full bg-black bg-opacity-50"
+          onClick={closeLoginModal}
+        ></div>
+      )}
+      {/* Login Modal Gray Background End */}
       {/* Hidden Login Button */}
       <div
         className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md border border-red-500"
