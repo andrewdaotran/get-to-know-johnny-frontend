@@ -14,6 +14,7 @@ import { DescriptionProvider } from "andrewdaotran/context/DescriptionContext";
 import { HobbyProvider } from "andrewdaotran/context/HobbyContext";
 import { WindowSizeProvider } from "andrewdaotran/context/ScreenSizeContext";
 import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
+import { LoginModalProvider } from "andrewdaotran/context/LoginModalContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -21,7 +22,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <LoginButtonProvider>
+      <LoginModalProvider>
         <WindowSizeProvider>
           <BasicInforomationProvider>
             <DescriptionProvider>
@@ -36,7 +37,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
             </DescriptionProvider>
           </BasicInforomationProvider>
         </WindowSizeProvider>
-      </LoginButtonProvider>
+      </LoginModalProvider>
     </SessionProvider>
   );
 };

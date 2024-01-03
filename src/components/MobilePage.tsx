@@ -11,12 +11,20 @@ import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import LoginModalContext, {
+  LoginModalContextType,
+} from "andrewdaotran/context/LoginModalContext";
+import LoginModal from "./LoginModal";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
+
+  const { openLoginModal, closeLoginModal, isLoginModalOpen } = useContext(
+    LoginModalContext
+  ) as LoginModalContextType;
 
   // useEffect(() => {
   //   changeMenu(CHAT_ACTION);
@@ -31,7 +39,20 @@ const MobilePage = () => {
 
   return (
     <div className="relative">
-      <div className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md border border-red-500"></div>
+      {/* Login Modal */}
+
+      {isLoginModalOpen && (
+        <div className="fixed">
+          <LoginModal />
+        </div>
+      )}
+      {/* Login Modal End */}
+      {/* Hidden Login Button */}
+      <div
+        className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md border border-red-500"
+        onClick={openLoginModal}
+      ></div>
+      {/* Hidden Login Button End */}
       {screenWidth === "mobile" && (
         <div className={`flex h-screen flex-col bg-secondary`}>
           {menu?.isChat && <Chatbox />}
