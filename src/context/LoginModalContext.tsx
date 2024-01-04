@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
+import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
 
 export type LoginModalContextType = {
   isLoginModalOpen: boolean;
@@ -29,6 +30,8 @@ export type LoginModalContextType = {
 const LoginModalContext = createContext<LoginModalContextType | null>(null);
 
 export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
+  const windowSize = useWindowSize();
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const openLoginModal = () => {
@@ -41,8 +44,8 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const modalSizeNoRems = {
     mobile: {
-      width: "22",
-      height: "25",
+      width: "22", // arbitrary
+      height: "30",
     },
     tablet: {
       width: "40",
@@ -58,6 +61,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     mobile: {
       // width: modalSizeNoRems.mobile.width + "rem",
       width: "100vw",
+      maxWidth: "40rem",
       height: modalSizeNoRems.mobile.height + "rem",
     },
     tablet: {
@@ -74,13 +78,14 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     mobile: {
       // marginLeft:
       //   String("-" + Number(modalSizeNoRems.mobile.width) / 2) + "rem",
-      marginLeft: "",
+      marginLeft: windowSize.width >= 640 ? "-20rem" : "-50vw",
       marginTop:
         String("-" + Number(modalSizeNoRems.mobile.height) / 2) + "rem",
     },
     tablet: {
-      // marginLeft: String("-" + Number(modalSizeNoRems.tablet.width) / 2) + "rem",
-      marginLeft: "-20rem", // TODO: Fix this 'hack
+      marginLeft:
+        String("-" + Number(modalSizeNoRems.tablet.width) / 2) + "rem",
+
       marginTop:
         String("-" + Number(modalSizeNoRems.tablet.height) / 2) + "rem",
     },
