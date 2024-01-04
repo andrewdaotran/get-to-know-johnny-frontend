@@ -6,6 +6,8 @@ import WindowSizeContext, {
 } from "andrewdaotran/context/ScreenSizeContext";
 import React, { useContext } from "react";
 
+import { XMarkIcon } from "@heroicons/react/24/solid";
+
 const LoginModal = () => {
   const {
     openLoginModal,
@@ -20,7 +22,7 @@ const LoginModal = () => {
 
   return (
     <div
-      className={`/* sm: md: lg: 2xl: modal sizes based on screen size */   border border-red-500 bg-main`}
+      className={` relative  rounded-md border border-red-500 bg-main p-12`}
       style={
         screenWidth === "mobile"
           ? modalSize.mobile
@@ -30,6 +32,9 @@ const LoginModal = () => {
       }
     >
       LoginModal
+      <div className="absolute left-4 top-4">
+        <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
+      </div>
     </div>
   );
 };

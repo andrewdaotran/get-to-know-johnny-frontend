@@ -44,7 +44,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const modalSizeNoRems = {
     mobile: {
-      width: "22", // arbitrary
+      width: "90",
       height: "30",
     },
     tablet: {
@@ -60,8 +60,17 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const modalSize = {
     mobile: {
       // width: modalSizeNoRems.mobile.width + "rem",
-      width: "100vw",
-      maxWidth: "40rem",
+      width:
+        windowSize.width < 640 ? modalSizeNoRems.mobile.width + "vw" : "40rem",
+
+      marginLeft:
+        windowSize.width < 640
+          ? String((100 - Number(modalSizeNoRems.mobile.width)) / 2) + "vw"
+          : "",
+      marginRight:
+        windowSize.width < 640
+          ? String((100 - Number(modalSizeNoRems.mobile.width)) / 2) + "vw"
+          : "",
       height: modalSizeNoRems.mobile.height + "rem",
     },
     tablet: {
@@ -76,8 +85,6 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const modalMargin = {
     mobile: {
-      // marginLeft:
-      //   String("-" + Number(modalSizeNoRems.mobile.width) / 2) + "rem",
       marginLeft: windowSize.width >= 640 ? "-20rem" : "-50vw",
       marginTop:
         String("-" + Number(modalSizeNoRems.mobile.height) / 2) + "rem",
