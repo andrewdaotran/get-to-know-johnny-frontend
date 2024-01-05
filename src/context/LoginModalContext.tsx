@@ -61,14 +61,14 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     mobile: {
       // width: modalSizeNoRems.mobile.width + "rem",
       width:
-        windowSize.width < 640 ? modalSizeNoRems.mobile.width + "vw" : "40rem",
+        windowSize.width < 704 ? modalSizeNoRems.mobile.width + "vw" : "40rem",
 
       marginLeft:
-        windowSize.width < 640
+        windowSize.width < 704
           ? String((100 - Number(modalSizeNoRems.mobile.width)) / 2) + "vw"
           : "",
       marginRight:
-        windowSize.width < 640
+        windowSize.width < 704
           ? String((100 - Number(modalSizeNoRems.mobile.width)) / 2) + "vw"
           : "",
       height: modalSizeNoRems.mobile.height + "rem",
@@ -85,22 +85,22 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const modalMargin = {
     mobile: {
-      marginLeft: windowSize.width >= 640 ? "-20rem" : "-50vw",
+      marginLeft: windowSize.width >= 704 ? "-20rem" : "-50vw",
       marginTop:
-        String("-" + Number(modalSizeNoRems.mobile.height) / 2) + "rem",
+        "-" + String(+Number(modalSizeNoRems.mobile.height) / 2) + "rem",
     },
     tablet: {
       marginLeft:
-        String("-" + Number(modalSizeNoRems.tablet.width) / 2) + "rem",
+        "-" + String(Number(modalSizeNoRems.tablet.width) / 2) + "rem",
 
       marginTop:
-        String("-" + Number(modalSizeNoRems.tablet.height) / 2) + "rem",
+        "-" + String(Number(modalSizeNoRems.tablet.height) / 2) + "rem",
     },
     desktop: {
       marginLeft:
-        String("-" + Number(modalSizeNoRems.desktop.width) / 2) + "rem",
+        "-" + String(Number(modalSizeNoRems.desktop.width) / 2) + "rem",
       marginTop:
-        String("-" + Number(modalSizeNoRems.desktop.height) / 2) + "rem",
+        "-" + String(Number(modalSizeNoRems.desktop.height) / 2) + "rem",
     },
   };
 
