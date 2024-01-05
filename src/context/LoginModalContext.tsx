@@ -25,6 +25,7 @@ export type LoginModalContextType = {
       marginTop: string;
     };
   };
+  doesJohnnyHaveAccount: boolean;
 };
 
 const LoginModalContext = createContext<LoginModalContextType | null>(null);
@@ -33,6 +34,12 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const windowSize = useWindowSize();
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
+
+  const checkIfJohnnyHasAccount = () => {}; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
+
+  const [johnnyCreateAccountQuestions, setJohnnyCreateAccountQuestions] =
+    useState([]); // questions for Johnny to answer to create an account
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -85,7 +92,10 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const modalMargin = {
     mobile: {
-      marginLeft: windowSize.width >= 704 ? "-20rem" : "-50vw",
+      marginLeft:
+        windowSize.width >= 704
+          ? "-" + String(Number(modalSizeNoRems.tablet.width) / 2) + "rem"
+          : "-50vw",
       marginTop:
         "-" + String(+Number(modalSizeNoRems.mobile.height) / 2) + "rem",
     },
@@ -112,6 +122,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         closeLoginModal,
         modalSize,
         modalMargin,
+        doesJohnnyHaveAccount,
       }}
     >
       {children}
