@@ -26,6 +26,15 @@ export type LoginModalContextType = {
     };
   };
   doesJohnnyHaveAccount: boolean;
+  johnnyCreateAccountQuestions: {
+    question: string;
+    answer: string;
+    isCorrect: boolean;
+  }[];
+  questionCount: number;
+  updateQuestionCount: (value: boolean) => void;
+  answerInput: string;
+  updateAnswerInput: (value: string) => void;
 };
 
 const LoginModalContext = createContext<LoginModalContextType | null>(null);
@@ -36,10 +45,48 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
-  const checkIfJohnnyHasAccount = () => {}; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
+  const [questionCount, setQuestionCount] = useState(0);
 
   const [johnnyCreateAccountQuestions, setJohnnyCreateAccountQuestions] =
-    useState([]); // questions for Johnny to answer to create an account
+    useState([
+      {
+        question: "whats your name",
+        answer: "",
+        isCorrect: false,
+      },
+      {
+        question: "testing",
+        answer: "",
+        isCorrect: false,
+      },
+      {
+        question: "again",
+        answer: "",
+        isCorrect: false,
+      },
+      {
+        question: "stuff",
+        answer: "",
+        isCorrect: false,
+      },
+    ]); // questions for Johnny to answer to create an account
+
+  const [answerInput, setAnswerInput] = useState(""); // input for Johnny to answer questions to create an account
+
+  const checkIfAnswerIsCorrect = () => {
+    if (answerInput === johnnyCreateAccountQuestions[questionCount]?.answer) {
+    }
+  }; // Checks if the answer is correct and sets isCorrect to true if it is
+
+  const checkIfJohnnyHasAccount = () => {
+    if (doesJohnnyHaveAccount) {
+      return;
+    }
+  }; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
+
+  const updateAnswerInput = (value: string) => {
+    setAnswerInput(value);
+  };
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -47,6 +94,15 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const closeLoginModal = () => {
     setIsLoginModalOpen(false);
+  };
+
+  const updateQuestionCount = (value: boolean) => {
+    if (value && questionCount < 3) {
+      setQuestionCount(questionCount + 1);
+    }
+    if (!value && questionCount > 0) {
+      setQuestionCount(questionCount - 1);
+    }
   };
 
   const modalSizeNoRems = {
@@ -123,6 +179,11 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         modalSize,
         modalMargin,
         doesJohnnyHaveAccount,
+        johnnyCreateAccountQuestions,
+        questionCount,
+        updateQuestionCount,
+        answerInput,
+        updateAnswerInput,
       }}
     >
       {children}
