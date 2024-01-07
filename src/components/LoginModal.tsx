@@ -6,7 +6,11 @@ import WindowSizeContext, {
 } from "andrewdaotran/context/ScreenSizeContext";
 import React, { useContext } from "react";
 
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import {
+  XMarkIcon,
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
+} from "@heroicons/react/24/solid";
 
 const LoginModal = () => {
   const {
@@ -21,6 +25,7 @@ const LoginModal = () => {
     updateQuestionCount,
     answerInput,
     updateAnswerInput,
+    checkIfAnswerIsCorrect,
   } = useContext(LoginModalContext) as LoginModalContextType;
   const { screenWidth } = useContext(
     WindowSizeContext
@@ -64,14 +69,52 @@ const LoginModal = () => {
 
       {/* Modal Body */}
 
-      <form className="row-span-2 grid items-center justify-items-center rounded-md border border-secondary">
+      {/* Form if Johnny has not made an account yet */}
+      <form
+        className="row-span-2 grid items-center justify-items-center rounded-md border border-secondary"
+        onSubmit={(e) => checkIfAnswerIsCorrect(e)}
+      >
+        {/* LoginModal Quesiton */}
         <h1>{johnnyCreateAccountQuestions[questionCount]?.question}</h1>
-        <input
-          type="text"
-          value={answerInput}
-          onChange={(e) => updateAnswerInput(e.target.value)}
-        />
+        {/* LoginModal Quesiton End*/}
+
+        {/* LoginModal Left Right Buttons and Input */}
+        <div className="flex gap-4">
+          <button onClick={() => updateQuestionCount(false)} type="button">
+            <ArrowLeftCircleIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
+          </button>
+          <input
+            type="text"
+            value={
+              johnnyCreateAccountQuestions[questionCount]?.isCorrect
+                ? johnnyCreateAccountQuestions[questionCount]?.typedAnswer
+                : answerInput
+            }
+            onChange={(e) => updateAnswerInput(e.target.value)}
+            disabled={johnnyCreateAccountQuestions[questionCount]?.isCorrect}
+            className="rounded-md border border-secondary p-2"
+          />
+          <button
+            className=""
+            onClick={() => updateQuestionCount(true)}
+            type="button"
+          >
+            <ArrowRightCircleIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary " />
+          </button>
+        </div>
+        {/* LoginModal Left Right Buttons and Input End */}
+
+        {/* Submit Button */}
+
+        <button
+          type="submit"
+          className="rounded-md border border-secondary p-2"
+        >
+          Submit
+        </button>
+        {/* Submit Button End */}
       </form>
+      {/* Form if Johnny has not made an account yet end*/}
       {/* Modal Body End */}
     </div>
   );

@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  FormEvent,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ChildrenNodeType } from "typings";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
 
@@ -29,12 +35,16 @@ export type LoginModalContextType = {
   johnnyCreateAccountQuestions: {
     question: string;
     answer: string;
+    typedAnswer: string;
     isCorrect: boolean;
   }[];
   questionCount: number;
   updateQuestionCount: (value: boolean) => void;
   answerInput: string;
   updateAnswerInput: (value: string) => void;
+
+  checkIfAnswerIsCorrect: (e: FormEvent<HTMLFormElement>) => void;
+  // checkIfAnswerIsCorrect: (e: FormEvent<HTMLFormElement>) => boolean;
 };
 
 const LoginModalContext = createContext<LoginModalContextType | null>(null);
@@ -51,38 +61,31 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     useState([
       {
         question: "whats your name",
-        answer: "",
+        answer: "hello",
+        typedAnswer: "",
         isCorrect: false,
       },
       {
         question: "testing",
-        answer: "",
+        answer: "testing",
+        typedAnswer: "",
         isCorrect: false,
       },
       {
         question: "again",
-        answer: "",
+        answer: "again",
+        typedAnswer: "",
         isCorrect: false,
       },
       {
         question: "stuff",
-        answer: "",
+        answer: "stuff",
+        typedAnswer: "",
         isCorrect: false,
       },
     ]); // questions for Johnny to answer to create an account
 
   const [answerInput, setAnswerInput] = useState(""); // input for Johnny to answer questions to create an account
-
-  const checkIfAnswerIsCorrect = () => {
-    if (answerInput === johnnyCreateAccountQuestions[questionCount]?.answer) {
-    }
-  }; // Checks if the answer is correct and sets isCorrect to true if it is
-
-  const checkIfJohnnyHasAccount = () => {
-    if (doesJohnnyHaveAccount) {
-      return;
-    }
-  }; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
 
   const updateAnswerInput = (value: string) => {
     setAnswerInput(value);
@@ -97,13 +100,51 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   };
 
   const updateQuestionCount = (value: boolean) => {
-    if (value && questionCount < 3) {
+    // Forward
+    if (
+      value &&
+      questionCount < 3 &&
+      johnnyCreateAccountQuestions[questionCount]?.isCorrect
+    ) {
       setQuestionCount(questionCount + 1);
     }
+    // Backwards
+
     if (!value && questionCount > 0) {
       setQuestionCount(questionCount - 1);
     }
   };
+
+  const checkIfAnswerIsCorrect = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (
+      answerInput.toLowerCase() ===
+      johnnyCreateAccountQuestions[questionCount]?.answer
+    ) {
+      johnnyCreateAccountQuestions.map((item, index) => {
+        if (index === questionCount) {
+          item.isCorrect = true;
+          item.typedAnswer = answerInput;
+        }
+      });
+      setAnswerInput("");
+      updateQuestionCount(true);
+      console.log("correct");
+      console.log(johnnyCreateAccountQuestions);
+      return;
+    }
+
+    console.log("incorrect");
+    console.log(johnnyCreateAccountQuestions);
+    return;
+  }; // Checks if the answer is correct and sets isCorrect to true if it is
+
+  const checkIfJohnnyHasAccount = () => {
+    if (doesJohnnyHaveAccount) {
+      return;
+    }
+  }; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
 
   const modalSizeNoRems = {
     mobile: {
@@ -184,6 +225,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         updateQuestionCount,
         answerInput,
         updateAnswerInput,
+        checkIfAnswerIsCorrect,
       }}
     >
       {children}
