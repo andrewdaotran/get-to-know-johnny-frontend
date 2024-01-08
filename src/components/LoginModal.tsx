@@ -80,8 +80,13 @@ const LoginModal = () => {
 
         {/* LoginModal Left Right Buttons and Input */}
         <div className="flex gap-4">
-          <button onClick={() => updateQuestionCount(false)} type="button">
-            <ArrowLeftCircleIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
+          <button
+            onClick={() => updateQuestionCount(false)}
+            type="button"
+            disabled={questionCount === 0}
+            className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
+          >
+            <ArrowLeftCircleIcon className=" my-auto h-8 w-8 " />
           </button>
           <input
             type="text"
@@ -92,14 +97,18 @@ const LoginModal = () => {
             }
             onChange={(e) => updateAnswerInput(e.target.value)}
             disabled={johnnyCreateAccountQuestions[questionCount]?.isCorrect}
-            className="rounded-md border border-secondary p-2"
+            className="rounded-md border border-secondary p-2 disabled:text-grayText"
           />
           <button
-            className=""
+            className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
             onClick={() => updateQuestionCount(true)}
             type="button"
+            disabled={
+              questionCount === 3 ||
+              johnnyCreateAccountQuestions[questionCount]?.isCorrect === false
+            }
           >
-            <ArrowRightCircleIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary " />
+            <ArrowRightCircleIcon className=" my-auto h-8 w-8  " />
           </button>
         </div>
         {/* LoginModal Left Right Buttons and Input End */}
