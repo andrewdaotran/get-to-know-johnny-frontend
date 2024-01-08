@@ -22,6 +22,8 @@ const LoginModal = () => {
     doesJohnnyHaveAccount,
     johnnyCreateAccountQuestions,
     questionCount,
+    currentQuestion,
+    correctOrIncorrectMessage,
     updateQuestionCount,
     answerInput,
     updateAnswerInput,
@@ -33,7 +35,7 @@ const LoginModal = () => {
 
   return (
     <div
-      className={` relative  grid grid-rows-3 gap-4 rounded-md border border-red-500 bg-main p-12`}
+      className={` relative  grid grid-rows-3 gap-4 rounded-md border border-red-500 bg-main sm:p-12`}
       style={
         screenWidth === "mobile"
           ? modalSize.mobile
@@ -49,7 +51,7 @@ const LoginModal = () => {
       {/* Close Modal Button End*/}
 
       {/* Modal Header */}
-      <div className=" grid grid-rows-4 items-center">
+      <div className=" grid grid-rows-4 items-center ">
         {doesJohnnyHaveAccount ? (
           <h2 className="text-center text-xl ">
             If you&apos;re really Johnny, login
@@ -71,7 +73,7 @@ const LoginModal = () => {
 
       {/* Form if Johnny has not made an account yet */}
       <form
-        className="row-span-2 grid items-center justify-items-center rounded-md border border-secondary"
+        className="row-span-2 grid items-center justify-items-center rounded-md sm:border sm:border-secondary"
         onSubmit={(e) => checkIfAnswerIsCorrect(e)}
       >
         {/* LoginModal Quesiton */}
@@ -97,7 +99,7 @@ const LoginModal = () => {
             }
             onChange={(e) => updateAnswerInput(e.target.value)}
             disabled={johnnyCreateAccountQuestions[questionCount]?.isCorrect}
-            className="rounded-md border border-secondary p-2 disabled:text-grayText"
+            className="rounded-md border border-secondary p-2 outline-appOrange disabled:text-grayText sm:mx-10"
           />
           <button
             className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
@@ -113,15 +115,24 @@ const LoginModal = () => {
         </div>
         {/* LoginModal Left Right Buttons and Input End */}
 
-        {/* Submit Button */}
+        <div className="relative grid  gap-2 text-center">
+          {/* Correct or Incorrect Message*/}
+          <h1 className="absolute -top-7 left-1/2 -ml-12 w-24 text-appOrange">
+            {correctOrIncorrectMessage}
+          </h1>
+          {/* Correct or Incorrect Message End*/}
 
-        <button
-          type="submit"
-          className="rounded-md border border-secondary p-2"
-        >
-          Submit
-        </button>
-        {/* Submit Button End */}
+          {/* Submit Button */}
+
+          <button
+            type="submit"
+            className="rounded-md border border-secondary p-2 transition-colors hover:bg-appOrange hover:text-white disabled:text-secondary disabled:hover:bg-white "
+            disabled={currentQuestion !== questionCount}
+          >
+            Submit
+          </button>
+          {/* Submit Button End */}
+        </div>
       </form>
       {/* Form if Johnny has not made an account yet end*/}
       {/* Modal Body End */}

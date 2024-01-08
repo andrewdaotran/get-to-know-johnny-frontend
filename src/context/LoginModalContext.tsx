@@ -7,6 +7,7 @@ import {
 } from "react";
 import { ChildrenNodeType } from "typings";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import { set } from "zod";
 
 export type LoginModalContextType = {
   isLoginModalOpen: boolean;
@@ -35,10 +36,13 @@ export type LoginModalContextType = {
   johnnyCreateAccountQuestions: {
     question: string;
     answer: string;
+
     typedAnswer: string;
     isCorrect: boolean;
   }[];
   questionCount: number;
+  currentQuestion: number;
+  correctOrIncorrectMessage: string;
   updateQuestionCount: (value: boolean) => void;
   answerInput: string;
   updateAnswerInput: (value: string) => void;
@@ -56,17 +60,54 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
   const [questionCount, setQuestionCount] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [correctOrIncorrectMessage, setCorrectOrIncorrectMessage] =
+    useState("");
 
   const [johnnyCreateAccountQuestions, setJohnnyCreateAccountQuestions] =
     useState([
       {
-        question: "whats your name",
-        answer: "hello",
+        question: "What is the newest car you have?",
+        // answer: [
+        //   "sept 1",
+        //   "september 1",
+        //   "september first",
+        //   "sept 1st",
+        //   "september 1st",
+        //   "sept first",
+        //   "sept 01",
+        //   "september 01",
+        //   "9/1",
+        //   "09/01",
+        //   "09/1",
+        //   "9/01",
+        //   "9-1",
+        //   "09-01",
+        //   "09-1",
+        //   "9-01",
+        //   "9.1",
+        //   "09.01",
+        //   "09.1",
+        //   "9.01",
+        //   "9 1",
+        //   "09 01",
+        //   "09 1",
+        //   "9 01",
+        //   "9,1",
+        //   "09,01",
+        //   "09,1",
+        //   "9,01",
+        //   "9:1",
+        //   "09:01",
+        //   "09:1",
+        //   "9:01",
+        // ],
+        answer: "bmw x1",
         typedAnswer: "",
         isCorrect: false,
       },
       {
-        question: "testing",
+        question: "oh thats funny",
         answer: "testing",
         typedAnswer: "",
         isCorrect: false,
@@ -78,8 +119,9 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         isCorrect: false,
       },
       {
-        question: "stuff",
-        answer: "stuff",
+        question:
+          "Alright for reals though, what is the combo I told you to write?",
+        answer: "up down a left up left b down right right down ",
         typedAnswer: "",
         isCorrect: false,
       },
@@ -130,12 +172,19 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
       });
       setAnswerInput("");
       updateQuestionCount(true);
-      console.log("correct");
+      setCurrentQuestion(currentQuestion + 1);
+      setCorrectOrIncorrectMessage("Correct!");
+      setTimeout(() => {
+        setCorrectOrIncorrectMessage("");
+      }, 3000);
       console.log(johnnyCreateAccountQuestions);
       return;
     }
 
-    console.log("incorrect");
+    setCorrectOrIncorrectMessage("Incorrect!");
+    setTimeout(() => {
+      setCorrectOrIncorrectMessage("");
+    }, 3000);
     console.log(johnnyCreateAccountQuestions);
     return;
   }; // Checks if the answer is correct and sets isCorrect to true if it is
@@ -222,6 +271,8 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         doesJohnnyHaveAccount,
         johnnyCreateAccountQuestions,
         questionCount,
+        currentQuestion,
+        correctOrIncorrectMessage,
         updateQuestionCount,
         answerInput,
         updateAnswerInput,
