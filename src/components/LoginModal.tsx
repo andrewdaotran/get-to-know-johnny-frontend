@@ -59,10 +59,10 @@ const LoginModal = () => {
         ) : (
           <>
             <h2 className="row-start-2 row-end-3 text-center text-xl">
-              Are you actually Johnny?
+              {johnnyCreateAccountQuestions[questionCount]?.title}
             </h2>
             <h2 className="row-start-3 row-end-4 text-center text-xl">
-              Yeah right, answer some damn questions first.
+              {johnnyCreateAccountQuestions[questionCount]?.title2}
             </h2>
           </>
         )}
@@ -77,44 +77,69 @@ const LoginModal = () => {
         onSubmit={(e) => checkIfAnswerIsCorrect(e)}
       >
         {/* LoginModal Quesiton */}
-        <h1>{johnnyCreateAccountQuestions[questionCount]?.question}</h1>
+
+        <h1>
+          {questionCount !== 0
+            ? johnnyCreateAccountQuestions[questionCount]?.question
+            : ""}
+        </h1>
+
         {/* LoginModal Quesiton End*/}
-
-        {/* LoginModal Left Right Buttons and Input */}
+        {/* Left Arrow Icon */}
         <div className="flex gap-4">
-          <button
-            onClick={() => updateQuestionCount(false)}
-            type="button"
-            disabled={questionCount === 0}
-            className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
-          >
-            <ArrowLeftCircleIcon className=" my-auto h-8 w-8 " />
-          </button>
-          <input
-            type="text"
-            value={
-              johnnyCreateAccountQuestions[questionCount]?.isCorrect
-                ? johnnyCreateAccountQuestions[questionCount]?.typedAnswer
-                : answerInput
-            }
-            onChange={(e) => updateAnswerInput(e.target.value)}
-            disabled={johnnyCreateAccountQuestions[questionCount]?.isCorrect}
-            className="rounded-md border border-secondary p-2 outline-appOrange disabled:text-grayText sm:mx-10"
-          />
-          <button
-            className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
-            onClick={() => updateQuestionCount(true)}
-            type="button"
-            disabled={
-              questionCount === 3 ||
-              johnnyCreateAccountQuestions[questionCount]?.isCorrect === false
-            }
-          >
-            <ArrowRightCircleIcon className=" my-auto h-8 w-8  " />
-          </button>
-        </div>
-        {/* LoginModal Left Right Buttons and Input End */}
+          {questionCount > 1 ? (
+            <button
+              onClick={() => updateQuestionCount(false)}
+              type="button"
+              disabled={questionCount === 0}
+              className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
+            >
+              <ArrowLeftCircleIcon className=" my-auto h-8 w-8 " />
+            </button>
+          ) : (
+            <div className="my-auto h-8 w-8" />
+          )}
+          {/* Left Arrow Icon End */}
 
+          {/* Input Box */}
+          {questionCount !== 0 ? (
+            <input
+              type="text"
+              value={
+                johnnyCreateAccountQuestions[questionCount]?.isCorrect
+                  ? johnnyCreateAccountQuestions[questionCount]?.typedAnswer
+                  : answerInput
+              }
+              onChange={(e) => updateAnswerInput(e.target.value)}
+              disabled={johnnyCreateAccountQuestions[questionCount]?.isCorrect}
+              className="rounded-md border border-secondary p-2 outline-appOrange disabled:text-grayText sm:mx-10"
+            />
+          ) : (
+            <h1 className="p-6">
+              {johnnyCreateAccountQuestions[questionCount]?.question}
+            </h1>
+          )}
+          {/* Input Box End */}
+
+          {/* Right Arrow Icon */}
+          {questionCount < johnnyCreateAccountQuestions.length &&
+          johnnyCreateAccountQuestions[questionCount]?.isCorrect !== false ? (
+            <button
+              className="cursor-pointer text-appOrange transition-colors hover:text-secondary disabled:text-secondary"
+              onClick={() => updateQuestionCount(true)}
+              type="button"
+              disabled={
+                questionCount === johnnyCreateAccountQuestions.length ||
+                johnnyCreateAccountQuestions[questionCount]?.isCorrect === false
+              }
+            >
+              <ArrowRightCircleIcon className=" my-auto h-8 w-8  " />
+            </button>
+          ) : (
+            <div className="my-auto h-8 w-8" />
+          )}
+        </div>
+        {/* Right Arrow Icon End */}
         <div className="relative grid  gap-2 text-center">
           {/* Correct or Incorrect Message*/}
           <h1 className="absolute -top-7 left-1/2 -ml-12 w-24 text-appOrange">
@@ -126,10 +151,10 @@ const LoginModal = () => {
 
           <button
             type="submit"
-            className="rounded-md border border-secondary p-2 transition-colors hover:bg-appOrange hover:text-white disabled:text-secondary disabled:hover:bg-white "
+            className="w-20 rounded-md border border-secondary p-2 transition-colors hover:bg-appOrange hover:text-white disabled:text-secondary disabled:hover:bg-white "
             disabled={currentQuestion !== questionCount}
           >
-            Submit
+            {questionCount === 0 ? "Yes" : "Submit"}
           </button>
           {/* Submit Button End */}
         </div>

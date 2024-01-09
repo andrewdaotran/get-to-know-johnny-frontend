@@ -36,9 +36,10 @@ export type LoginModalContextType = {
   johnnyCreateAccountQuestions: {
     question: string;
     answer: string;
-
     typedAnswer: string;
     isCorrect: boolean;
+    title: string;
+    title2?: string;
   }[];
   questionCount: number;
   currentQuestion: number;
@@ -67,67 +68,48 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const [johnnyCreateAccountQuestions, setJohnnyCreateAccountQuestions] =
     useState([
       {
+        question: "Ready?",
+        answer: "yes",
+        typedAnswer: "",
+        isCorrect: false,
+        title: "Trying to make an account?",
+        title2: " First you need to prove that you're actually Johnny.",
+      },
+      {
         question: "What is the newest car you have?",
-        // answer: [
-        //   "sept 1",
-        //   "september 1",
-        //   "september first",
-        //   "sept 1st",
-        //   "september 1st",
-        //   "sept first",
-        //   "sept 01",
-        //   "september 01",
-        //   "9/1",
-        //   "09/01",
-        //   "09/1",
-        //   "9/01",
-        //   "9-1",
-        //   "09-01",
-        //   "09-1",
-        //   "9-01",
-        //   "9.1",
-        //   "09.01",
-        //   "09.1",
-        //   "9.01",
-        //   "9 1",
-        //   "09 01",
-        //   "09 1",
-        //   "9 01",
-        //   "9,1",
-        //   "09,01",
-        //   "09,1",
-        //   "9,01",
-        //   "9:1",
-        //   "09:01",
-        //   "09:1",
-        //   "9:01",
-        // ],
         answer: "bmw x1",
         typedAnswer: "",
         isCorrect: false,
+        title: "Alright here we go",
+        title2: "First Question",
       },
       {
         question: "oh thats funny",
         answer: "testing",
         typedAnswer: "",
         isCorrect: false,
+        title: "Lucky guess",
+        title2: "Here's the Second Question",
       },
       {
         question: "again",
         answer: "again",
         typedAnswer: "",
         isCorrect: false,
+        title: "Dang maybe you are Johnny",
+        title2: "Try this one",
       },
       {
-        question:
-          "Alright for reals though, what is the combo I told you to write?",
+        question: "What is the combo I told you to write?",
         answer: "up down a left up left b down right right down ",
         typedAnswer: "",
         isCorrect: false,
+        title: "Damn it IS my boiii",
+        title2: "Alright for reals now",
       },
     ]); // questions for Johnny to answer to create an account
 
-  const [answerInput, setAnswerInput] = useState(""); // input for Johnny to answer questions to create an account
+  const [answerInput, setAnswerInput] = useState("Yes"); // input for Johnny to answer questions to create an account
 
   const updateAnswerInput = (value: string) => {
     setAnswerInput(value);
@@ -145,7 +127,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     // Forward
     if (
       value &&
-      questionCount < 3 &&
+      questionCount < johnnyCreateAccountQuestions.length &&
       johnnyCreateAccountQuestions[questionCount]?.isCorrect
     ) {
       setQuestionCount(questionCount + 1);
@@ -173,11 +155,14 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
       setAnswerInput("");
       updateQuestionCount(true);
       setCurrentQuestion(currentQuestion + 1);
-      setCorrectOrIncorrectMessage("Correct!");
-      setTimeout(() => {
-        setCorrectOrIncorrectMessage("");
-      }, 3000);
-      console.log(johnnyCreateAccountQuestions);
+      if (questionCount !== 0) {
+        setCorrectOrIncorrectMessage("Correct!");
+        setTimeout(() => {
+          setCorrectOrIncorrectMessage("");
+        }, 3000);
+        console.log(johnnyCreateAccountQuestions);
+      }
+
       return;
     }
 
