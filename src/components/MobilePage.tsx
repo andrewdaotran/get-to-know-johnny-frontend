@@ -70,7 +70,7 @@ const MobilePage = () => {
       {/* Login Modal Gray Background End */}
       {/* Hidden Login Button */}
       <div
-        className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md border border-red-500"
+        className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md "
         onClick={openLoginModal}
       ></div>
       {/* Hidden Login Button End */}

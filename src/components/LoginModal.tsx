@@ -71,7 +71,7 @@ const LoginModal = () => {
 
       {/* Modal Body */}
 
-      {/* Form if Johnny has not made an account yet */}
+      {/* Form if Johnny has not made an account yet with dumb questions */}
       <form
         className="row-span-2 grid items-center justify-items-center rounded-md sm:border sm:border-secondary"
         onSubmit={(e) => checkIfAnswerIsCorrect(e)}
@@ -159,7 +159,7 @@ const LoginModal = () => {
           {/* Submit Button End */}
         </div>
       </form>
-      {/* Form if Johnny has not made an account yet end*/}
+      {/* Form if Johnny has not made an account yet with dumb questions end */}
       {/* Modal Body End */}
     </div>
   );

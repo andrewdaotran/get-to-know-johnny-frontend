@@ -60,6 +60,16 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  const closeLoginModal = () => {
+    setIsLoginModalOpen(false);
+  };
+
+  /* Stuff for if Johnny has not made an account yet with dumb questions */
+
   const [questionCount, setQuestionCount] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [correctOrIncorrectMessage, setCorrectOrIncorrectMessage] =
@@ -115,14 +125,6 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     setAnswerInput(value);
   };
 
-  const openLoginModal = () => {
-    setIsLoginModalOpen(true);
-  };
-
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
-  };
-
   const updateQuestionCount = (value: boolean) => {
     // Forward
     if (
@@ -173,6 +175,8 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     console.log(johnnyCreateAccountQuestions);
     return;
   }; // Checks if the answer is correct and sets isCorrect to true if it is
+
+  /* Stuff for if Johnny has not made an account yet with dumb questions end */
 
   const checkIfJohnnyHasAccount = () => {
     if (doesJohnnyHaveAccount) {
