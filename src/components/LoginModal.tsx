@@ -17,8 +17,16 @@ import {
   PASSWORD,
   CONFIRM_PASSWORD,
 } from "../context/LoginModalContext";
+import { GetServerSideProps } from "next";
+import { getProviders } from "next-auth/react";
+import { AppProps } from "next/app";
 
-const LoginModal = () => {
+interface Props {
+  providers: AppProps;
+}
+
+const LoginModal = ({ providers }: Props) => {
+  console.log(providers);
   const {
     openLoginModal,
     closeLoginModal,
@@ -136,6 +144,13 @@ const LoginModal = () => {
 };
 
 export default LoginModal;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const providers = getProviders();
+  return {
+    props: { providers },
+  };
+};
 
 {
   /* Modal Header */
