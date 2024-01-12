@@ -1,3 +1,5 @@
+"use client";
+
 import LoginModalContext, {
   LoginModalContextType,
 } from "andrewdaotran/context/LoginModalContext";
@@ -18,8 +20,10 @@ import {
   CONFIRM_PASSWORD,
 } from "../context/LoginModalContext";
 import { GetServerSideProps } from "next";
-import { getProviders } from "next-auth/react";
+import { getProviders, signIn } from "next-auth/react";
 import { AppProps } from "next/app";
+
+import GoogleButton from "react-google-button";
 
 interface Props {
   providers: AppProps;
@@ -45,11 +49,11 @@ const LoginModal = ({ providers }: Props) => {
     // answerInput,
     // updateAnswerInput,
     // checkIfAnswerIsCorrect,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(LoginModalContext);
+  // as LoginModalContextType;
 
-  const { screenWidth } = useContext(
-    WindowSizeContext
-  ) as WindowSizeContextType;
+  const { screenWidth } = useContext(WindowSizeContext);
+  //  as WindowSizeContextType;
 
   const [passwordFieldTypes, setPasswordFieldTypes] = useState({
     password: "password",
@@ -72,6 +76,8 @@ const LoginModal = ({ providers }: Props) => {
         <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
       </div>
       {/* Close Modal Button End*/}
+
+      {/* <GoogleButton onClick={() => signIn("google")} className="mx-auto " /> */}
 
       {/* Modal Header */}
       <div className=" grid grid-rows-4 items-center ">
@@ -146,7 +152,7 @@ const LoginModal = ({ providers }: Props) => {
 export default LoginModal;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const providers = getProviders();
+  const providers = await getProviders();
   return {
     props: { providers },
   };
