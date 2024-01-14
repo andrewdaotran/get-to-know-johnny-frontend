@@ -33,13 +33,6 @@ export type LoginModalContextType = {
     };
   };
   doesJohnnyHaveAccount: boolean;
-  loginModalFields: {
-    email: string;
-    password: string;
-    confirmPassword: string;
-  };
-  loginOrCreateAccount: (e: FormEvent<HTMLFormElement>) => void;
-  updateLoginModalFields: (field: string, fieldType: string) => void;
   // johnnyCreateAccountQuestions: {
   //   question: string;
   //   answer: string;
@@ -59,10 +52,6 @@ export type LoginModalContextType = {
   // checkIfAnswerIsCorrect: (e: FormEvent<HTMLFormElement>) => boolean;
 };
 
-export const EMAIL = "email";
-export const PASSWORD = "password";
-export const CONFIRM_PASSWORD = "confirmPassword";
-
 const LoginModalContext = createContext<LoginModalContextType | null>(null);
 
 export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
@@ -70,24 +59,6 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
-
-  const [loginModalFields, setLoginModalFields] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const updateLoginModalFields = (fieldType: string, field: string) => {
-    if (fieldType === EMAIL) {
-      setLoginModalFields({ ...loginModalFields, email: field });
-    }
-    if (fieldType === PASSWORD) {
-      setLoginModalFields({ ...loginModalFields, password: field });
-    }
-    if (fieldType === CONFIRM_PASSWORD) {
-      setLoginModalFields({ ...loginModalFields, confirmPassword: field });
-    }
-  };
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -97,26 +68,11 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     setIsLoginModalOpen(false);
   };
 
-  /* Stuff for if Johnny has not made an account yet with dumb questions */
-
-  /* Stuff for if Johnny has not made an account yet with dumb questions end */
-
   const checkIfJohnnyHasAccount = () => {
     if (doesJohnnyHaveAccount) {
-      setDoesJohnnyHaveAccount(true);
       return;
     }
   }; // Checks database if there is a user with the name Johnny and sets doesJohnnyHaveAccount to true if there is
-
-  const loginOrCreateAccount = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Login
-    if (doesJohnnyHaveAccount) {
-      return;
-    }
-
-    // Create Account
-  };
 
   const modalSizeNoRems = {
     mobile: {
@@ -192,9 +148,6 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         modalSize,
         modalMargin,
         doesJohnnyHaveAccount,
-        loginModalFields,
-        loginOrCreateAccount,
-        updateLoginModalFields,
         // johnnyCreateAccountQuestions,
         // questionCount,
         // currentQuestion,
@@ -212,7 +165,9 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
 export default LoginModalContext;
 
-// const [questionCount, setQuestionCount] = useState(0);
+//  /* Stuff for if Johnny has not made an account yet with dumb questions */
+
+//   const [questionCount, setQuestionCount] = useState(0);
 //   const [currentQuestion, setCurrentQuestion] = useState(0);
 //   const [correctOrIncorrectMessage, setCorrectOrIncorrectMessage] =
 //     useState("");
@@ -317,3 +272,5 @@ export default LoginModalContext;
 //     console.log(johnnyCreateAccountQuestions);
 //     return;
 //   }; // Checks if the answer is correct and sets isCorrect to true if it is
+
+//   /* Stuff for if Johnny has not made an account yet with dumb questions end */

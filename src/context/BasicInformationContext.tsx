@@ -1,4 +1,4 @@
-import { api } from "andrewdaotran/utils/api";
+import { api } from "../utils/api";
 import {
   Dispatch,
   SetStateAction,
@@ -7,8 +7,12 @@ import {
   useState,
 } from "react";
 import { toast } from "react-hot-toast";
-import { BasicInformation, ChildrenNodeType, InformationBox } from "typings";
-import { basicInformationInput, informationBoxInput } from "zodTypings";
+import {
+  BasicInformation,
+  ChildrenNodeType,
+  InformationBox,
+} from "../../typings";
+import { basicInformationInput, informationBoxInput } from "../../zodTypings";
 
 export type BasicInformationContextType = {
   mainData: BasicInformation;
