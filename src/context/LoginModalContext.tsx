@@ -5,9 +5,11 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ChildrenNodeType } from "typings";
+import { ChildrenNodeType, User } from "typings";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
-import { set } from "zod";
+import { getServerSession } from "next-auth";
+import { authOptions } from "andrewdaotran/server/auth";
+import { useSession } from "next-auth/react";
 
 export type LoginModalContextType = {
   isLoginModalOpen: boolean;
@@ -33,6 +35,8 @@ export type LoginModalContextType = {
     };
   };
   doesJohnnyHaveAccount: boolean;
+  johnnyData: User;
+
   // johnnyCreateAccountQuestions: {
   //   question: string;
   //   answer: string;
@@ -56,6 +60,22 @@ const LoginModalContext = createContext<LoginModalContextType | null>(null);
 
 export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   const windowSize = useWindowSize();
+
+  const { data: session, status } = useSession();
+
+  const [johnnyData, setJohnnyData] = useState({
+    email: "",
+    id: "",
+    image: "",
+    name: "",
+    status: "",
+  });
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setJohnnyData({ ...session?.user, status } as User);
+    }
+  }, [status]);
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
@@ -148,6 +168,7 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
         modalSize,
         modalMargin,
         doesJohnnyHaveAccount,
+        johnnyData,
         // johnnyCreateAccountQuestions,
         // questionCount,
         // currentQuestion,

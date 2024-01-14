@@ -8,12 +8,13 @@ import WindowSizeContext, {
 import React, { useContext } from "react";
 import GoogleButton from "react-google-button";
 
+import { signIn, signOut, useSession } from "next-auth/react";
+
 import {
   XMarkIcon,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
-import { signIn } from "next-auth/react";
 
 const LoginModal = () => {
   const {
@@ -23,6 +24,7 @@ const LoginModal = () => {
     modalSize,
     modalMargin,
     doesJohnnyHaveAccount,
+    johnnyData,
     // johnnyCreateAccountQuestions,
     // questionCount,
     // currentQuestion,
@@ -35,7 +37,7 @@ const LoginModal = () => {
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
-
+  console.log(johnnyData);
   return (
     <div
       className={` relative  grid grid-rows-3 gap-4 rounded-md border border-red-500 bg-main sm:p-12`}
@@ -54,7 +56,7 @@ const LoginModal = () => {
       {/* Close Modal Button End*/}
 
       <div>
-        <GoogleButton className="mx-auto" onClick={() => signIn("google")} />
+        {/* <GoogleButton className="mx-auto" onClick={() => signIn("google")} /> */}
       </div>
 
       {/* Modal Header */}
@@ -69,6 +71,16 @@ const LoginModal = () => {
 };
 
 export default LoginModal;
+
+// export const getServerSideProps = async () => {
+//   const session = await getServerSession(authOptions);
+
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// };
 
 //  <div className=" grid grid-rows-4 items-center ">
 //    {doesJohnnyHaveAccount ? (

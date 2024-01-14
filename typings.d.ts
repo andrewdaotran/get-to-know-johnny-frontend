@@ -27,3 +27,11 @@ export type InformationBox = {
   description: string;
   basicInformationId?: string;
 };
+
+export type User = {
+  email: string;
+  id: string;
+  image: string;
+  name: string;
+  status: string;
+};
