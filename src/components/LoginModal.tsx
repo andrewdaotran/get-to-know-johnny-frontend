@@ -56,7 +56,11 @@ const LoginModal = () => {
       {/* Close Modal Button End*/}
 
       <div>
-        {/* <GoogleButton className="mx-auto" onClick={() => signIn("google")} /> */}
+        <GoogleButton
+          className="mx-auto"
+          onClick={() => void signIn("google")}
+        />
+        <button onClick={() => void signOut()}>sign out</button>
       </div>
 
       {/* Modal Header */}

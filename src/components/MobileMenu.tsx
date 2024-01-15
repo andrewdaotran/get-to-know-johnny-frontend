@@ -4,6 +4,9 @@ import {
   DocumentTextIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
+import LoginModalContext, {
+  LoginModalContextType,
+} from "andrewdaotran/context/LoginModalContext";
 import MobileMenuContext, {
   CHAT_ACTION,
   DESCRIPTION_ACTION,
@@ -18,6 +21,8 @@ const MobileMenu = () => {
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
+
+  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
   return (
     <>
       {/* Menu Bottom */}
@@ -60,25 +65,28 @@ const MobileMenu = () => {
           </Link>
         </button>
         {/* Gallery Button End */}
-        {/* Edit Button */}
 
-        <button
-          className=""
-          onClick={() => {
-            changeMenu(EDIT_ACTION);
-          }}
-        >
-          <Link
-            // href={"/Edit"}
-            href={"/edit"}
-            className={`${menu.isEdit ? "pointer-events-none" : ""}`}
+        {/* Edit Button */}
+        {johnnyData?.status === "authenticated" && (
+          <button
+            className=""
+            onClick={() => {
+              changeMenu(EDIT_ACTION);
+            }}
           >
-            {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}
-            <PencilSquareIcon
-              className={`${menu.isEdit ? "text-main" : ""} mx-auto h-6 w-6`}
-            />
-          </Link>
-        </button>
+            <Link
+              // href={"/Edit"}
+              href={"/edit"}
+              className={`${menu.isEdit ? "pointer-events-none" : ""}`}
+            >
+              {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}
+              <PencilSquareIcon
+                className={`${menu.isEdit ? "text-main" : ""} mx-auto h-6 w-6`}
+              />
+            </Link>
+          </button>
+        )}
+
         {/* Edit Button End */}
       </div>
       {/* Menu Bottom End*/}

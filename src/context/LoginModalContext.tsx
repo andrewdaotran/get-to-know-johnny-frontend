@@ -9,7 +9,9 @@ import { ChildrenNodeType, User } from "typings";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
 import { getServerSession } from "next-auth";
 import { authOptions } from "andrewdaotran/server/auth";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { api } from "andrewdaotran/utils/api";
+import { sign } from "crypto";
 
 export type LoginModalContextType = {
   isLoginModalOpen: boolean;
@@ -63,6 +65,17 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
 
   const { data: session, status } = useSession();
 
+  const trpc = api.useContext();
+
+  const { data } = api.user.getJohnny.useQuery();
+  const { data: all } = api.user.getAll.useQuery();
+
+  const { mutate: createUser } = api.user.createUser.useMutation({
+    onSettled: async () => {
+      await trpc.user.invalidate();
+    },
+  });
+
   const [johnnyData, setJohnnyData] = useState({
     email: "",
     id: "",
@@ -72,10 +85,36 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   });
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (session?.user?.id !== data?.id) {
+      setJohnnyData({ ...johnnyData, status: "Not Johnny" } as User);
+      // console.log(session?.user.id, data?.id);
+      // console.log(session?.user.id === data?.id);
+    }
+
+    if (status === "authenticated" && session?.user?.id === data?.id) {
       setJohnnyData({ ...session?.user, status } as User);
     }
-  }, [status]);
+
+    if (!data?.id && johnnyData?.id) {
+      createUser(johnnyData);
+    }
+    if (status === "unauthenticated") {
+      setJohnnyData({
+        email: "",
+        id: "",
+        image: "",
+        name: "",
+        status: "",
+      });
+    }
+  }, [status, data]);
+
+  // console.log("all", all);
+  // console.log("johnnyData", johnnyData);
+  // console.log("status", status);
+  // console.log(session?.user, data);
+  // console.log(session?.user.id, data?.id);
+  // console.log(session?.user.id === data?.id);
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
