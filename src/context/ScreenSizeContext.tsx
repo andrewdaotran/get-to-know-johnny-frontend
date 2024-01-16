@@ -10,8 +10,11 @@ export type WindowSizeContextType = {
 const WindowSizeContext = createContext<WindowSizeContextType | null>(null);
 
 export const WindowSizeProvider = ({ children }: ChildrenNodeType) => {
-  const mobileWidth = 1023;
-  const tabletWidth = 1024;
+  // const mobileWidth = 1023;
+  // const tabletWidth = 1024;
+
+  const mobileWidth = 897;
+  const tabletWidth = 898;
   const desktopWidth = 1536;
   // const mobileWidth = 1179;
   // const tabletWidth = 1180;
