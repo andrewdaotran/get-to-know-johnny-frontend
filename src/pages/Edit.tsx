@@ -50,21 +50,6 @@ const Edit = () => {
   return (
     <>
       <div className="relative flex h-screen flex-col bg-secondary ">
-        {/* Large Screen Edit Button */}
-        {screenWidth > "mobile" && johnnyData?.status === "authenticated" && (
-          <button
-            className=" fixed right-0 top-0 z-10  rounded-md border border-red-500 bg-appOrange p-6 transition-colors hover:text-main  "
-            onClick={() => changeMenu(CHAT_ACTION)}
-          >
-            <Link
-              href={"/"}
-              className={`${menu.isChat ? "pointer-events-none" : ""}`}
-            >
-              Home
-            </Link>
-          </button>
-        )}
-
         {/* Large Screen Edit Button End */}
         {/* <BasicInformation isViewOnly={false} />
         <EditHobbies isEditPage={true} />

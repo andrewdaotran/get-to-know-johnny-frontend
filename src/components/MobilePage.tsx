@@ -65,25 +65,6 @@ const MobilePage = () => {
       )}
       {/* Login Modal End */}
 
-      {/* Large Screen Edit Button */}
-      {screenWidth > "mobile" && johnnyData?.status === "authenticated" && (
-        <button
-          className="fixed right-0 top-0 z-10  rounded-md border border-red-500 bg-appOrange p-6 transition-colors hover:text-main"
-          onClick={() => {
-            changeMenu(EDIT_ACTION);
-          }}
-        >
-          <Link
-            // href={"/Edit"}
-            href={"/edit"}
-            className={`${menu.isEdit ? "pointer-events-none" : ""}`}
-          >
-            Edit
-          </Link>
-        </button>
-      )}
-      {/* Large Screen Edit Button End */}
-
       {/* Login Modal Gray Background */}
       {isLoginModalOpen && (
         <div
