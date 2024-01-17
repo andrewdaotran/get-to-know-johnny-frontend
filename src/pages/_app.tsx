@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react";
 
 import { api } from "andrewdaotran/utils/api";
 
+import superjson from "superjson";
+
 import "andrewdaotran/styles/globals.css";
 
 import { MessageProvider } from "andrewdaotran/context/MessageContext";
@@ -15,6 +17,7 @@ import { HobbyProvider } from "andrewdaotran/context/HobbyContext";
 import { WindowSizeProvider } from "andrewdaotran/context/ScreenSizeContext";
 import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
 import { LoginModalProvider } from "andrewdaotran/context/LoginModalContext";
+import { AppRouter } from "andrewdaotran/server/api/root";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

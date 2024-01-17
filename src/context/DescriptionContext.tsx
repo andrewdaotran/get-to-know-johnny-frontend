@@ -89,7 +89,7 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
         result.error.issues[0]?.path[0] === "title" &&
         result.error.issues[0]?.code === "too_big"
       )
-        toast.error(`Title cannot contain more than 50 characters`);
+        toast.error(`Title cannot contain more than 75 characters`);
 
       if (
         result.error.issues[0]?.path[0] === "description" &&
@@ -128,7 +128,7 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
           result.error.issues[0]?.path[0] === "title" &&
           result.error.issues[0]?.code === "too_big"
         )
-          toast.error(`Title cannot contain more than 50 characters`);
+          toast.error(`Title cannot contain more than 75 characters`);
 
         if (
           result.error.issues[0]?.path[0] === "description" &&

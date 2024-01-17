@@ -8,6 +8,7 @@ import DescriptionContext, {
 } from "./DescriptionContext";
 import Hobbies from "andrewdaotran/components/BioComponents/Hobbies";
 import HobbyContext, { HobbyContextType } from "./HobbyContext";
+import { useRouter } from "next/router";
 
 type Menu = {
   isChat: boolean;
@@ -43,9 +44,7 @@ const defaultMenu = {
 const MobileMenuContext = createContext<MobileMenuContextType | null>(null);
 
 export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
-  useEffect(() => {
-    setMenu({ ...defaultMenu, isChat: true });
-  }, []);
+  const router = useRouter();
 
   // Context data to load to change loading state
 
@@ -75,6 +74,17 @@ export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
   // End Context data
 
   const [menu, setMenu] = useState<Menu>(defaultMenu);
+
+  useEffect(() => {
+    if (router.pathname === "/" && menu.isDescription)
+      return setMenu({ ...defaultMenu, isDescription: true });
+    if (router.pathname === "/" && menu.isGallery)
+      return setMenu({ ...defaultMenu, isGallery: true });
+    if (router.pathname === "/")
+      return setMenu({ ...defaultMenu, isChat: true });
+    if (router.pathname === "/edit")
+      return setMenu({ ...defaultMenu, isEdit: true });
+  }, [router.pathname]);
 
   const changeMenu = (menuString: string) => {
     if (menuString === CHAT_ACTION) setMenu({ ...defaultMenu, isChat: true });

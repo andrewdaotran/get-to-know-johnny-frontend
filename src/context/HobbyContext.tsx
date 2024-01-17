@@ -75,7 +75,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
         result.error.issues[0]?.path[0] === "hobby" &&
         result.error.issues[0]?.code === "too_big"
       )
-        toast.error(`Hobby cannot contain more than 50 characters`);
+        toast.error(`Hobby cannot contain more than 75 characters`);
       return false;
     }
     return true;
@@ -119,7 +119,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
         result.error.issues[0]?.path[0] === "hobby" &&
         result.error.issues[0]?.code === "too_big"
       )
-        toast.error(`Hobby cannot contain more than 50 characters`);
+        toast.error(`Hobby cannot contain more than 75 characters`);
 
       return false;
     }

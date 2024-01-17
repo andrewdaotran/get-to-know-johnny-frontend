@@ -24,6 +24,12 @@ import Link from "next/link";
 import LoginModalContext, {
   LoginModalContextType,
 } from "andrewdaotran/context/LoginModalContext";
+import { api } from "andrewdaotran/utils/api";
+import BasicInformationContext, {
+  BasicInformationContextType,
+} from "andrewdaotran/context/BasicInformationContext";
+import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 type Props = {
   data: DescriptionType;
@@ -40,40 +46,25 @@ const Edit = () => {
 
   const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
 
-  useEffect(() => {
-    changeMenu(EDIT_ACTION);
-  }, []);
-
   //  Needs loading state
   return (
     <>
       <div className="relative flex h-screen flex-col bg-secondary ">
         {/* Large Screen Edit Button */}
-        {screenWidth > "mobile" && (
-          <div className="fixed right-4 top-0 z-10 rounded-md border border-red-500 bg-appOrange p-6 ">
-            {johnnyData?.status === "authenticated" && (
-              <button
-                className=""
-                onClick={() => {
-                  changeMenu(CHAT_ACTION);
-                }}
-              >
-                <Link
-                  href={"/"}
-                  className={`${menu.isEdit ? "pointer-events-none" : ""}`}
-                >
-                  <h3
-                    className={`${
-                      menu.isEdit ? "text-main" : ""
-                    } mx-auto h-6 w-6`}
-                  >
-                    Home
-                  </h3>
-                </Link>
-              </button>
-            )}
-          </div>
+        {screenWidth > "mobile" && johnnyData?.status === "authenticated" && (
+          <button
+            className=" fixed right-0 top-0 z-10  rounded-md border border-red-500 bg-appOrange p-6 transition-colors hover:text-main  "
+            onClick={() => changeMenu(CHAT_ACTION)}
+          >
+            <Link
+              href={"/"}
+              className={`${menu.isChat ? "pointer-events-none" : ""}`}
+            >
+              Home
+            </Link>
+          </button>
         )}
+
         {/* Large Screen Edit Button End */}
         {/* <BasicInformation isViewOnly={false} />
         <EditHobbies isEditPage={true} />
