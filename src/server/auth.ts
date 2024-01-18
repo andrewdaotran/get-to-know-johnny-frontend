@@ -6,7 +6,7 @@ import {
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "andrewdaotran/server/db";
+import { prisma } from "../server/db";
 import GoogleProvider from "next-auth/providers/google";
 
 /**

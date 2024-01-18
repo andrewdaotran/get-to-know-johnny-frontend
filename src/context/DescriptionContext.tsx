@@ -1,4 +1,4 @@
-import { api } from "andrewdaotran/utils/api";
+import { api } from "../utils/api";
 import {
   Dispatch,
   RefObject,
@@ -9,8 +9,8 @@ import {
   useState,
 } from "react";
 import { toast } from "react-hot-toast";
-import { ChildrenNodeType, Description } from "typings";
-import { descriptionInput, descriptionInputWithId } from "zodTypings";
+import { ChildrenNodeType, Description } from "../../typings";
+import { descriptionInput, descriptionInputWithId } from "../../zodTypings";
 
 export type DescriptionContextType = {
   mainDataArray: Description[];

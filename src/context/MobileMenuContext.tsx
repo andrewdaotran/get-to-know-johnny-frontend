@@ -1,12 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import type { ChildrenNodeType } from "typings";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import type { ChildrenNodeType } from "../../typings";
 import BasicInformationContext, {
   BasicInformationContextType,
 } from "./BasicInformationContext";
 import DescriptionContext, {
   DescriptionContextType,
 } from "./DescriptionContext";
-import Hobbies from "andrewdaotran/components/BioComponents/Hobbies";
+import Hobbies from "../components/BioComponents/Hobbies";
 import HobbyContext, { HobbyContextType } from "./HobbyContext";
 import { useRouter } from "next/router";
 

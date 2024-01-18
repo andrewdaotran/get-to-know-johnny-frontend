@@ -2,21 +2,22 @@ import DescriptionBox from "./DescriptionBox";
 import { useContext } from "react";
 import BasicInformationContext, {
   BasicInformationContextType,
-} from "andrewdaotran/context/BasicInformationContext";
+} from "../../context/BasicInformationContext";
 import InformationBox from "./InformationBox";
 import Button from "../UtilityComponents/Button";
 import WindowSizeContext, {
   WindowSizeContextType,
-} from "andrewdaotran/context/ScreenSizeContext";
+} from "../../context/ScreenSizeContext";
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "../../context/LoginModalContext";
 import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,
-} from "andrewdaotran/context/MobileMenuContext";
+} from "../../context/MobileMenuContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
 
 type Props = {
   isEditPage: boolean;

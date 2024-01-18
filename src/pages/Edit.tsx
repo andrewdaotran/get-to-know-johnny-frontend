@@ -4,32 +4,33 @@ import type {
   NextPageContext,
 } from "next";
 
-import EditDescriptions from "andrewdaotran/components/BioComponents/Descriptions";
-import MobileMenu from "andrewdaotran/components/MobileMenu";
-import { Description as DescriptionType } from "typings";
+import EditDescriptions from "../components/BioComponents/Descriptions";
+import MobileMenu from "../components/MobileMenu";
+import { Description as DescriptionType } from "../../typings";
 import MobileMenuContext, {
   EDIT_ACTION,
   CHAT_ACTION,
   MobileMenuContextType,
-} from "andrewdaotran/context/MobileMenuContext";
+} from "../context/MobileMenuContext";
 import { useContext, useEffect } from "react";
-import EditHobbies from "andrewdaotran/components/BioComponents/Hobbies";
+import EditHobbies from "../components/BioComponents/Hobbies";
 
-import Bio from "andrewdaotran/components/Bio";
-import BasicInformation from "andrewdaotran/components/BioComponents/BasicInformation";
+import Bio from "../components/Bio";
+import BasicInformation from "../components/BioComponents/BasicInformation";
 import WindowSizeContext, {
   WindowSizeContextType,
-} from "andrewdaotran/context/ScreenSizeContext";
+} from "../context/ScreenSizeContext";
 import Link from "next/link";
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
-import { api } from "andrewdaotran/utils/api";
+} from "../context/LoginModalContext";
+import { api } from "../utils/api";
 import BasicInformationContext, {
   BasicInformationContextType,
-} from "andrewdaotran/context/BasicInformationContext";
+} from "../context/BasicInformationContext";
 import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+import React from "react";
 
 type Props = {
   data: DescriptionType;

@@ -6,15 +6,15 @@ import MobileMenuContext, {
   CHAT_ACTION,
   EDIT_ACTION,
   MobileMenuContextType,
-} from "andrewdaotran/context/MobileMenuContext";
+} from "../context/MobileMenuContext";
 import Gallery from "./Gallery";
 import WindowSizeContext, {
   WindowSizeContextType,
-} from "andrewdaotran/context/ScreenSizeContext";
-import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+} from "../context/ScreenSizeContext";
+import useWindowSize from "../CustomHooks/useWindowSize";
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "../context/LoginModalContext";
 import LoginModal from "./LoginModal";
 
 import Link from "next/link";
