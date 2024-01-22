@@ -32,8 +32,9 @@ export const Chatbox = () => {
     setMessage(e.currentTarget.textContent);
   };
 
-  const { screenWidth } = useContext(WindowSizeContext);
-  // as WindowSizeContextType;
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
 
   return (
     <>

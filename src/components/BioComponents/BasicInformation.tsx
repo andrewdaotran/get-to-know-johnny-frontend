@@ -34,11 +34,11 @@ const BasicInformation = ({ isEditPage }: Props) => {
     setMainData,
     editBasicInformation,
     editInformationBoxes,
-  } = useContext(BasicInformationContext);
-  //  as BasicInformationContextType;
+  } = useContext(BasicInformationContext) as BasicInformationContextType;
 
-  const { screenWidth } = useContext(WindowSizeContext);
-  // as WindowSizeContextType;
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
 
   const router = useRouter();
 
@@ -49,11 +49,11 @@ const BasicInformation = ({ isEditPage }: Props) => {
     modalSize,
     modalMargin,
     johnnyData,
-  } = useContext(LoginModalContext);
-  // as LoginModalContextType;
+  } = useContext(LoginModalContext) as LoginModalContextType;
 
-  const { menu, changeMenu } = useContext(MobileMenuContext);
-  //  as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
   const submit = () => {
     const basicInformationSuccess = editBasicInformation();

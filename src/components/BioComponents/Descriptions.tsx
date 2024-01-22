@@ -23,8 +23,7 @@ const Descriptions = ({ isEditPage }: Props) => {
     editDescription,
     resetMainData,
     removeDescription,
-  } = useContext(DescriptionContext);
-  //  as DescriptionContextType;
+  } = useContext(DescriptionContext) as DescriptionContextType;
 
   return (
     <>

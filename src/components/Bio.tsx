@@ -19,8 +19,9 @@ const Bio = ({ isEditPage }: Props) => {
   const windowSize = useWindowSize();
   const { data: hobbies } = api.hobby.getAll.useQuery();
 
-  const { menu, changeMenu } = useContext(MobileMenuContext);
-  // ) as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
   // useEffect(() => {
   //   changeMenu(DESCRIPTION_ACTION);

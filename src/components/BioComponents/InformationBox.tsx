@@ -22,8 +22,7 @@ const InformationBox = ({
 }: Props) => {
   const { informationBoxes, setInformationBoxes } = useContext(
     BasicInformationContext
-  );
-  // as BasicInformationContextType;
+  ) as BasicInformationContextType;
 
   const titleRef = useRef<HTMLSpanElement>(null);
   const descriptionRef = useRef<HTMLSpanElement>(null);

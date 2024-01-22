@@ -37,14 +37,15 @@ type Props = {
 };
 
 const Edit = () => {
-  const { menu, changeMenu } = useContext(MobileMenuContext);
-  // as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
-  const { screenWidth } = useContext(WindowSizeContext);
-  // as WindowSizeContextType;
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
 
-  const { johnnyData } = useContext(LoginModalContext);
-  // as LoginModalContextType;
+  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
 
   //  Needs loading state
   return (

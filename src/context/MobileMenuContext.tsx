@@ -52,15 +52,15 @@ export const MobileMenuProvider = ({ children }: ChildrenNodeType) => {
 
   const { mainData: basicInformationData } = useContext(
     BasicInformationContext
-  );
-  // as BasicInformationContextType;
+  ) as BasicInformationContextType;
 
-  const { mainDataArray: descriptionDataArray } =
-    useContext(DescriptionContext);
-  // as DescriptionContextType;
+  const { mainDataArray: descriptionDataArray } = useContext(
+    DescriptionContext
+  ) as DescriptionContextType;
 
-  const { mainDataArray: hobbyDataArray } = useContext(HobbyContext);
-  // as HobbyContextType;
+  const { mainDataArray: hobbyDataArray } = useContext(
+    HobbyContext
+  ) as HobbyContextType;
 
   useEffect(() => {
     if (

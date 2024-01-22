@@ -7,8 +7,9 @@ import MobileMenuContext, {
 } from "andrewdaotran/context/MobileMenuContext";
 
 const Gallery = () => {
-  const { menu, changeMenu } = useContext(MobileMenuContext);
-  // as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
   // useEffect(() => {
   //   changeMenu(GALLERY_ACTION);

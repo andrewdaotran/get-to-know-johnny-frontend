@@ -33,10 +33,10 @@ const LoginModal = () => {
     // answerInput,
     // updateAnswerInput,
     // checkIfAnswerIsCorrect,
-  } = useContext(LoginModalContext);
-  // as LoginModalContextType;
-  const { screenWidth } = useContext(WindowSizeContext);
-  // as WindowSizeContextType;
+  } = useContext(LoginModalContext) as LoginModalContextType;
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
   console.log(johnnyData);
   return (
     <div

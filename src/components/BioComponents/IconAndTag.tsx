@@ -35,8 +35,7 @@ const IconAndTag = ({ isEditPage, defaultNewPuck, hobby, icon, id }: Props) => {
     editHobby,
     createHobby,
     removeHobby,
-  } = useContext(HobbyContext);
-  //  as HobbyContextType;
+  } = useContext(HobbyContext) as HobbyContextType;
 
   const iconRef = useRef<HTMLSpanElement>(null);
   const hobbyRef = useRef<HTMLSpanElement>(null);
