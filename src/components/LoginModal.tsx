@@ -2,10 +2,10 @@
 
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "../context/LoginModalContext";
 import WindowSizeContext, {
   WindowSizeContextType,
-} from "andrewdaotran/context/ScreenSizeContext";
+} from "../context/ScreenSizeContext";
 import React, { useContext, useState } from "react";
 
 import {
@@ -29,8 +29,7 @@ interface Props {
   providers: AppProps;
 }
 
-const LoginModal = ({ providers }: Props) => {
-  console.log(providers);
+const LoginModal = () => {
   const {
     openLoginModal,
     closeLoginModal,
@@ -150,13 +149,6 @@ const LoginModal = ({ providers }: Props) => {
 };
 
 export default LoginModal;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const providers = await getProviders();
-  return {
-    props: { providers },
-  };
-};
 
 {
   /* Modal Header */
