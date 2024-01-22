@@ -78,7 +78,7 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
   const createDescription = ({ description, title }: Description) => {
     create({ description, title });
     const result = descriptionInput.safeParse({ description, title });
-    if (!result.success) {
+    if (result.success === false) {
       if (
         result.error.issues[0]?.path[0] === "title" &&
         result.error.issues[0]?.code === "too_small"
@@ -118,7 +118,7 @@ export const DescriptionProvider = ({ children }: ChildrenNodeType) => {
         id,
       });
 
-      if (!result.success) {
+      if (result.success === false) {
         if (
           result.error.issues[0]?.path[0] === "title" &&
           result.error.issues[0]?.code === "too_small"

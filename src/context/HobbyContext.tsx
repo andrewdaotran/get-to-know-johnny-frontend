@@ -54,7 +54,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
       hobby,
       id,
     });
-    if (!result.success) {
+    if (result.success === false) {
       if (
         result.error.issues[0]?.path[0] === "icon" &&
         result.error.issues[0]?.code === "too_small"
@@ -97,7 +97,7 @@ export const HobbyProvider = ({ children }: ChildrenNodeType) => {
       icon,
       hobby,
     });
-    if (!result.success) {
+    if (result.success === false) {
       if (
         result.error.issues[0]?.path[0] === "icon" &&
         result.error.issues[0]?.code === "too_small"

@@ -21,9 +21,8 @@ import Link from "next/link";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
-  const { menu, changeMenu } = useContext(
-    MobileMenuContext
-  ) as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(MobileMenuContext);
+  // as MobileMenuContextType;
 
   const {
     openLoginModal,
@@ -32,7 +31,8 @@ const MobilePage = () => {
     modalSize,
     modalMargin,
     johnnyData,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(LoginModalContext);
+  // as LoginModalContextType;
 
   // useEffect(() => {
   //   changeMenu(CHAT_ACTION);
@@ -41,9 +41,8 @@ const MobilePage = () => {
   // May need to figure out a new way to default to chat page as default but maybe not
   console.log(windowSize.width);
 
-  const { screenWidth } = useContext(
-    WindowSizeContext
-  ) as WindowSizeContextType;
+  const { screenWidth } = useContext(WindowSizeContext);
+  // as WindowSizeContextType;
 
   return (
     <div className="relative">

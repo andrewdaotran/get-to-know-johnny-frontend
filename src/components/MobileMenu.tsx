@@ -18,11 +18,11 @@ import Link from "next/link";
 import { useContext } from "react";
 
 const MobileMenu = () => {
-  const { menu, changeMenu } = useContext(
-    MobileMenuContext
-  ) as MobileMenuContextType;
+  const { menu, changeMenu } = useContext(MobileMenuContext);
+  // as MobileMenuContextType;
 
-  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
+  const { johnnyData } = useContext(LoginModalContext);
+  // as LoginModalContextType;
   return (
     <>
       {/* Menu Bottom */}

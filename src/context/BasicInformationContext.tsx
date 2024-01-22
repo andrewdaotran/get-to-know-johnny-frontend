@@ -88,7 +88,7 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
       title: mainData.title,
       description: mainData.description,
     });
-    if (!result.success) {
+    if (result.success === false) {
       if (
         result.error.issues[0]?.path[0] === "title" &&
         result.error.issues[0]?.code === "too_small"
@@ -136,7 +136,7 @@ export const BasicInforomationProvider = ({ children }: ChildrenNodeType) => {
         });
 
         console.log("info", result);
-        if (!result.success) {
+        if (result.success === false) {
           if (
             result.error.issues[0]?.path[0] === "title" &&
             result.error.issues[0]?.code === "too_small"

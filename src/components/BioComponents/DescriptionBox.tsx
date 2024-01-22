@@ -50,9 +50,9 @@ const DescriptionBox = ({
 }: Props) => {
   const contentEditableRef = useRef<HTMLSpanElement>(null);
 
-  const { editRef, makeEditRef, editComponent } = useContext(
-    DescriptionContext
-  ) as DescriptionContextType;
+  const { editRef, makeEditRef, editComponent } =
+    useContext(DescriptionContext);
+  // as DescriptionContextType;
 
   const typeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     if (setMainData)

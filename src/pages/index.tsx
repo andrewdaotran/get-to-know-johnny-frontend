@@ -15,9 +15,8 @@ import MobileMenuContext, {
 import Loading from "andrewdaotran/components/Loading";
 
 const Home: NextPage = () => {
-  const { isAllDataLoading } = useContext(
-    MobileMenuContext
-  ) as MobileMenuContextType;
+  const { isAllDataLoading } = useContext(MobileMenuContext);
+  // as MobileMenuContextType;
 
   return (
     <>
