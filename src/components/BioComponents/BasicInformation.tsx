@@ -79,7 +79,7 @@ const BasicInformation = ({ isEditPage }: Props) => {
                   johnnyData?.status === "authenticated" &&
                   router.pathname !== "/edit" && (
                     <button
-                      className="z-10  rounded-md border  bg-appOrange px-2 py-1 text-main transition-colors hover:bg-main hover:text-black"
+                      className="z-10  rounded-md border  bg-appOrange px-3 py-1 text-main transition-colors hover:bg-main hover:text-black"
                       onClick={() => {
                         changeMenu(EDIT_ACTION);
                       }}
