@@ -1,10 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Chatbox from "./Chatbox";
 import MobileMenu from "./MobileMenu";
 import Bio from "./Bio";
 import MobileMenuContext, {
-  CHAT_ACTION,
-  EDIT_ACTION,
   MobileMenuContextType,
 } from "../context/MobileMenuContext";
 import Gallery from "./Gallery";
@@ -16,8 +14,7 @@ import LoginModalContext, {
   LoginModalContextType,
 } from "../context/LoginModalContext";
 import LoginModal from "./LoginModal";
-
-import Link from "next/link";
+import Navbar from "./Navbar";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -29,9 +26,8 @@ const MobilePage = () => {
     openLoginModal,
     closeLoginModal,
     isLoginModalOpen,
-    modalSize,
+
     modalMargin,
-    johnnyData,
   } = useContext(LoginModalContext) as LoginModalContextType;
 
   // useEffect(() => {
@@ -46,7 +42,15 @@ const MobilePage = () => {
   ) as WindowSizeContextType;
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
+    >
+      {/* Navbar */}
+
+      {screenWidth !== "mobile" && <Navbar />}
+      {/* Navbar End */}
+
       {/* Login Modal */}
 
       {isLoginModalOpen && (
@@ -73,12 +77,7 @@ const MobilePage = () => {
         ></div>
       )}
       {/* Login Modal Gray Background End */}
-      {/* Hidden Login Button */}
-      <div
-        className="fixed left-0 top-0 z-10 h-20 w-20 rounded-md "
-        onClick={openLoginModal}
-      ></div>
-      {/* Hidden Login Button End */}
+
       {screenWidth === "mobile" && (
         <div className={`flex h-screen flex-col bg-secondary`}>
           {menu?.isChat && <Chatbox />}
