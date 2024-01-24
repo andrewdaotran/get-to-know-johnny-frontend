@@ -1,5 +1,4 @@
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
-import { table } from "console";
 import { createContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
 
@@ -26,7 +25,7 @@ export const WindowSizeProvider = ({ children }: ChildrenNodeType) => {
 
   const windowSize = useWindowSize();
   useEffect(() => {
-    if (windowSize.width < tabletWidth) {
+    if (windowSize.width >= 0 && windowSize.width < tabletWidth) {
       setScreenWidth("mobile");
     }
     if (windowSize.width >= tabletWidth && windowSize.width < desktopWidth) {

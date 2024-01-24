@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
+import WindowSizeContext, { WindowSizeContextType } from "./ScreenSizeContext";
 
 export type SidebarContextType = {
   isSidebarOpen: boolean;
@@ -17,6 +18,16 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
+
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
+
+  useEffect(() => {
+    if (screenWidth === "mobile") {
+      closeSidebar();
+    }
+  }, [screenWidth]);
 
   return (
     <SidebarContext.Provider

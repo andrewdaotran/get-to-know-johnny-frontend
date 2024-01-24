@@ -51,7 +51,7 @@ const MobilePage = () => {
 
   return (
     <div
-      className="relative"
+      className="relative "
       style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
     >
       {/* Navbar */}
@@ -81,23 +81,25 @@ const MobilePage = () => {
       )}
       {/* Login Modal End */}
 
-      {/* Login Modal Gray Background */}
+      {/* Gray Background */}
       {screenWidth !== "mobile" && (
         <div
-          className="fixed left-0 top-0 z-10 h-full w-full bg-black duration-700 ease-in-out"
+          className="fixed left-0 top-0 z-50 h-full w-full bg-black duration-700 ease-in-out"
           onClick={() => {
-            closeLoginModal();
-            closeSidebar();
+            if (isLoginModalOpen || isSidebarOpen) {
+              closeLoginModal();
+              closeSidebar();
+            }
           }}
           style={
             isLoginModalOpen || isSidebarOpen
               ? { opacity: "50%" }
-              : { opacity: "0%" }
+              : { opacity: "0%", zIndex: -1 }
           }
         ></div>
       )}
 
-      {/* Login Modal Gray Background End */}
+      {/* Gray Background End */}
 
       {screenWidth === "mobile" && (
         <div className={`flex h-screen flex-col bg-secondary`}>

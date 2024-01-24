@@ -27,9 +27,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <SidebarProvider>
-        <LoginModalProvider>
-          <WindowSizeProvider>
+      <WindowSizeProvider>
+        <SidebarProvider>
+          <LoginModalProvider>
             <BasicInforomationProvider>
               <DescriptionProvider>
                 <HobbyProvider>
@@ -42,9 +42,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
                 </HobbyProvider>
               </DescriptionProvider>
             </BasicInforomationProvider>
-          </WindowSizeProvider>
-        </LoginModalProvider>
-      </SidebarProvider>
+          </LoginModalProvider>
+        </SidebarProvider>
+      </WindowSizeProvider>
     </SessionProvider>
   );
 };

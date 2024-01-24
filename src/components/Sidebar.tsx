@@ -19,16 +19,10 @@ const Sidebar = () => {
   const domNode = useClickOutside(() => {
     closeSidebar();
   });
-  console.log(screenWidth);
 
-  useEffect(() => {
-    if (screenWidth !== "tablet") {
-      closeSidebar();
-    }
-  }, [screenWidth]);
   return (
     <div
-      className={`fixed top-0 z-50 h-screen w-[28rem] bg-main px-16 py-10 transition-all duration-700 `}
+      className={`fixed top-0 z-[51] h-screen w-[28rem] bg-main px-16 py-10 transition-all duration-700 `}
       style={isSidebarOpen ? { left: "0" } : { left: "-28rem" }}
       ref={domNode}
     >
