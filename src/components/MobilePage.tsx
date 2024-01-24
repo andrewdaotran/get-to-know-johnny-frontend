@@ -15,6 +15,10 @@ import LoginModalContext, {
 } from "../context/LoginModalContext";
 import LoginModal from "./LoginModal";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import SidebarContext, {
+  SidebarContextType,
+} from "andrewdaotran/context/SidebarContext";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -29,6 +33,10 @@ const MobilePage = () => {
 
     modalMargin,
   } = useContext(LoginModalContext) as LoginModalContextType;
+
+  const { isSidebarOpen, closeSidebar } = useContext(
+    SidebarContext
+  ) as SidebarContextType;
 
   // useEffect(() => {
   //   changeMenu(CHAT_ACTION);
@@ -51,6 +59,10 @@ const MobilePage = () => {
       {screenWidth !== "mobile" && <Navbar />}
       {/* Navbar End */}
 
+      {/* Sidebar */}
+      {screenWidth !== "mobile" && <Sidebar />}
+      {/* Sidebar End */}
+
       {/* Login Modal */}
 
       {isLoginModalOpen && (
@@ -70,12 +82,21 @@ const MobilePage = () => {
       {/* Login Modal End */}
 
       {/* Login Modal Gray Background */}
-      {isLoginModalOpen && (
+      {screenWidth !== "mobile" && (
         <div
-          className="fixed left-0 top-0 z-10 h-full w-full bg-black bg-opacity-50"
-          onClick={closeLoginModal}
+          className="fixed left-0 top-0 z-10 h-full w-full bg-black duration-700 ease-in-out"
+          onClick={() => {
+            closeLoginModal();
+            closeSidebar();
+          }}
+          style={
+            isLoginModalOpen || isSidebarOpen
+              ? { opacity: "50%" }
+              : { opacity: "0%" }
+          }
         ></div>
       )}
+
       {/* Login Modal Gray Background End */}
 
       {screenWidth === "mobile" && (

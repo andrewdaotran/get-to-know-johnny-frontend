@@ -19,28 +19,32 @@ import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
 import { LoginModalProvider } from "andrewdaotran/context/LoginModalContext";
 import { AppRouter } from "andrewdaotran/server/api/root";
 
+import { SidebarProvider } from "andrewdaotran/context/SidebarContext";
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
     <SessionProvider session={session}>
-      <LoginModalProvider>
-        <WindowSizeProvider>
-          <BasicInforomationProvider>
-            <DescriptionProvider>
-              <HobbyProvider>
-                <MobileMenuProvider>
-                  <MessageProvider>
-                    <Component {...pageProps} />
-                    <Toaster />
-                  </MessageProvider>
-                </MobileMenuProvider>
-              </HobbyProvider>
-            </DescriptionProvider>
-          </BasicInforomationProvider>
-        </WindowSizeProvider>
-      </LoginModalProvider>
+      <SidebarProvider>
+        <LoginModalProvider>
+          <WindowSizeProvider>
+            <BasicInforomationProvider>
+              <DescriptionProvider>
+                <HobbyProvider>
+                  <MobileMenuProvider>
+                    <MessageProvider>
+                      <Component {...pageProps} />
+                      <Toaster />
+                    </MessageProvider>
+                  </MobileMenuProvider>
+                </HobbyProvider>
+              </DescriptionProvider>
+            </BasicInforomationProvider>
+          </WindowSizeProvider>
+        </LoginModalProvider>
+      </SidebarProvider>
     </SessionProvider>
   );
 };

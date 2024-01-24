@@ -8,6 +8,9 @@ import WindowSizeContext, {
 } from "andrewdaotran/context/ScreenSizeContext";
 
 import { Bars2Icon } from "@heroicons/react/24/solid";
+import SidebarContext, {
+  SidebarContextType,
+} from "andrewdaotran/context/SidebarContext";
 
 const Navbar = () => {
   const {
@@ -22,6 +25,10 @@ const Navbar = () => {
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
+
+  const { openSidebar, isSidebarOpen, closeSidebar } = useContext(
+    SidebarContext
+  ) as SidebarContextType;
   return (
     <div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between border border-red-500 bg-main px-4">
       <h2>Hello</h2>
@@ -30,7 +37,8 @@ const Navbar = () => {
 
       <div
         className="  grid h-fit w-fit cursor-pointer items-center transition-colors hover:text-appOrange "
-        onClick={openLoginModal}
+        // onClick={openLoginModal}
+        onClick={isSidebarOpen ? () => {} : openSidebar}
       >
         <Bars2Icon className=" h-10 w-10" />
       </div>
