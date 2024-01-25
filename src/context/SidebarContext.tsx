@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
 import WindowSizeContext, { WindowSizeContextType } from "./ScreenSizeContext";
+import LoginModalContext, { LoginModalContextType } from "./LoginModalContext";
 
 export type SidebarContextType = {
   isSidebarOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
+  sidebarNavItems: { title: string; linkTo: string }[];
 };
 
 const SidebarContext = createContext<SidebarContextType | null>(null);
@@ -15,6 +17,15 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
   const openSidebar = () => {
     setIsSidebarOpen(true);
   };
+
+  const [sidebarNavItems, setSidebarNavItems] = useState([
+    { title: "Chat", linkTo: "chat" },
+    { title: "Bio", linkTo: "bio" },
+    { title: "Gallery", linkTo: "gallery" },
+  ]);
+
+  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
+
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
@@ -31,7 +42,7 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
 
   return (
     <SidebarContext.Provider
-      value={{ isSidebarOpen, openSidebar, closeSidebar }}
+      value={{ isSidebarOpen, openSidebar, closeSidebar, sidebarNavItems }}
     >
       {children}
     </SidebarContext.Provider>

@@ -39,10 +39,11 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={`flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white lg:h-[50rem] 2xl:fixed 2xl:h-full 2xl:w-1/2 `}
+        className={`flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2 `}
         style={
           screenWidth === "desktop" ? { height: "calc(100vh - 5rem)" } : {}
         }
+        id="chat"
       >
         {/* Top */}
         <div

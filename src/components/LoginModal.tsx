@@ -40,7 +40,7 @@ const LoginModal = () => {
   console.log(johnnyData);
   return (
     <div
-      className={` relative  grid grid-rows-3 gap-4 rounded-md border border-red-500 bg-main sm:p-12`}
+      className={` relative z-30 grid grid-rows-3 gap-4 rounded-md  bg-main duration-700 ease-in-out sm:p-12`}
       style={
         screenWidth === "mobile"
           ? modalSize.mobile

@@ -84,7 +84,7 @@ const MobilePage = () => {
       {/* Gray Background */}
       {screenWidth !== "mobile" && (
         <div
-          className="fixed left-0 top-0 z-50 h-full w-full bg-black duration-700 ease-in-out"
+          className="fixed left-0 top-0 z-10 h-full w-full bg-black duration-700 ease-in-out"
           onClick={() => {
             if (isLoginModalOpen || isSidebarOpen) {
               closeLoginModal();
