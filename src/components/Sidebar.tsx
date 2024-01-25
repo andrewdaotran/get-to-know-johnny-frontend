@@ -1,14 +1,16 @@
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
-import React, { useContext, useEffect } from "react";
-import useClickOutside from "../CustomHooks/useClickOutside";
+import React, { useContext, useEffect, useRef } from "react";
+import { Link } from "react-scroll";
+
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
 import LoginModalContext, {
   LoginModalContextType,
 } from "andrewdaotran/context/LoginModalContext";
+import { useOnClickOutside } from "usehooks-ts";
 
 const Sidebar = () => {
   const { openSidebar, isSidebarOpen, closeSidebar, sidebarNavItems } =
@@ -22,15 +24,15 @@ const Sidebar = () => {
     LoginModalContext
   ) as LoginModalContextType;
 
-  const domNode = useClickOutside(() => {
-    closeSidebar();
-  });
+  // const sidebar = useRef(null);
+
+  // useOnClickOutside(sidebar, closeSidebar);
 
   return (
     <div
       className={`fixed top-0 z-[51] h-screen w-[20rem] bg-main  transition-all duration-700 `}
       style={isSidebarOpen ? { left: "0" } : { left: "-20rem" }}
-      ref={domNode}
+      // ref={sidebar}
     >
       {/* Relative Wrapper */}
       <div className="relative h-full w-full  px-12 py-10">
@@ -38,12 +40,16 @@ const Sidebar = () => {
         <div className="grid gap-8 ">
           {sidebarNavItems.map((item, index) => {
             return (
-              <div
+              <Link
                 key={index}
                 className="flex cursor-pointer flex-col gap-2 text-2xl transition-colors duration-500 hover:text-appOrange "
+                to={item.linkTo}
+                smooth={true}
+                duration={1200}
+                offset={-80}
               >
                 <h3>{item.title.toUpperCase()}</h3>
-              </div>
+              </Link>
             );
           })}
           {/* Sidebar Nav Items End */}

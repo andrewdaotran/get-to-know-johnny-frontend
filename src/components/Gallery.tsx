@@ -17,7 +17,7 @@ const Gallery = () => {
   return (
     <>
       <main
-        className=" flex w-full flex-col gap-1 overflow-auto  rounded-lg bg-white px-1 py-2"
+        className="  flex w-full flex-col gap-1 overflow-auto  rounded-lg bg-white px-1 py-2  "
         id="gallery"
       >
         {johnnyGalleryImages.map((image) => {

@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
 import WindowSizeContext, { WindowSizeContextType } from "./ScreenSizeContext";
 import LoginModalContext, { LoginModalContextType } from "./LoginModalContext";
+import { scroller } from "react-scroll";
 
 export type SidebarContextType = {
   isSidebarOpen: boolean;
@@ -24,15 +25,27 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
     { title: "Gallery", linkTo: "gallery" },
   ]);
 
+  const [currentSidbarLinkTo, setCurrentSidebarLinkTo] = useState("bio");
+
   const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
+
+  useEffect(() => {
+    if (screenWidth !== "mobile") {
+      scroller.scrollTo("bio", {
+        duration: 1200,
+        delay: 100,
+        smooth: true,
+        containerId: currentSidbarLinkTo,
+      });
+    }
+  }, [screenWidth]);
 
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
-
-  const { screenWidth } = useContext(
-    WindowSizeContext
-  ) as WindowSizeContextType;
 
   useEffect(() => {
     if (screenWidth === "mobile") {

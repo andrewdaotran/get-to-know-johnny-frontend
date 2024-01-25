@@ -30,9 +30,10 @@ const Bio = ({ isEditPage }: Props) => {
   return (
     <>
       <main
-        className={`flex w-full grow flex-col gap-1 overflow-auto rounded-lg   px-1 py-2 lg:bg-white  `}
+        className={` flex w-full grow flex-col gap-1 overflow-auto  rounded-lg px-1 py-2  lg:bg-white  `}
         id="bio"
       >
+        <div className="mt-[-5rem] border border-red-500 pt-20 opacity-0"></div>
         {/* Image */}
         {!isEditPage && (
           <div className="relative  min-h-[33rem]  w-full max-w-4xl self-center rounded-md">

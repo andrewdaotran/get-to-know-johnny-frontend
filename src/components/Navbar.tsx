@@ -35,7 +35,7 @@ const Navbar = () => {
       <Image
         width={66}
         height={66}
-        className="justify-start rounded-md"
+        className="justify-start rounded-2xl"
         src={"/images/johnny_logo.png"}
         alt={"johnny's logo"}
         priority
@@ -46,7 +46,7 @@ const Navbar = () => {
       <div
         className="   grid h-fit w-fit cursor-pointer   items-center justify-end transition-all duration-500 hover:text-appOrange"
         // onClick={openLoginModal}
-        onClick={isSidebarOpen ? () => {} : openSidebar}
+        onClick={openSidebar}
         style={isSidebarOpen ? { transform: "rotate(90deg)" } : {}}
       >
         {/* 'rotate-90 transition-transform duration-500' */}
