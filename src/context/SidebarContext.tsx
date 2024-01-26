@@ -23,6 +23,7 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
     { title: "Chat", linkTo: "chat" },
     { title: "Bio", linkTo: "bio" },
     { title: "Gallery", linkTo: "gallery" },
+    { title: "Edit Page", linkTo: "/edit" },
   ]);
 
   const [currentSidbarLinkTo, setCurrentSidebarLinkTo] = useState("bio");

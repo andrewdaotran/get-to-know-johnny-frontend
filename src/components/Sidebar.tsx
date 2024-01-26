@@ -2,7 +2,7 @@ import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
 import React, { useContext, useEffect, useRef } from "react";
-import { Link } from "react-scroll";
+import { Link as ReactScrollLink } from "react-scroll";
 
 import WindowSizeContext, {
   WindowSizeContextType,
@@ -11,6 +11,11 @@ import LoginModalContext, {
   LoginModalContextType,
 } from "andrewdaotran/context/LoginModalContext";
 import { useOnClickOutside } from "usehooks-ts";
+import MobileMenuContext, {
+  EDIT_ACTION,
+  MobileMenuContextType,
+} from "andrewdaotran/context/MobileMenuContext";
+import Link from "next/link";
 
 const Sidebar = () => {
   const { openSidebar, isSidebarOpen, closeSidebar, sidebarNavItems } =
@@ -23,6 +28,10 @@ const Sidebar = () => {
   const { johnnyData, openLoginModal } = useContext(
     LoginModalContext
   ) as LoginModalContextType;
+
+  const { menu, changeMenu } = useContext(
+    MobileMenuContext
+  ) as MobileMenuContextType;
 
   // const sidebar = useRef(null);
 
@@ -37,19 +46,43 @@ const Sidebar = () => {
       {/* Relative Wrapper */}
       <div className="relative h-full w-full  px-12 py-10">
         {/* Sidebar Nav Items */}
-        <div className="grid gap-8 ">
+        <div className="grid gap-8  ">
           {sidebarNavItems.map((item, index) => {
             return (
-              <Link
-                key={index}
-                className="flex cursor-pointer flex-col gap-2 text-2xl transition-colors duration-500 hover:text-appOrange "
-                to={item.linkTo}
-                smooth={true}
-                duration={1200}
-                offset={-80}
-              >
-                <h3>{item.title.toUpperCase()}</h3>
-              </Link>
+              <>
+                {item.title !== "Edit Page" && (
+                  <ReactScrollLink
+                    key={index}
+                    className="flex w-fit cursor-pointer flex-col gap-2 text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange "
+                    to={item.linkTo}
+                    smooth={true}
+                    duration={1200}
+                    offset={-80}
+                    onClick={closeSidebar}
+                  >
+                    <h3>{item.title.toUpperCase()}</h3>
+                  </ReactScrollLink>
+                )}
+                {/* Edit Page Button */}
+                {item.title === "Edit Page" &&
+                johnnyData?.status === "authenticated" ? (
+                  <button
+                    className="w-fit  text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange"
+                    onClick={() => {
+                      changeMenu(EDIT_ACTION);
+                      closeSidebar();
+                    }}
+                  >
+                    <Link
+                      href={item.linkTo}
+                      // className={`${menu.isEdit ? "pointer-events-none" : ""}`}
+                    >
+                      {item.title.toUpperCase()}
+                    </Link>
+                  </button>
+                ) : null}
+                {/* Edit Page Button End */}
+              </>
             );
           })}
           {/* Sidebar Nav Items End */}

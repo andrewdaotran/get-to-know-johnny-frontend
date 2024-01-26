@@ -31,6 +31,12 @@ import BasicInformationContext, {
 import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import React from "react";
+import Navbar from "andrewdaotran/components/Navbar";
+import Sidebar from "andrewdaotran/components/Sidebar";
+import LoginModal from "andrewdaotran/components/LoginModal";
+import SidebarContext, {
+  SidebarContextType,
+} from "andrewdaotran/context/SidebarContext";
 
 type Props = {
   data: DescriptionType;
@@ -45,20 +51,71 @@ const Edit = () => {
     WindowSizeContext
   ) as WindowSizeContextType;
 
-  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
+  const { johnnyData, isLoginModalOpen, closeLoginModal, modalMargin } =
+    useContext(LoginModalContext) as LoginModalContextType;
+
+  const { isSidebarOpen, closeSidebar } = useContext(
+    SidebarContext
+  ) as SidebarContextType;
 
   //  Needs loading state
   return (
-    <>
-      <div className="relative flex h-screen flex-col bg-secondary ">
-        {/* Large Screen Edit Button End */}
-        {/* <BasicInformation isViewOnly={false} />
-        <EditHobbies isEditPage={true} />
-        <EditDescriptions /> */}
-        <Bio isEditPage={true} />
-        {screenWidth === "mobile" && <MobileMenu />}
-      </div>
-    </>
+    <div
+      className="relative flex h-screen flex-col bg-secondary"
+      style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
+    >
+      {/* Navbar */}
+
+      {screenWidth !== "mobile" && <Navbar />}
+      {/* Navbar End */}
+
+      {/* Sidebar */}
+      {screenWidth !== "mobile" && <Sidebar />}
+      {/* Sidebar End */}
+
+      {/* Login Modal */}
+
+      {isLoginModalOpen && (
+        <div
+          className="fixed left-1/2 top-1/3 z-20 "
+          style={
+            screenWidth === "mobile"
+              ? modalMargin.mobile
+              : screenWidth === "tablet"
+              ? modalMargin.tablet
+              : modalMargin.desktop
+          }
+        >
+          <LoginModal />
+        </div>
+      )}
+      {/* Login Modal End */}
+
+      {/* Gray Background */}
+      {screenWidth !== "mobile" && (
+        <div
+          className="fixed left-0 top-0 z-10 h-full w-full bg-black duration-700 ease-in-out"
+          onClick={() => {
+            if (isLoginModalOpen || isSidebarOpen) {
+              closeLoginModal();
+              closeSidebar();
+            }
+          }}
+          style={
+            isLoginModalOpen || isSidebarOpen
+              ? { opacity: "50%" }
+              : { opacity: "0%", zIndex: -1 }
+          }
+        ></div>
+      )}
+
+      {/* Gray Background End */}
+
+      {/* Edit Page Content */}
+      <Bio isEditPage={true} />
+      {screenWidth === "mobile" && <MobileMenu />}
+      {/* Edit Page Content End */}
+    </div>
   );
 };
 

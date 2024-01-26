@@ -14,12 +14,17 @@ import { Toaster } from "react-hot-toast";
 import { BasicInforomationProvider } from "andrewdaotran/context/BasicInformationContext";
 import { DescriptionProvider } from "andrewdaotran/context/DescriptionContext";
 import { HobbyProvider } from "andrewdaotran/context/HobbyContext";
-import { WindowSizeProvider } from "andrewdaotran/context/ScreenSizeContext";
+import WindowSizeContext, {
+  WindowSizeContextType,
+  WindowSizeProvider,
+} from "andrewdaotran/context/ScreenSizeContext";
 import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
 import { LoginModalProvider } from "andrewdaotran/context/LoginModalContext";
 import { AppRouter } from "andrewdaotran/server/api/root";
 
 import { SidebarProvider } from "andrewdaotran/context/SidebarContext";
+import Navbar from "andrewdaotran/components/Navbar";
+import { useContext } from "react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -35,6 +40,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
                 <HobbyProvider>
                   <MobileMenuProvider>
                     <MessageProvider>
+                      {/* Navbar */}
+
                       <Component {...pageProps} />
                       <Toaster />
                     </MessageProvider>

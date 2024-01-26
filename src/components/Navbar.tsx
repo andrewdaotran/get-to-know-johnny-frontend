@@ -12,6 +12,7 @@ import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   const {
@@ -32,14 +33,16 @@ const Navbar = () => {
   ) as SidebarContextType;
   return (
     <div className="fixed left-0 top-0 z-[1] flex h-20 w-full items-center justify-between   bg-main px-4 shadow-sm transition-all duration-700 ease-in-out">
-      <Image
-        width={66}
-        height={66}
-        className="justify-start rounded-2xl"
-        src={"/images/johnny_logo.png"}
-        alt={"johnny's logo"}
-        priority
-      />
+      <Link href={"/"}>
+        <Image
+          width={66}
+          height={66}
+          className="justify-start rounded-2xl"
+          src={"/images/johnny_logo.png"}
+          alt={"johnny's logo"}
+          priority
+        />
+      </Link>
 
       <h3>INSERT APP NAME HERE</h3>
 
