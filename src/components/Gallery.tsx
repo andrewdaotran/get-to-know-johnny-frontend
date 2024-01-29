@@ -17,7 +17,8 @@ const Gallery = () => {
   return (
     <>
       <main
-        className="  flex w-full flex-col gap-1 overflow-auto  rounded-lg bg-white px-1 py-2  "
+        className="  flex h-screen w-full flex-col  gap-1  overflow-auto rounded-lg bg-white px-1 py-2 "
+        // flex-wrap
         id="gallery"
       >
         {johnnyGalleryImages.map((image) => {
@@ -26,6 +27,7 @@ const Gallery = () => {
               image={image.image}
               key={image.image}
               alt={image.alt}
+              orientation={image.orientation}
             />
           );
         })}

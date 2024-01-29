@@ -52,6 +52,7 @@ const Sidebar = () => {
           {sidebarNavItems.map((item, index) => {
             return (
               <Fragment key={item.title}>
+                {/* Map Over Sidebar Items */}
                 {item.title !== "Edit Page" && (
                   <ReactScrollLink
                     key={index}
@@ -61,7 +62,6 @@ const Sidebar = () => {
                     duration={1200}
                     offset={-80}
                     onClick={async () => {
-                      closeSidebar();
                       if (menu.isEdit) {
                         await router.push("/");
                         scroller.scrollTo(item.linkTo, {
@@ -71,17 +71,20 @@ const Sidebar = () => {
                           offset: -80,
                         });
                       }
+                      closeSidebar();
                     }}
                   >
                     <h3>{item.title.toUpperCase()}</h3>
                   </ReactScrollLink>
                 )}
+                {/* Map Over Sidebar Items End */}
                 {/* Edit Page Button */}
                 {item.title === "Edit Page" &&
                 johnnyData?.status === "authenticated" ? (
                   <button
                     className="w-fit  text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange"
-                    onClick={() => {
+                    onClick={async () => {
+                      await router.push("/edit");
                       changeMenu(EDIT_ACTION);
                       closeSidebar();
                     }}
@@ -96,13 +99,7 @@ const Sidebar = () => {
                     }
                     disabled={menu.isEdit}
                   >
-                    <Link
-                      href={item.linkTo}
-                      // className={`${menu.isEdit ? "pointer-events-none" : ""}`}
-                      style={menu.isEdit ? { cursor: "default" } : {}}
-                    >
-                      {item.title.toUpperCase()}
-                    </Link>
+                    {item.title.toUpperCase()}
                   </button>
                 ) : null}
                 {/* Edit Page Button End */}

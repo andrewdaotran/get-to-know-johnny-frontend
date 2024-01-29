@@ -34,7 +34,9 @@ const MobileMenu = () => {
             className={`${menu.isChat ? "pointer-events-none" : ""}`}
           >
             <ChatBubbleLeftRightIcon
-              className={`${menu.isChat ? "text-main" : ""} mx-auto h-6 w-6 `}
+              className={`${
+                menu.isChat ? "text-appOrange" : ""
+              } mx-auto h-6 w-6 `}
             />
           </Link>
         </button>
@@ -47,7 +49,7 @@ const MobileMenu = () => {
           >
             <DocumentTextIcon
               className={` ${
-                menu.isDescription ? "text-main" : ""
+                menu.isDescription ? "text-appOrange" : ""
               } mx-auto h-6 w-6`}
             />
           </Link>
@@ -60,7 +62,9 @@ const MobileMenu = () => {
             className={`${menu.isGallery ? "pointer-events-none" : ""}`}
           >
             <PhotoIcon
-              className={`${menu.isGallery ? "text-main" : ""} mx-auto h-6 w-6`}
+              className={`${
+                menu.isGallery ? "text-appOrange" : ""
+              } mx-auto h-6 w-6`}
             />
           </Link>
         </button>
@@ -81,7 +85,9 @@ const MobileMenu = () => {
             >
               {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}
               <PencilSquareIcon
-                className={`${menu.isEdit ? "text-main" : ""} mx-auto h-6 w-6`}
+                className={`${
+                  menu.isEdit ? "text-appOrange" : ""
+                } mx-auto h-6 w-6`}
               />
             </Link>
           </button>

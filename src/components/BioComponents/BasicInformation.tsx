@@ -75,7 +75,7 @@ const BasicInformation = ({ isEditPage }: Props) => {
                   {mainData?.title}
                 </h1>
                 {/* Large Screen Edit Button */}
-                {screenWidth > "mobile" &&
+                {/* {screenWidth > "mobile" &&
                   johnnyData?.status === "authenticated" &&
                   router.pathname !== "/edit" && (
                     <button
@@ -94,7 +94,7 @@ const BasicInformation = ({ isEditPage }: Props) => {
                         Edit
                       </Link>
                     </button>
-                  )}
+                  )} */}
                 {/* Large Screen Edit Button End */}
               </div>
               <p className="text-sm text-grayText ">{mainData?.description}</p>

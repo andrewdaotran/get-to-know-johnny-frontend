@@ -6,13 +6,17 @@ import LoginModalContext, {
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
-
+import { animateScroll as scroll } from "react-scroll";
 import { Bars2Icon } from "@heroicons/react/24/solid";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
 import Image from "next/image";
 import Link from "next/link";
+
+import MobileMenuContext, {
+  MobileMenuContextType,
+} from "andrewdaotran/context/MobileMenuContext";
 
 const Navbar = () => {
   const {
@@ -31,9 +35,22 @@ const Navbar = () => {
   const { openSidebar, isSidebarOpen, closeSidebar } = useContext(
     SidebarContext
   ) as SidebarContextType;
+
+  const { menu } = useContext(MobileMenuContext) as MobileMenuContextType;
+
   return (
     <div className="fixed left-0 top-0 z-[1] flex h-20 w-full items-center justify-between   bg-main px-4 shadow-sm transition-all duration-700 ease-in-out">
-      <Link href={"/"}>
+      {/* Logo */}
+      <Link
+        href={menu.isEdit ? "/" : ""}
+        onClick={
+          !menu.isEdit
+            ? () => {
+                scroll.scrollToTop();
+              }
+            : () => {}
+        }
+      >
         <Image
           width={66}
           height={66}
@@ -43,9 +60,22 @@ const Navbar = () => {
           priority
         />
       </Link>
+      {/* Logo End */}
+      {/* Center App Name */}
+      <Link
+        href={menu.isEdit ? "/" : ""}
+        onClick={
+          !menu.isEdit
+            ? () => {
+                scroll.scrollToTop();
+              }
+            : () => {}
+        }
+      >
+        <h3>INSERT APP NAME HERE</h3>
+      </Link>
 
-      <h3>INSERT APP NAME HERE</h3>
-
+      {/* Center App Name End */}
       <div
         className="   grid h-fit w-fit cursor-pointer   items-center justify-end transition-all duration-500 hover:text-appOrange"
         // onClick={openLoginModal}

@@ -22,25 +22,31 @@ export const johnnyGalleryImages = [
   {
     image: "/images/jungkook_gallery_1.webp",
     alt: "Jungkook in place of Johnny gallery image 1",
+    orientation: "horizontal",
   },
   {
     image: "/images/jungkook_gallery_2.jpeg",
     alt: "Jungkook in place of Johnny gallery image 2",
+    orientation: "vertical",
   },
   {
     image: "/images/jungkook_gallery_3.webp",
     alt: "Jungkook in place of Johnny gallery image 3",
+    orientation: "vertical",
   },
   {
     image: "/images/jungkook_gallery_4.jpeg",
     alt: "Jungkook in place of Johnny gallery image 4",
+    orientation: "vertical",
   },
   {
     image: "/images/jungkook_gallery_5.jpeg",
     alt: "Jungkook in place of Johnny gallery image 5",
+    orientation: "vertical",
   },
   {
     image: "/images/jungkook_gallery_6.jpeg",
     alt: "Jungkook in place of Johnny gallery image 6",
+    orientation: "vertical",
   },
 ];

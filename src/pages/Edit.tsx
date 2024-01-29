@@ -61,7 +61,7 @@ const Edit = () => {
   //  Needs loading state
   return (
     <div
-      className="relative flex h-screen flex-col bg-secondary"
+      className="relative mx-auto flex h-screen max-w-4xl flex-col bg-secondary"
       style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
     >
       {/* Navbar */}
