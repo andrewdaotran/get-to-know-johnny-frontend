@@ -1,8 +1,8 @@
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
-import React, { useContext, useEffect, useRef } from "react";
-import { Link as ReactScrollLink } from "react-scroll";
+import React, { Fragment, useContext, useEffect, useRef } from "react";
+import { Link as ReactScrollLink, scroller } from "react-scroll";
 
 import WindowSizeContext, {
   WindowSizeContextType,
@@ -10,14 +10,16 @@ import WindowSizeContext, {
 import LoginModalContext, {
   LoginModalContextType,
 } from "andrewdaotran/context/LoginModalContext";
-import { useOnClickOutside } from "usehooks-ts";
+
 import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
+  const router = useRouter();
   const { openSidebar, isSidebarOpen, closeSidebar, sidebarNavItems } =
     useContext(SidebarContext) as SidebarContextType;
 
@@ -49,7 +51,7 @@ const Sidebar = () => {
         <div className="grid gap-8  ">
           {sidebarNavItems.map((item, index) => {
             return (
-              <>
+              <Fragment key={item.title}>
                 {item.title !== "Edit Page" && (
                   <ReactScrollLink
                     key={index}
@@ -58,7 +60,18 @@ const Sidebar = () => {
                     smooth={true}
                     duration={1200}
                     offset={-80}
-                    onClick={closeSidebar}
+                    onClick={async () => {
+                      closeSidebar();
+                      if (menu.isEdit) {
+                        await router.push("/");
+                        scroller.scrollTo(item.linkTo, {
+                          duration: 1200,
+                          smooth: true,
+                          // containerId: "ContainerElementID",
+                          offset: -80,
+                        });
+                      }
+                    }}
                   >
                     <h3>{item.title.toUpperCase()}</h3>
                   </ReactScrollLink>
@@ -72,17 +85,28 @@ const Sidebar = () => {
                       changeMenu(EDIT_ACTION);
                       closeSidebar();
                     }}
+                    style={
+                      menu.isEdit
+                        ? {
+                            color: "rgb(249 115 22)", // appOrange
+                            paddingLeft: "0.5rem", // pl-2
+                            cursor: "default",
+                          }
+                        : {}
+                    }
+                    disabled={menu.isEdit}
                   >
                     <Link
                       href={item.linkTo}
                       // className={`${menu.isEdit ? "pointer-events-none" : ""}`}
+                      style={menu.isEdit ? { cursor: "default" } : {}}
                     >
                       {item.title.toUpperCase()}
                     </Link>
                   </button>
                 ) : null}
                 {/* Edit Page Button End */}
-              </>
+              </Fragment>
             );
           })}
           {/* Sidebar Nav Items End */}
