@@ -30,6 +30,12 @@ const Descriptions = ({ isEditPage }: Props) => {
       {/* Descriptions */}
 
       <div className="  grid gap-2 rounded-md  bg-white px-6 py-6">
+        {isEditPage && (
+          <h2 className="pb-2 text-xl tracking-wider text-appOrange">
+            Descriptions
+          </h2>
+        )}
+
         {/* Descriptions Mapped */}
         {mainDataArray?.map((description, index) => (
           <DescriptionBox

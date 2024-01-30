@@ -30,7 +30,7 @@ const Bio = ({ isEditPage }: Props) => {
   return (
     <>
       <main
-        className={` flex w-full grow flex-col gap-1 overflow-auto  rounded-lg px-1 py-2  lg:bg-white  `}
+        className={` flex w-full grow flex-col gap-1   rounded-lg px-1 py-2  lg:bg-white  `}
         id="bio"
       >
         <div className="mt-[-5rem] border border-red-500 pt-20 opacity-0"></div>
@@ -57,7 +57,14 @@ const Bio = ({ isEditPage }: Props) => {
         <BasicInformation isEditPage={isEditPage} />
 
         <div className="grid gap-2 rounded-md bg-main px-6 py-4">
-          <h2 className="w-fit font-semibold">My hobbies...</h2>
+          {isEditPage ? (
+            <h2 className="pb-2 text-xl tracking-wider text-appOrange">
+              Hobbies
+            </h2>
+          ) : (
+            <h2 className="w-fit font-semibold">My hobbies...</h2>
+          )}
+
           {hobbies && <Hobbies hobbies={hobbies} isEditPage={isEditPage} />}
         </div>
 

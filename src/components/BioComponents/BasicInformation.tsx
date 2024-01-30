@@ -67,6 +67,11 @@ const BasicInformation = ({ isEditPage }: Props) => {
     <>
       <div className={`grid gap-2 rounded-md bg-main px-6 py-6`}>
         <>
+          {isEditPage && (
+            <h2 className="text-xl tracking-wider text-appOrange">
+              Basic Information
+            </h2>
+          )}
           {/* Basic Information */}
           {(!isEditing || !isEditPage) && (
             <div className=" flex flex-col justify-center gap-2 rounded-md bg-main   ">
@@ -74,42 +79,22 @@ const BasicInformation = ({ isEditPage }: Props) => {
                 <h1 className=" w-fit   py-1 font-semibold">
                   {mainData?.title}
                 </h1>
-                {/* Large Screen Edit Button */}
-                {/* {screenWidth > "mobile" &&
-                  johnnyData?.status === "authenticated" &&
-                  router.pathname !== "/edit" && (
-                    <button
-                      className="  rounded-md border  bg-appOrange px-3 py-1 text-main transition-colors hover:bg-main hover:text-black"
-                      onClick={() => {
-                        changeMenu(EDIT_ACTION);
-                      }}
-                    >
-                      <Link
-                        // href={"/Edit"}
-                        href={"/edit"}
-                        className={`${
-                          menu.isEdit ? "pointer-events-none" : ""
-                        }`}
-                      >
-                        Edit
-                      </Link>
-                    </button>
-                  )} */}
-                {/* Large Screen Edit Button End */}
               </div>
               <p className="text-sm text-grayText ">{mainData?.description}</p>
             </div>
           )}
 
           {isEditing && isEditPage && (
-            <DescriptionBox
-              id={mainData?.id}
-              isEditPage={isEditPage}
-              isEditing={isEditPage ? isEditing : false}
-              isNewDescription={false}
-              mainData={mainData}
-              setMainData={setMainData}
-            />
+            <>
+              <DescriptionBox
+                id={mainData?.id}
+                isEditPage={isEditPage}
+                isEditing={isEditPage ? isEditing : false}
+                isNewDescription={false}
+                mainData={mainData}
+                setMainData={setMainData}
+              />
+            </>
           )}
           {/* Basic Information End */}
           <ul
