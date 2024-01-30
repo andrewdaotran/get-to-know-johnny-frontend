@@ -19,6 +19,7 @@ import Sidebar from "./Sidebar";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
+import Footer from "./Footer";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -128,6 +129,10 @@ const MobilePage = () => {
           </div>
         </div>
       )}
+      {/* Footer */}
+
+      {screenWidth !== "mobile" && <Footer />}
+      {/* Footer End */}
     </div>
   );
 };

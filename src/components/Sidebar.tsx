@@ -39,6 +39,38 @@ const Sidebar = () => {
 
   // useOnClickOutside(sidebar, closeSidebar);
 
+  const sidebarSmoothScrollToSectionFromEditPage = (linkTo: string) => {
+    void (async () => {
+      if (menu.isEdit) {
+        try {
+          await router.push("/");
+          scroller.scrollTo(linkTo, {
+            duration: 1200,
+            smooth: true,
+            // containerId: "ContainerElementID",
+            offset: -80,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      closeSidebar();
+    })();
+  };
+
+  const navigateToEditPage = () => {
+    void (async () => {
+      try {
+        await router.push("/Edit");
+        // await router.push("/edit");
+        changeMenu(EDIT_ACTION);
+      } catch (error) {
+        console.log(error);
+      }
+      closeSidebar();
+    })();
+  };
+
   return (
     <div
       className={`fixed top-0 z-[51] h-screen w-[20rem] bg-main  transition-all duration-700 `}
@@ -61,17 +93,8 @@ const Sidebar = () => {
                     smooth={true}
                     duration={1200}
                     offset={-80}
-                    onClick={async () => {
-                      if (menu.isEdit) {
-                        await router.push("/");
-                        scroller.scrollTo(item.linkTo, {
-                          duration: 1200,
-                          smooth: true,
-                          // containerId: "ContainerElementID",
-                          offset: -80,
-                        });
-                      }
-                      closeSidebar();
+                    onClick={() => {
+                      sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
                     }}
                   >
                     <h3>{item.title.toUpperCase()}</h3>
@@ -83,11 +106,7 @@ const Sidebar = () => {
                 johnnyData?.status === "authenticated" ? (
                   <button
                     className="w-fit  text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange"
-                    onClick={async () => {
-                      await router.push("/edit");
-                      changeMenu(EDIT_ACTION);
-                      closeSidebar();
-                    }}
+                    onClick={navigateToEditPage}
                     style={
                       menu.isEdit
                         ? {

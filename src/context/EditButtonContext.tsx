@@ -1,11 +1,13 @@
-import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import useWindowSize from "../CustomHooks/useWindowSize";
 import { createContext, useEffect, useState } from "react";
-import { ChildrenNodeType } from "typings";
+import { ChildrenNodeType } from "../../typings";
 
 export type LoginButtonContextType = {
   isLoginButton: boolean;
   clickLoginButton: () => void;
 };
+
+import React from "react";
 
 const LoginButtonContext = createContext<LoginButtonContextType | null>(null);
 

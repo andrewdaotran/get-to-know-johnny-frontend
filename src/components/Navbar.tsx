@@ -48,7 +48,9 @@ const Navbar = () => {
             ? () => {
                 scroll.scrollToTop();
               }
-            : () => {}
+            : () => {
+                return;
+              }
         }
       >
         <Image
@@ -69,7 +71,9 @@ const Navbar = () => {
             ? () => {
                 scroll.scrollToTop();
               }
-            : () => {}
+            : () => {
+                return;
+              }
         }
       >
         <h3>INSERT APP NAME HERE</h3>

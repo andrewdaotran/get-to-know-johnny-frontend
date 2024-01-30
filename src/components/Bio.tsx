@@ -10,6 +10,9 @@ import BasicInformation from "./BioComponents/BasicInformation";
 import Hobbies from "./BioComponents/Hobbies";
 import Descriptions from "./BioComponents/Descriptions";
 import useWindowSize from "andrewdaotran/CustomHooks/useWindowSize";
+import WindowSizeContext, {
+  WindowSizeContextType,
+} from "andrewdaotran/context/ScreenSizeContext";
 
 type Props = {
   isEditPage: boolean;
@@ -23,6 +26,10 @@ const Bio = ({ isEditPage }: Props) => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
+
   // useEffect(() => {
   //   changeMenu(DESCRIPTION_ACTION);
   // }, []);
@@ -31,6 +38,9 @@ const Bio = ({ isEditPage }: Props) => {
     <>
       <main
         className={` flex w-full grow flex-col gap-1   rounded-lg px-1 py-2  lg:bg-white  `}
+        style={
+          screenWidth === "mobile" ? { height: "100vh", overflow: "auto" } : {}
+        }
         id="bio"
       >
         <div className="mt-[-5rem] border border-red-500 pt-20 opacity-0"></div>
