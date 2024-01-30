@@ -52,7 +52,7 @@ const MobilePage = () => {
 
   return (
     <div
-      className="relative "
+      className="relative"
       style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
     >
       {/* Navbar */}
@@ -129,10 +129,6 @@ const MobilePage = () => {
           </div>
         </div>
       )}
-      {/* Footer */}
-
-      {screenWidth !== "mobile" && <Footer />}
-      {/* Footer End */}
     </div>
   );
 };

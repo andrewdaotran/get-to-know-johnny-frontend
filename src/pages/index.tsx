@@ -13,11 +13,19 @@ import MobileMenuContext, {
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
 import Loading from "andrewdaotran/components/Loading";
+import Footer from "andrewdaotran/components/Footer";
+import WindowSizeContext, {
+  WindowSizeContextType,
+} from "andrewdaotran/context/ScreenSizeContext";
 
 const Home: NextPage = () => {
   const { isAllDataLoading } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
+
+  const { screenWidth } = useContext(
+    WindowSizeContext
+  ) as WindowSizeContextType;
 
   return (
     <>
@@ -27,7 +35,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className=" flex min-h-screen flex-col items-center justify-center  ">
-        {isAllDataLoading ? <Loading /> : <MobilePage />}
+        {isAllDataLoading ? (
+          <Loading />
+        ) : (
+          <div className="relative  ">
+            <MobilePage />
+            {screenWidth !== "mobile" && <Footer />}
+          </div>
+        )}
       </main>
     </>
   );
