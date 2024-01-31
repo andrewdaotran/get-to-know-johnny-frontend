@@ -12,6 +12,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useContext } from "react";
 import { Link as ReactScrollLink, scroller } from "react-scroll";
+import { creatorIcons } from "andrewdaotran/utils";
+import Link from "next/link";
 
 const Footer = () => {
   const router = useRouter();
@@ -59,7 +61,7 @@ const Footer = () => {
   };
   return (
     // <div className=" fixed  bottom-0 left-[50%] -z-20  grid h-48 translate-x-[-50%]  items-center justify-items-center px-4">
-    <div className="fixed bottom-0 left-0 -z-20 flex h-96 w-full gap-8 bg-secondary p-16">
+    <div className="fixed bottom-0 left-[50%] -z-20 flex h-96 w-full translate-x-[-50%] gap-8 bg-secondary p-16 ">
       {/* Submit Contact Button */}
       <div className="grid w-96 grid-cols-3 gap-4 rounded-md  bg-main p-8 shadow-md">
         <div className="relative col-start-1 col-end-2  min-h-[10rem]  w-full max-w-4xl">
@@ -89,7 +91,7 @@ const Footer = () => {
 
       {/* Navigation */}
       <div className="grid h-fit gap-2 border border-blue-200 p-8">
-        <h2 className="mb-4 text-xl text-appOrange">Explore</h2>
+        <h2 className="mb-4 text-lg text-appOrange">Explore</h2>
         {sidebarNavItems.map((item, index) => {
           return (
             <Fragment key={item.title}>
@@ -138,7 +140,28 @@ const Footer = () => {
       {/* Navigation End */}
 
       {/* Andrew's Information */}
+      <div className="grid h-fit gap-2 border border-blue-200 p-8">
+        <h2 className="mb-4 text-lg text-appOrange">
+          Check out the app&apos;s creator
+        </h2>
 
+        {/* Icons Mapped */}
+        <div className="flex gap-4">
+          {creatorIcons.map((icon, index) => {
+            return (
+              <h3
+                className="hover:text-mainOrange pointer-events-auto cursor-pointer text-xl  transition-colors  duration-300 ease-in-out"
+                key={icon.title}
+              >
+                <Link href={icon.link}>
+                  <icon.icon />
+                </Link>
+              </h3>
+            );
+          })}
+        </div>
+        {/* Icons Mapped End */}
+      </div>
       {/* Andrew's Information End */}
     </div>
   );

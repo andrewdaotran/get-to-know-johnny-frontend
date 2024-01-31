@@ -79,8 +79,8 @@ const MobileMenu = () => {
             }}
           >
             <Link
-              // href={"/Edit"}
-              href={"/edit"}
+              href={"/Edit"}
+              // href={"/edit"}
               className={`${menu.isEdit ? "pointer-events-none" : ""}`}
             >
               {/* <Link href={menu.isEdit ? "#" : "/edit"}> */}

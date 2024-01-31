@@ -34,7 +34,10 @@ const Home: NextPage = () => {
         <meta name="description" content="Johnny Dating App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" relative  mb-96 flex min-h-screen flex-col items-center justify-center bg-main">
+      <main
+        className=" relative   flex min-h-screen flex-col items-center justify-center bg-main"
+        style={screenWidth !== "mobile" ? { marginBottom: "24rem" } : {}}
+      >
         {isAllDataLoading ? (
           <Loading />
         ) : (
