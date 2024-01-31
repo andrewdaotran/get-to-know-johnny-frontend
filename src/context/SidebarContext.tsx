@@ -23,6 +23,7 @@ export const SidebarProvider = ({ children }: ChildrenNodeType) => {
     { title: "Chat", linkTo: "chat" },
     { title: "Bio", linkTo: "bio" },
     { title: "Gallery", linkTo: "gallery" },
+    { title: "Submit Contact", linkTo: "submitContact" },
     { title: "Edit Page", linkTo: "/edit" },
   ]);
 

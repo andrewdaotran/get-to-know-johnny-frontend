@@ -34,13 +34,15 @@ const Home: NextPage = () => {
         <meta name="description" content="Johnny Dating App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=" flex min-h-screen flex-col items-center justify-center  ">
+      <main className=" relative  mb-96 flex min-h-screen flex-col items-center justify-center bg-main">
         {isAllDataLoading ? (
           <Loading />
         ) : (
-          <div className="relative  ">
-            <MobilePage />
-            {screenWidth !== "mobile" && <Footer />}
+          <div className=" relative">
+            <>
+              <MobilePage />
+              {screenWidth !== "mobile" && <Footer />}
+            </>
           </div>
         )}
       </main>
