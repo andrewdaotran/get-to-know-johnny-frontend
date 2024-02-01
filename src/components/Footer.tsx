@@ -61,108 +61,110 @@ const Footer = () => {
   };
   return (
     // <div className=" fixed  bottom-0 left-[50%] -z-20  grid h-48 translate-x-[-50%]  items-center justify-items-center px-4">
-    <div className="fixed bottom-0 left-[50%] -z-20 flex h-96 w-full translate-x-[-50%] gap-8 bg-secondary p-16 ">
-      {/* Submit Contact Button */}
-      <div className="grid w-96 grid-cols-3 gap-4 rounded-md  bg-main p-8 shadow-md">
-        <div className="relative col-start-1 col-end-2  min-h-[10rem]  w-full max-w-4xl">
-          <Image
-            src={"/images/jar-of-hearts.png"}
-            fill
-            className="rounded-md object-cover object-top"
-            alt={"jar-of-hearts"}
-            priority
-          />
+    <div className="fixed bottom-0 left-[50%] -z-20  flex h-[22rem] w-full  translate-x-[-50%] justify-center border border-blue-400 bg-secondary p-16">
+      <div className="flex   gap-4  ">
+        {/* Submit Contact Button */}
+        <div className="grid w-[24rem] min-w-[24rem] grid-cols-3 gap-4 rounded-md  bg-main p-8 shadow-md">
+          <div className="relative col-start-1 col-end-2   ">
+            <Image
+              src={"/images/jar-of-hearts.png"}
+              fill
+              className="rounded-md object-cover  transition-transform duration-500 ease-in-out "
+              alt={"jar-of-hearts"}
+              priority
+            />
+          </div>
+          {/* Text on Right */}
+          <div className="col-start-2 col-end-4 grid gap-4">
+            <h2 className="font-bold tracking-wider">
+              Interested in getting to know Johnny better?
+            </h2>
+            <h3 className="text-sm">
+              Send Johnny your contact info and he&apos;ll hit you up!
+            </h3>
+            <button className="rounded-md bg-gray-800 px-10 py-3 text-sm text-white  transition-colors duration-500 hover:bg-appOrange">
+              Submit now!
+            </button>
+            {/* Text on Right End */}
+          </div>
         </div>
-        {/* Text on Right */}
-        <div className="col-start-2 col-end-4 grid gap-4">
-          <h2 className="font-bold tracking-wider">
-            Interested in getting to know Johnny better?
-          </h2>
-          <h3 className="text-sm">
-            Send Johnny your contact info and he&apos;ll hit you up!
-          </h3>
-          <button className="rounded-md bg-gray-800 px-10 py-3 text-sm text-white  transition-colors duration-500 hover:bg-appOrange">
-            Submit now!
-          </button>
-          {/* Text on Right End */}
-        </div>
-      </div>
-      {/* Submit Contact Button End */}
+        {/* Submit Contact Button End */}
 
-      {/* Navigation */}
-      <div className="grid h-fit gap-2 border border-blue-200 p-8">
-        <h2 className="mb-4 text-lg text-appOrange">Explore</h2>
-        {sidebarNavItems.map((item, index) => {
-          return (
-            <Fragment key={item.title}>
-              {/* Map Over Sidebar Items */}
-              {item.title !== "Edit Page" && (
-                <ReactScrollLink
-                  key={index}
-                  className="flex w-fit cursor-pointer flex-col gap-2 text-sm  transition-all duration-500 hover:pl-2 hover:text-appOrange "
-                  to={item.linkTo}
-                  smooth={true}
-                  duration={1200}
-                  offset={-80}
-                  onClick={() => {
-                    sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
-                  }}
-                >
-                  <h3>{item.title}</h3>
-                </ReactScrollLink>
-              )}
-              {/* Map Over Sidebar Items End */}
-              {/* Edit Page Button */}
-              {item.title === "Edit Page" &&
-              johnnyData?.status === "authenticated" ? (
-                <button
-                  className="w-fit  text-sm transition-all duration-500 hover:pl-2 hover:text-appOrange"
-                  onClick={navigateToEditPage}
-                  style={
-                    menu.isEdit
-                      ? {
-                          color: "rgb(249 115 22)", // appOrange
-                          paddingLeft: "0.5rem", // pl-2
-                          cursor: "default",
-                        }
-                      : {}
-                  }
-                  disabled={menu.isEdit}
-                >
-                  {item.title}
-                </button>
-              ) : null}
-              {/* Edit Page Button End */}
-            </Fragment>
-          );
-        })}
-      </div>
-      {/* Navigation End */}
-
-      {/* Andrew's Information */}
-      <div className="grid h-fit gap-2 border border-blue-200 p-8">
-        <h2 className="mb-4 text-lg text-appOrange">
-          Check out the app&apos;s creator
-        </h2>
-
-        {/* Icons Mapped */}
-        <div className="flex gap-4">
-          {creatorIcons.map((icon, index) => {
+        {/* Navigation */}
+        <div className="grid h-fit w-44 min-w-[11rem] gap-2 rounded-md  bg-main p-8 shadow-md">
+          <h2 className="mb-4 text-lg text-appOrange">Explore</h2>
+          {sidebarNavItems.map((item, index) => {
             return (
-              <h3
-                className="hover:text-mainOrange pointer-events-auto cursor-pointer text-xl  transition-colors  duration-300 ease-in-out"
-                key={icon.title}
-              >
-                <Link href={icon.link}>
-                  <icon.icon />
-                </Link>
-              </h3>
+              <Fragment key={item.title}>
+                {/* Map Over Sidebar Items */}
+                {item.title !== "Edit Page" && (
+                  <ReactScrollLink
+                    key={index}
+                    className="flex w-fit cursor-pointer flex-col gap-2 text-sm  transition-all duration-500 hover:pl-2 hover:text-appOrange "
+                    to={item.linkTo}
+                    smooth={true}
+                    duration={1200}
+                    offset={-80}
+                    onClick={() => {
+                      sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
+                    }}
+                  >
+                    <h3>{item.title}</h3>
+                  </ReactScrollLink>
+                )}
+                {/* Map Over Sidebar Items End */}
+                {/* Edit Page Button */}
+                {item.title === "Edit Page" &&
+                johnnyData?.status === "authenticated" ? (
+                  <button
+                    className="w-fit  text-sm transition-all duration-500 hover:pl-2 hover:text-appOrange"
+                    onClick={navigateToEditPage}
+                    style={
+                      menu.isEdit
+                        ? {
+                            color: "rgb(249 115 22)", // appOrange
+                            paddingLeft: "0.5rem", // pl-2
+                            cursor: "default",
+                          }
+                        : {}
+                    }
+                    disabled={menu.isEdit}
+                  >
+                    {item.title}
+                  </button>
+                ) : null}
+                {/* Edit Page Button End */}
+              </Fragment>
             );
           })}
         </div>
-        {/* Icons Mapped End */}
+        {/* Navigation End */}
+
+        {/* Andrew's Information */}
+        <div className="grid h-fit gap-2 rounded-md  bg-main p-8 shadow-md">
+          <h2 className="mb-4 text-lg text-appOrange">
+            Check out the app&apos;s creator
+          </h2>
+
+          {/* Icons Mapped */}
+          <div className="flex gap-4">
+            {creatorIcons.map((icon, index) => {
+              return (
+                <h3
+                  className="hover:text-mainOrange pointer-events-auto cursor-pointer text-xl  transition-colors  duration-300 ease-in-out"
+                  key={icon.title}
+                >
+                  <Link href={icon.link}>
+                    <icon.icon />
+                  </Link>
+                </h3>
+              );
+            })}
+          </div>
+          {/* Icons Mapped End */}
+        </div>
+        {/* Andrew's Information End */}
       </div>
-      {/* Andrew's Information End */}
     </div>
   );
 };

@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       </Head>
       <main
         className=" relative   flex min-h-screen flex-col items-center justify-center bg-main"
-        style={screenWidth !== "mobile" ? { marginBottom: "24rem" } : {}}
+        style={screenWidth !== "mobile" ? { marginBottom: "22rem" } : {}}
       >
         {isAllDataLoading ? (
           <Loading />
