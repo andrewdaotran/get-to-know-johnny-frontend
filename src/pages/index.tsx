@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className=" relative   flex min-h-screen flex-col items-center justify-center bg-main"
+        className=" relative    flex min-h-screen flex-col items-center justify-center bg-main"
         style={screenWidth !== "mobile" ? { marginBottom: "22rem" } : {}}
       >
         {isAllDataLoading ? (

@@ -52,7 +52,7 @@ const MobilePage = () => {
 
   return (
     <div
-      className="relative"
+      className="relative "
       style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
     >
       {/* Navbar */}

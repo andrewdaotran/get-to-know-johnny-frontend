@@ -61,7 +61,7 @@ const Footer = () => {
   };
   return (
     // <div className=" fixed  bottom-0 left-[50%] -z-20  grid h-48 translate-x-[-50%]  items-center justify-items-center px-4">
-    <div className="fixed bottom-0 left-[50%] -z-20  flex h-[22rem] w-full  translate-x-[-50%] justify-center border border-blue-400 bg-secondary p-16">
+    <div className="fixed bottom-0 left-[50%] -z-20  flex h-[22rem] w-full  translate-x-[-50%] justify-center bg-secondary p-16">
       <div className="flex   gap-4  ">
         {/* Submit Contact Button */}
         <div className="grid w-[24rem] min-w-[24rem] grid-cols-3 gap-4 rounded-md  bg-main p-8 shadow-md">
@@ -82,7 +82,7 @@ const Footer = () => {
             <h3 className="text-sm">
               Send Johnny your contact info and he&apos;ll hit you up!
             </h3>
-            <button className="rounded-md bg-gray-800 px-10 py-3 text-sm text-white  transition-colors duration-500 hover:bg-appOrange">
+            <button className="rounded-md border border-main bg-gray-800 px-10 py-3  text-sm text-white transition-colors duration-500 hover:border-black hover:bg-main  hover:text-black ">
               Submit now!
             </button>
             {/* Text on Right End */}
@@ -151,10 +151,10 @@ const Footer = () => {
             {creatorIcons.map((icon, index) => {
               return (
                 <h3
-                  className="hover:text-mainOrange pointer-events-auto cursor-pointer text-xl  transition-colors  duration-300 ease-in-out"
+                  className="pointer-events-auto cursor-pointer  text-xl  transition-colors duration-300 ease-in-out hover:text-appOrange"
                   key={icon.title}
                 >
-                  <Link href={icon.link}>
+                  <Link href={icon.link} className="">
                     <icon.icon />
                   </Link>
                 </h3>
