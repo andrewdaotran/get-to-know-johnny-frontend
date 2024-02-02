@@ -25,6 +25,7 @@ import { AppRouter } from "andrewdaotran/server/api/root";
 import { SidebarProvider } from "andrewdaotran/context/SidebarContext";
 import Navbar from "andrewdaotran/components/Navbar";
 import { useContext } from "react";
+import { ChatboxProvider } from "andrewdaotran/context/ChatboxContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -32,26 +33,28 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <LoginModalProvider>
-        <WindowSizeProvider>
-          <SidebarProvider>
-            <BasicInforomationProvider>
-              <DescriptionProvider>
-                <HobbyProvider>
-                  <MobileMenuProvider>
-                    <MessageProvider>
-                      {/* Navbar */}
+      <ChatboxProvider>
+        <LoginModalProvider>
+          <WindowSizeProvider>
+            <SidebarProvider>
+              <BasicInforomationProvider>
+                <DescriptionProvider>
+                  <HobbyProvider>
+                    <MobileMenuProvider>
+                      <MessageProvider>
+                        {/* Navbar */}
 
-                      <Component {...pageProps} />
-                      <Toaster />
-                    </MessageProvider>
-                  </MobileMenuProvider>
-                </HobbyProvider>
-              </DescriptionProvider>
-            </BasicInforomationProvider>
-          </SidebarProvider>
-        </WindowSizeProvider>
-      </LoginModalProvider>
+                        <Component {...pageProps} />
+                        <Toaster />
+                      </MessageProvider>
+                    </MobileMenuProvider>
+                  </HobbyProvider>
+                </DescriptionProvider>
+              </BasicInforomationProvider>
+            </SidebarProvider>
+          </WindowSizeProvider>
+        </LoginModalProvider>
+      </ChatboxProvider>
     </SessionProvider>
   );
 };

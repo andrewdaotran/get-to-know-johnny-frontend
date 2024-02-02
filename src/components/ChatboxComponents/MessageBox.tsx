@@ -2,7 +2,10 @@ import { time } from "andrewdaotran/utils";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 
 type Props = {
-  isJohnny: boolean;
+  message: string;
+  isLastMessage: boolean;
+  timeStamp: string;
+  user: string;
 };
 
 // Needs state to change the rounded shape of messages if messages by the same person are sent in chunks
@@ -11,7 +14,7 @@ type Props = {
 
 // When a message gets sent from either side, need to run the time() function individually to get a unique time
 
-const MessageBox = () => {
+const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<boolean>(false);

@@ -15,26 +15,22 @@ import MessageBox from "./ChatboxComponents/MessageBox";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
+import ChatboxContext, {
+  ChatboxContextType,
+} from "andrewdaotran/context/ChatboxContext";
 
 export const Chatbox = () => {
-  const [message, setMessage] = useState<string | null>("");
-
   const textareaRef = useRef<HTMLSpanElement>(null);
 
-  const submitMessage = (e: FormEvent) => {
-    e.preventDefault();
-    if (textareaRef.current !== null) {
-      textareaRef.current.textContent = "";
-    }
-  };
-
-  const typeMessage = (e: ChangeEvent<HTMLSpanElement>) => {
-    setMessage(e.currentTarget.textContent);
-  };
+  const { allMessages, typeUserMessage, submitMessage } = useContext(
+    ChatboxContext
+  ) as ChatboxContextType;
 
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
+
+  // console.log(allMessages);
 
   return (
     <>
@@ -56,22 +52,35 @@ export const Chatbox = () => {
 
         {/* Chat Area */}
         <div className=" mb-2 flex grow flex-col-reverse gap-2 overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2">
-          <MessageBox />
+          {allMessages.map((message, index, array) => {
+            return (
+              <MessageBox
+                key={index}
+                message={message.message}
+                isLastMessage={message.user !== array[index + 1]?.user}
+                timeStamp={message.timeStamp}
+                user={message.user}
+              />
+            );
+          })}
         </div>
         {/* Chat Area End */}
 
         {/* Message Box */}
-        <form onSubmit={submitMessage} className="flex grow-0 gap-2 px-2 pb-4">
+        <form
+          onSubmit={(e) => submitMessage(e, textareaRef)}
+          className="flex grow-0 gap-2 px-2 pb-4"
+        >
           <span
             className="block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-xl bg-gray-100 p-2 empty:before:text-gray-400 empty:before:content-['Message'] focus:outline-none"
             ref={textareaRef}
-            onInput={typeMessage}
+            onInput={typeUserMessage}
             placeholder="Message"
             contentEditable
             suppressContentEditableWarning
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
-                submitMessage(e);
+                submitMessage(e, textareaRef);
               }
             }}
           />
