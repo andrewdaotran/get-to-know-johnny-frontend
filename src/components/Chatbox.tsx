@@ -18,6 +18,8 @@ import WindowSizeContext, {
 import ChatboxContext, {
   ChatboxContextType,
 } from "andrewdaotran/context/ChatboxContext";
+import { all } from "axios";
+import EmptyChatModal from "./ChatboxComponents/EmptyChatModal";
 
 export const Chatbox = () => {
   const textareaRef = useRef<HTMLSpanElement>(null);
@@ -35,7 +37,7 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={`  flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
+        className={`   flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
         style={
           screenWidth === "desktop" ? { height: "calc(100vh - 5rem)" } : {}
         }
@@ -51,7 +53,8 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" mb-2 flex grow flex-col-reverse gap-2 overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2">
+        <div className=" mb-2 flex grow flex-col justify-end  overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
+          {allMessages.length === 0 && <EmptyChatModal />}
           {allMessages.map((message, index, array) => {
             return (
               <MessageBox

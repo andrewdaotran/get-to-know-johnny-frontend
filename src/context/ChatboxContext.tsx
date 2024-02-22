@@ -8,6 +8,12 @@ import {
 } from "react";
 import { ChildrenNodeType } from "typings";
 
+interface ChatMessage {
+  message: string;
+  user: string;
+  timeStamp: string;
+}
+
 export type ChatboxContextType = {
   submitMessage: (
     e: FormEvent,
@@ -22,13 +28,7 @@ const ChatboxContext = createContext<ChatboxContextType | null>(null);
 export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   const [userMessage, setUserMessage] = useState<string | null>("");
   // Code to send messages to python code
-  const [allMessages, setAllMessages] = useState([
-    {
-      message: "",
-      user: "",
-      timeStamp: "",
-    },
-  ]);
+  const [allMessages, setAllMessages] = useState<ChatMessage[]>([]);
 
   const submitMessage = (
     e: FormEvent,
@@ -51,6 +51,19 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     ]);
     setUserMessage("");
     textareaRef.current!.textContent = "";
+
+    // logic to send message to python code and receive response
+
+    setTimeout(() => {
+      setAllMessages((allMessages) => [
+        ...allMessages,
+        {
+          message: "Hello, I am Johnny!",
+          user: "johnny",
+          timeStamp: new Date().toLocaleTimeString(),
+        },
+      ]);
+    }, 2000);
   };
 
   // Code to receive messages from python code

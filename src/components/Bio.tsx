@@ -37,7 +37,7 @@ const Bio = ({ isEditPage }: Props) => {
   return (
     <>
       <main
-        className={` flex w-full grow flex-col gap-1   rounded-lg px-1 py-2  lg:bg-white  `}
+        className={` flex w-full grow flex-col gap-1   rounded-lg   px-1  py-2 lg:bg-white`}
         style={
           screenWidth === "mobile" ? { height: "100vh", overflow: "auto" } : {}
         }

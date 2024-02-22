@@ -19,7 +19,7 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<boolean>(false);
 
-  // const messageRef = useRef(null);
+  const messageRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -43,20 +43,29 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
 
   return (
     <>
-      {/* User Box */}
-      {/* <div
-        // ref={messageRef}
-        className="relative w-fit border border-red-500"
+      <div
+        className={` h-fit w-fit max-w-[75%]  rounded-3xl  px-4 py-2 text-left text-sm  ${
+          user === "user"
+            ? "self-end rounded-ee-none bg-appOrange text-white"
+            : user === "johnny"
+            ? "rounded-bl-none bg-gray-200 text-grayText"
+            : ""
+        }`}
+      >
+        <h2>{message}</h2>
+      </div>
+
+      {/* timestammp? */}
+      <div
+        ref={messageRef}
+        className="relative w-fit"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => {
           setDisplayTime(false);
           setIsHovering(false);
         }}
-      > */}
-      <div className=" h-fit w-fit max-w-[75%] self-end rounded-3xl rounded-ee-none bg-appOrange px-4 py-2 text-left text-sm text-white">
-        <h2>Lorem</h2>
-      </div>
-      {/* <p
+      >
+        <p
           className={`absolute left-3 top-3 ${
             displayTime
               ? `block top-${mousePos.y} left-${mousePos.x}`
@@ -64,48 +73,9 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
           }  `}
         >
           {mousePos.x}
-        </p> */}
-      {/* </div> */}
-      {/* User Box End */}
-
-      {/* Johnny Box */}
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
+        </p>
       </div>
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
-      </div>
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
-      </div>
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
-      </div>
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
-      </div>
-      <div className=" h-fit w-fit max-w-[75%] rounded-3xl rounded-bl-none bg-gray-200 px-4 py-2 text-left  text-sm text-grayText">
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe rerum
-          nesciunt asperiores excepturi amet quasi?
-        </h2>
-      </div>
-      {/* Johnny Box End */}
+      {/* timestammp? end */}
     </>
   );
 };
