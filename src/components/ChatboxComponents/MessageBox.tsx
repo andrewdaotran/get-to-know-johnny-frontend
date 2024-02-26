@@ -1,10 +1,19 @@
+import ChatboxContext, {
+  ChatboxContextType,
+} from "andrewdaotran/context/ChatboxContext";
 import { time } from "andrewdaotran/utils";
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import {
+  MouseEventHandler,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type Props = {
-  message: string;
-  isLastMessage: boolean;
-  timeStamp: string;
+  message?: string;
+  isLastMessage?: boolean;
+  timeStamp?: string;
   user: string;
 };
 
@@ -18,6 +27,8 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<boolean>(false);
+
+  const { isJohnnyTyping } = useContext(ChatboxContext) as ChatboxContextType;
 
   const messageRef = useRef(null);
 
@@ -49,10 +60,26 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
             ? "self-end rounded-ee-none bg-appOrange text-white"
             : user === "johnny"
             ? "rounded-bl-none bg-gray-200 text-grayText"
-            : ""
+            : "rounded-bl-none bg-gray-200"
         }`}
       >
-        <h2>{message}</h2>
+        {user !== "typing" && <h2>{message}</h2>}
+
+        {/* Typing Animaiton */}
+        {isJohnnyTyping && user === "typing" && (
+          <div className="flex gap-1">
+            {[0, 0.4, 0.8].map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`h-3 w-3 animate-loadingFade rounded-full bg-gray-500 `}
+                  style={{ animationDelay: `${item}s` }}
+                ></div>
+              );
+            })}
+          </div>
+        )}
+        {/* Typing Animaiton End */}
       </div>
 
       {/* timestammp? */}

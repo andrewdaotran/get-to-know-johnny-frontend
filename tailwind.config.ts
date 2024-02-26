@@ -15,6 +15,15 @@ export default {
         // appOrange: "blue",
         appOrange: "rgb(249 115 22)", // orange-500
       },
+      animation: { loadingFade: "loadingFade 1.5s infinite" },
+      keyframes: {
+        loadingFade: {
+          "0%": { opacity: "0.2" },
+          "50%": { opacity: "0.8" },
+
+          "100%": { opacity: "0.2" },
+        },
+      },
     },
   },
   plugins: [],

@@ -21,6 +21,7 @@ export type ChatboxContextType = {
   ) => void;
   allMessages: { message: string; user: string; timeStamp: string }[];
   typeUserMessage: (e: ChangeEvent<HTMLSpanElement>) => void;
+  isJohnnyTyping: boolean;
 };
 
 const ChatboxContext = createContext<ChatboxContextType | null>(null);
@@ -29,6 +30,7 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   const [userMessage, setUserMessage] = useState<string | null>("");
   // Code to send messages to python code
   const [allMessages, setAllMessages] = useState<ChatMessage[]>([]);
+  const [isJohnnyTyping, setIsJohnnyTyping] = useState<boolean>(false);
 
   const submitMessage = (
     e: FormEvent,
@@ -54,6 +56,14 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
 
     // logic to send message to python code and receive response
 
+    const johnnyTypeDelay = Math.ceil(Math.random() * 2000 + 1000);
+
+    const johnnyResponseDelay =
+      johnnyTypeDelay + Math.ceil(Math.random() * 2000 + 2000);
+
+    setTimeout(() => {
+      setIsJohnnyTyping(true);
+    }, johnnyTypeDelay);
     setTimeout(() => {
       setAllMessages((allMessages) => [
         ...allMessages,
@@ -63,7 +73,8 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
           timeStamp: new Date().toLocaleTimeString(),
         },
       ]);
-    }, 2000);
+      setIsJohnnyTyping(false);
+    }, johnnyResponseDelay);
   };
 
   // Code to receive messages from python code
@@ -75,7 +86,7 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   console.log(userMessage, allMessages);
   return (
     <ChatboxContext.Provider
-      value={{ submitMessage, allMessages, typeUserMessage }}
+      value={{ submitMessage, allMessages, typeUserMessage, isJohnnyTyping }}
     >
       {children}
     </ChatboxContext.Provider>

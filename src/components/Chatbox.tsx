@@ -31,6 +31,7 @@ export const Chatbox = () => {
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
+  const { isJohnnyTyping } = useContext(ChatboxContext) as ChatboxContextType;
 
   // console.log(allMessages);
 
@@ -66,6 +67,10 @@ export const Chatbox = () => {
               />
             );
           })}
+          {/* Johnny is Typing */}
+          {isJohnnyTyping && <MessageBox user="typing" />}
+
+          {/* Johnny is Typing End */}
         </div>
         {/* Chat Area End */}
 
