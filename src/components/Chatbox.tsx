@@ -33,7 +33,7 @@ export const Chatbox = () => {
   ) as WindowSizeContextType;
   const { isJohnnyTyping } = useContext(ChatboxContext) as ChatboxContextType;
 
-  // console.log(allMessages);
+  console.log(allMessages[0]?.timeStamp);
 
   return (
     <>
@@ -56,6 +56,11 @@ export const Chatbox = () => {
         {/* Chat Area */}
         <div className=" mb-2 flex grow flex-col justify-end  overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
           {allMessages.length === 0 && <EmptyChatModal />}
+
+          {/* Line With Time User Sent First Message */}
+          <h3 className=" py-1 text-center">{allMessages[0]?.timeStamp}</h3>
+          {/* Line With Time User Sent First Message End */}
+
           {allMessages.map((message, index, array) => {
             return (
               <MessageBox
@@ -69,7 +74,6 @@ export const Chatbox = () => {
           })}
           {/* Johnny is Typing */}
           {isJohnnyTyping && <MessageBox user="typing" />}
-
           {/* Johnny is Typing End */}
         </div>
         {/* Chat Area End */}

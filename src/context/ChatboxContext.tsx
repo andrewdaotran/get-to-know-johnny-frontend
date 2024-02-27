@@ -43,12 +43,19 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     // }
     if (userMessage?.replaceAll(" ", "").length === 0) return;
 
+    let hour = new Date().getHours();
+    const prepand = hour >= 12 ? "PM" : "AM";
+    hour = hour >= 12 ? hour - 12 : hour;
+    hour = hour === 0 ? 12 : hour;
+    const minutes = new Date().getMinutes();
+    const timeStamp = `${hour}:${minutes} ${prepand}`;
+
     setAllMessages((allMessages) => [
       ...allMessages,
       {
         message: userMessage!,
         user: "user",
-        timeStamp: new Date().toLocaleTimeString(),
+        timeStamp,
       },
     ]);
     setUserMessage("");
@@ -58,8 +65,9 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
 
     const johnnyTypeDelay = Math.ceil(Math.random() * 2000 + 1000);
 
+    // change to amountOfDelay * johnnyResponse.length
     const johnnyResponseDelay =
-      johnnyTypeDelay + Math.ceil(Math.random() * 2000 + 2000);
+      johnnyTypeDelay + Math.ceil(Math.random() * 2000);
 
     setTimeout(() => {
       setIsJohnnyTyping(true);
