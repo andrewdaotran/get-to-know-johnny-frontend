@@ -33,7 +33,7 @@ export const Chatbox = () => {
   ) as WindowSizeContextType;
   const { isJohnnyTyping } = useContext(ChatboxContext) as ChatboxContextType;
 
-  console.log(allMessages[0]?.timeStamp);
+  // console.log("expireTime", localStorage.getItem("expireTime"));
 
   return (
     <>
@@ -54,7 +54,7 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" mb-2 flex grow flex-col justify-end  overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
+        <div className=" mb-2 flex grow flex-col justify-end  gap-[.08rem] overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
           {allMessages.length === 0 && <EmptyChatModal />}
 
           {/* Line With Time User Sent First Message */}
@@ -66,6 +66,11 @@ export const Chatbox = () => {
               <MessageBox
                 key={index}
                 message={message.message}
+                isSoloMessage={
+                  message.user !== array[index - 1]?.user &&
+                  message.user !== array[index + 1]?.user
+                }
+                isFirstMessage={message.user !== array[index - 1]?.user}
                 isLastMessage={message.user !== array[index + 1]?.user}
                 timeStamp={message.timeStamp}
                 user={message.user}
@@ -84,7 +89,8 @@ export const Chatbox = () => {
           className="flex grow-0 gap-2 px-2 pb-4"
         >
           <span
-            className="block h-fit max-h-40 w-[100%] flex-auto resize-none  overflow-auto scroll-smooth rounded-xl bg-gray-100 p-2 empty:before:text-gray-400 empty:before:content-['Message'] focus:outline-none"
+            className="block h-fit max-h-40 w-[100%]  flex-auto resize-none  overflow-x-auto scroll-smooth rounded-xl bg-gray-100 p-2 empty:before:text-gray-400 empty:before:content-['Message'] focus:outline-none"
+            style={{ maxWidth: "calc(100% - 3rem)" }}
             ref={textareaRef}
             onInput={typeUserMessage}
             placeholder="Message"

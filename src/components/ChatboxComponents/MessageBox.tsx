@@ -12,6 +12,8 @@ import {
 
 type Props = {
   message?: string;
+  isSoloMessage?: boolean;
+  isFirstMessage?: boolean;
   isLastMessage?: boolean;
   timeStamp?: string;
   user: string;
@@ -23,7 +25,14 @@ type Props = {
 
 // When a message gets sent from either side, need to run the time() function individually to get a unique time
 
-const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
+const MessageBox = ({
+  message,
+  isSoloMessage,
+  isFirstMessage,
+  isLastMessage,
+  timeStamp,
+  user,
+}: Props) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<boolean>(false);
@@ -52,16 +61,50 @@ const MessageBox = ({ message, isLastMessage, timeStamp, user }: Props) => {
     }
   }, [isHovering]);
 
+  const userBubble = " bg-appOrange text-white self-end";
+  const userStartBubble = userBubble + " rounded-ee-md";
+  const userEndBubble = userBubble + " rounded-tr-md";
+  const userMiddleBubble = userBubble + " rounded-tr-md rounded-br-md";
+  const johnnyBubble = " bg-gray-200 text-grayText";
+  const johnnyStartBubble = johnnyBubble + " rounded-bl-md";
+  const johnnyEndBubble = johnnyBubble + " rounded-tl-md";
+  const johnnyMiddleBubble = johnnyBubble + " rounded-tl-md rounded-bl-md";
+  const johnnyTypingBubble = johnnyBubble + " rounded-bl-md py-3 ";
+
   return (
     <>
       <div
-        className={` h-fit w-fit max-w-[75%]  rounded-3xl  px-4 py-2 text-left text-sm  ${
-          user === "user"
-            ? "self-end rounded-ee-none bg-appOrange text-white"
-            : user === "johnny"
-            ? "rounded-bl-none bg-gray-200 text-grayText"
-            : "rounded-bl-none bg-gray-200"
-        }`}
+        className={` h-fit w-fit max-w-[75%]  rounded-3xl  px-4 py-2 text-left text-sm 
+        ${
+          user === "user" && isSoloMessage
+            ? userBubble
+            : user === "user" && isFirstMessage && !isSoloMessage
+            ? userStartBubble
+            : user === "user" && isLastMessage && !isSoloMessage
+            ? userEndBubble
+            : user === "user" &&
+              !isFirstMessage &&
+              !isLastMessage &&
+              !isSoloMessage
+            ? userMiddleBubble
+            : ""
+        }
+        ${
+          user === "johnny" && isSoloMessage
+            ? johnnyBubble
+            : user === "johnny" && isFirstMessage && !isSoloMessage
+            ? johnnyStartBubble
+            : user === "johnny" && isLastMessage && !isSoloMessage
+            ? johnnyEndBubble
+            : user === "johnny" &&
+              !isFirstMessage &&
+              !isLastMessage &&
+              !isSoloMessage
+            ? johnnyMiddleBubble
+            : ""
+        }
+        ${user === "typing" ? johnnyTypingBubble : ""}
+      `}
       >
         {user !== "typing" && <h2>{message}</h2>}
 
