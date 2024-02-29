@@ -31,7 +31,8 @@ export const Chatbox = () => {
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
-  const { isJohnnyTyping } = useContext(ChatboxContext) as ChatboxContextType;
+  const { isJohnnyTyping, resetJohnnyResponseCount, updateIfTextFieldFocused } =
+    useContext(ChatboxContext) as ChatboxContextType;
 
   // console.log("expireTime", localStorage.getItem("expireTime"));
 
@@ -93,6 +94,12 @@ export const Chatbox = () => {
             style={{ maxWidth: "calc(100% - 3rem)" }}
             ref={textareaRef}
             onInput={typeUserMessage}
+            // onFocus={() => {
+            //   updateIfTextFieldFocused(true);
+            // }}
+            // onBlur={() => {
+            //   updateIfTextFieldFocused(false);
+            // }}
             placeholder="Message"
             contentEditable
             suppressContentEditableWarning

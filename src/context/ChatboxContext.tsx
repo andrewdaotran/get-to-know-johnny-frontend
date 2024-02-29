@@ -9,7 +9,6 @@ import {
   useState,
 } from "react";
 import { ChildrenNodeType } from "typings";
-import { set } from "zod";
 
 interface ChatMessage {
   message: string;
@@ -25,6 +24,9 @@ export type ChatboxContextType = {
   allMessages: { message: string; user: string; timeStamp: string }[];
   typeUserMessage: (e: ChangeEvent<HTMLSpanElement>) => void;
   isJohnnyTyping: boolean;
+  johnnyResponseCount: number;
+  resetJohnnyResponseCount: () => void;
+  updateIfTextFieldFocused: (value: boolean) => void;
 };
 
 const ChatboxContext = createContext<ChatboxContextType | null>(null);
@@ -36,6 +38,8 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   const [isJohnnyTyping, setIsJohnnyTyping] = useState<boolean>(false);
   const [isUserInactive, setIsUserInactive] = useState<boolean>(true);
   const [inactiveMessageCount, setInactiveMessageCount] = useState<number>(0);
+  const [johnnyResponseCount, setJohnnyResponseCount] = useState<number>(0);
+  const [isTextFieldFocused, setIsTextFieldFocused] = useState<boolean>(false);
 
   const johnnyMessaging = (isInactiveMessage: boolean) => {
     const johnnyTypeDelay = Math.ceil(Math.random() * 2000 + 1000);
@@ -51,17 +55,38 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
       setIsJohnnyTyping(true);
     }, johnnyTypeDelay);
 
-    setTimeout(() => {
-      setAllMessages((allMessages) => [
-        ...allMessages,
-        {
-          message: "Hello, I am Johnny!", // change to response from python code
-          user: "johnny",
-          timeStamp: new Date().toLocaleTimeString(),
-        },
-      ]);
-      setIsJohnnyTyping(false);
-    }, johnnyResponseDelay);
+    // Normal message
+    if (!isInactiveMessage) {
+      setTimeout(() => {
+        setAllMessages((allMessages) => [
+          ...allMessages,
+          {
+            message: "Hello, I am Johnny!", // change to response from python code
+            user: "johnny",
+            timeStamp: new Date().toLocaleTimeString(),
+          },
+        ]);
+        setIsJohnnyTyping(false);
+        setJohnnyResponseCount((prev) => prev + 1);
+      }, johnnyResponseDelay);
+    }
+
+    // Inactive message
+    if (isInactiveMessage) {
+      setTimeout(() => {
+        setAllMessages((allMessages) => [
+          ...allMessages,
+          {
+            message: "Hello, I am inactive", // change to response from python code
+            user: "johnny",
+            timeStamp: new Date().toLocaleTimeString(),
+          },
+        ]);
+        setIsJohnnyTyping(false);
+        setJohnnyResponseCount((prev) => prev + 1);
+        setInactiveMessageCount((prev) => prev + 1);
+      }, johnnyResponseDelay);
+    }
   };
 
   const submitMessage = (
@@ -92,7 +117,7 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     ]);
     setUserMessage("");
     textareaRef.current!.textContent = "";
-
+    setJohnnyResponseCount(0);
     johnnyMessaging(false);
   };
 
@@ -101,18 +126,19 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   const checkForUserInactivity = () => {
     const expireTime = localStorage.getItem("expireTime");
 
-    console.log("expireTime", expireTime, Date.now());
-
     if (Number(expireTime) < Date.now()) {
       setIsUserInactive(true);
-      if (inactiveMessageCount === 0) johnnyMessaging(true);
-      setInactiveMessageCount(inactiveMessageCount + 1);
+      if (inactiveMessageCount === 0) {
+        console.log(inactiveMessageCount);
+        console.log("IM HERE");
+        johnnyMessaging(true);
+      }
     }
   };
 
   const updateExpireTime = () => {
-    const expireTime = Date.now() + 300000;
-    // const expireTime = Date.now() + 300000;
+    // const expireTime = Date.now() + 180000; // 3 min of inactivity
+    const expireTime = Date.now() + 3000;
 
     localStorage.setItem("expireTime", expireTime.toString());
   };
@@ -121,14 +147,14 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     if (inactiveMessageCount === 0) {
       const interval = setInterval(() => {
         checkForUserInactivity();
-      }, 6000);
+        // }, 3000);
+      }, 1000);
       return () => clearInterval(interval);
     }
   }, []);
 
   // useEffect to update expire time when user sends a message
   useEffect(() => {
-    // if (allMessages[allMessages.length - 1]?.user === "user")
     updateExpireTime();
   }, [allMessages]);
 
@@ -140,10 +166,33 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     setUserMessage(e.currentTarget.textContent);
   };
 
-  console.log(userMessage, allMessages);
+  const resetJohnnyResponseCount = () => {
+    setJohnnyResponseCount(0);
+  };
+
+  const updateIfTextFieldFocused = (value: boolean) => {
+    setIsTextFieldFocused(value);
+  };
+
+  // useEffect(() => {
+  //   while (isTextFieldFocused) {
+  //     resetJohnnyResponseCount();
+  // // infinite loop, fix
+  //   }
+
+  // }, [isTextFieldFocused]);
+
   return (
     <ChatboxContext.Provider
-      value={{ submitMessage, allMessages, typeUserMessage, isJohnnyTyping }}
+      value={{
+        submitMessage,
+        allMessages,
+        typeUserMessage,
+        isJohnnyTyping,
+        johnnyResponseCount,
+        resetJohnnyResponseCount,
+        updateIfTextFieldFocused,
+      }}
     >
       {children}
     </ChatboxContext.Provider>

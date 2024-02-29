@@ -15,8 +15,10 @@ import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,
 } from "andrewdaotran/context/MobileMenuContext";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import ChatboxContext, {
+  ChatboxContextType,
+} from "andrewdaotran/context/ChatboxContext";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -34,6 +36,10 @@ const Sidebar = () => {
   const { menu, changeMenu } = useContext(
     MobileMenuContext
   ) as MobileMenuContextType;
+
+  const { johnnyResponseCount, resetJohnnyResponseCount } = useContext(
+    ChatboxContext
+  ) as ChatboxContextType;
 
   // const sidebar = useRef(null);
 
@@ -86,19 +92,31 @@ const Sidebar = () => {
               <Fragment key={item.title}>
                 {/* Map Over Sidebar Items */}
                 {item.title !== "Edit Page" && (
-                  <ReactScrollLink
-                    key={index}
-                    className="flex w-fit cursor-pointer flex-col gap-2 text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange "
-                    to={item.linkTo}
-                    smooth={true}
-                    duration={1200}
-                    offset={-80}
-                    onClick={() => {
-                      sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
-                    }}
-                  >
-                    <h3>{item.title.toUpperCase()}</h3>
-                  </ReactScrollLink>
+                  <div className="relative w-fit ">
+                    <ReactScrollLink
+                      key={index}
+                      className="flex  cursor-pointer flex-col gap-2 text-2xl transition-all duration-500 hover:pl-2 hover:text-appOrange "
+                      to={item.linkTo}
+                      smooth={true}
+                      duration={1200}
+                      offset={-80}
+                      onClick={() => {
+                        sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
+                        if (item.title === "Chat") {
+                          resetJohnnyResponseCount();
+                        }
+                      }}
+                    >
+                      <h3>{item.title.toUpperCase()}</h3>
+                    </ReactScrollLink>
+                    {johnnyResponseCount > 0 && item.title === "Chat" && (
+                      <div className=" absolute -right-5 -top-2 grid h-6 w-6 items-center rounded-full bg-red-400 text-center">
+                        {johnnyResponseCount > 9
+                          ? "9+"
+                          : String(johnnyResponseCount)}
+                      </div>
+                    )}
+                  </div>
                 )}
                 {/* Map Over Sidebar Items End */}
                 {/* Edit Page Button */}
