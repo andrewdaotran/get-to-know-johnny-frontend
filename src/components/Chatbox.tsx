@@ -39,7 +39,7 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={`   flex w-full max-w-4xl grow flex-col overflow-auto rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
+        className={` relative  flex w-full max-w-4xl grow flex-col  rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
         style={
           screenWidth === "desktop" ? { height: "calc(100vh - 5rem)" } : {}
         }
@@ -47,7 +47,7 @@ export const Chatbox = () => {
       >
         {/* Top */}
         <div
-          className={`grid grow-0 justify-items-center bg-gray-50 py-4 lg:bg-inherit `}
+          className={`absolute top-0 grid w-full grow-0 justify-items-center border border-blue-500 bg-gray-50 py-4 lg:bg-inherit`}
         >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-grayText">Orange County</h2>
@@ -55,7 +55,7 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" mb-2 flex grow flex-col justify-end  gap-[.08rem] overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
+        <div className=" mb-2 mt-16 flex grow flex-col  justify-end gap-[.08rem]  overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
           {allMessages.length === 0 && <EmptyChatModal />}
 
           {/* Line With Time User Sent First Message */}
@@ -94,12 +94,14 @@ export const Chatbox = () => {
             style={{ maxWidth: "calc(100% - 3rem)" }}
             ref={textareaRef}
             onInput={typeUserMessage}
-            // onFocus={() => {
-            //   updateIfTextFieldFocused(true);
-            // }}
-            // onBlur={() => {
-            //   updateIfTextFieldFocused(false);
-            // }}
+            onFocus={() => {
+              updateIfTextFieldFocused(true);
+              console.log("onFocus");
+              resetJohnnyResponseCount();
+            }}
+            onBlur={() => {
+              updateIfTextFieldFocused(false);
+            }}
             placeholder="Message"
             contentEditable
             suppressContentEditableWarning
