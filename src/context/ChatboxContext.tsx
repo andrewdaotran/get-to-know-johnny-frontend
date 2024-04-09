@@ -42,7 +42,7 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
     useState<boolean>(false);
   const [johnnyResponseCount, setJohnnyResponseCount] = useState<number>(0);
   const [isTextFieldFocused, setIsTextFieldFocused] = useState<boolean>(false);
-  let inactiveBool = false;
+  // let inactiveBool = false;
   let textFieldFocused = false;
 
   const johnnyMessaging = (isInactiveMessage: boolean) => {
@@ -153,21 +153,7 @@ export const ChatboxProvider = ({ children }: ChildrenNodeType) => {
   // };
   // useEffect to set interval to check for user inactivity
 
-  // useEffect(() => {
-  //   // if (hasSentInactiveMessage === false) {
-  //   //   useInterval(() => {
-  //   //     checkForUserInactivity();
-  //   //   }, 1000);
-  //   // }
-  //   if (hasSentInactiveMessage === false) {
-  //     const interval = setInterval(() => {
-  //       checkForUserInactivity();
-  //       // }, 3000);
-  //     }, 1000);
-  //     console.log("hasSentInactiveMessage", hasSentInactiveMessage);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, []);
+  // useEffect(
 
   // useEffect to update expire time when user sends a message
   // useEffect(() => {
