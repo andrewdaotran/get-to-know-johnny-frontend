@@ -50,6 +50,8 @@ const MobilePage = () => {
     WindowSizeContext
   ) as WindowSizeContextType;
 
+  console.log("window", window.scrollY);
+
   return (
     <div
       className="relative "

@@ -47,7 +47,7 @@ export const Chatbox = () => {
       >
         {/* Top */}
         <div
-          className={` top-0 grid w-full grow-0 justify-items-center border border-blue-500 bg-gray-50 py-4 lg:bg-inherit`}
+          className={` top-0 grid w-full grow-0 justify-items-center border-b border-gray-200 bg-gray-50 py-4 lg:bg-inherit`}
         >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-grayText">Orange County</h2>
@@ -55,7 +55,7 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" border-grey-200 mb-2 grid grow overflow-auto overscroll-none scroll-smooth border-t bg-gray-100 px-2 pb-2 pt-2">
+        <div className=" border-grey-200 mb-2 grid grow overflow-auto overscroll-none scroll-smooth  px-2 pb-2 pt-2">
           <div className="flex grow flex-col justify-end gap-[.08rem] self-end">
             {allMessages.length === 0 && <EmptyChatModal />}
             {/* Line With Time User Sent First Message */}
