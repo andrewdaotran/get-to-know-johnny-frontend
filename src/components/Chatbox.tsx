@@ -39,7 +39,7 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={` relative  flex w-full max-w-4xl grow flex-col  rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
+        className={`relative flex  w-full max-w-4xl grow flex-col  overscroll-none rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
         style={
           screenWidth === "desktop" ? { height: "calc(100vh - 5rem)" } : {}
         }
@@ -47,7 +47,7 @@ export const Chatbox = () => {
       >
         {/* Top */}
         <div
-          className={`absolute top-0 grid w-full grow-0 justify-items-center border border-blue-500 bg-gray-50 py-4 lg:bg-inherit`}
+          className={` top-0 grid w-full grow-0 justify-items-center border border-blue-500 bg-gray-50 py-4 lg:bg-inherit`}
         >
           <h1 className="font-semibold">{johnnyNameAndAge}</h1>
           <h2 className="text-sm text-grayText">Orange County</h2>
@@ -55,36 +55,37 @@ export const Chatbox = () => {
         {/* Top End */}
 
         {/* Chat Area */}
-        <div className=" mb-2 mt-16 flex grow flex-col  justify-end gap-[.08rem]  overflow-auto scroll-smooth border-t border-gray-200 px-2 pb-2 pt-2">
-          {allMessages.length === 0 && <EmptyChatModal />}
+        <div className=" border-grey-200 mb-2 grid grow overflow-auto overscroll-none scroll-smooth border-t bg-gray-100 px-2 pb-2 pt-2">
+          <div className="flex grow flex-col justify-end gap-[.08rem] self-end">
+            {allMessages.length === 0 && <EmptyChatModal />}
+            {/* Line With Time User Sent First Message */}
+            <h3 className=" py-1 text-center">{allMessages[0]?.timeStamp}</h3>
+            {/* Line With Time User Sent First Message End */}
 
-          {/* Line With Time User Sent First Message */}
-          <h3 className=" py-1 text-center">{allMessages[0]?.timeStamp}</h3>
-          {/* Line With Time User Sent First Message End */}
-
-          {allMessages.map((message, index, array) => {
-            return (
-              <MessageBox
-                key={index}
-                message={message.message}
-                isSoloMessage={
-                  message.user !== array[index - 1]?.user &&
-                  message.user !== array[index + 1]?.user
-                }
-                isFirstMessage={message.user !== array[index - 1]?.user}
-                isLastMessage={message.user !== array[index + 1]?.user}
-                timeStamp={message.timeStamp}
-                user={message.user}
-              />
-            );
-          })}
-          {/* Johnny is Typing */}
-          {isJohnnyTyping && <MessageBox user="typing" />}
-          {/* Johnny is Typing End */}
+            {allMessages.map((message, index, array) => {
+              return (
+                <MessageBox
+                  key={index}
+                  message={message.message}
+                  isSoloMessage={
+                    message.user !== array[index - 1]?.user &&
+                    message.user !== array[index + 1]?.user
+                  }
+                  isFirstMessage={message.user !== array[index - 1]?.user}
+                  isLastMessage={message.user !== array[index + 1]?.user}
+                  timeStamp={message.timeStamp}
+                  user={message.user}
+                />
+              );
+            })}
+            {/* Johnny is Typing */}
+            {isJohnnyTyping && <MessageBox user="typing" />}
+            {/* Johnny is Typing End */}
+          </div>
         </div>
         {/* Chat Area End */}
 
-        {/* Message Box */}
+        {/* User Type Message Box */}
         <form
           onSubmit={(e) => submitMessage(e, textareaRef)}
           className="flex grow-0 gap-2 px-2 pb-4"
@@ -116,7 +117,7 @@ export const Chatbox = () => {
             <PaperAirplaneIcon className="h-6 w-6 transition-colors hover:text-appOrange" />
           </button>
         </form>
-        {/* Message Box End */}
+        {/* User Type Message Box End */}
       </main>
     </>
   );

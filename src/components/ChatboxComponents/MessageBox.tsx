@@ -61,7 +61,7 @@ const MessageBox = ({
     }
   }, [isHovering]);
 
-  const userBubble = " bg-appOrange text-white self-end";
+  const userBubble = " bg-appOrange text-white self-end ";
   const userStartBubble = userBubble + " rounded-ee-md";
   const userEndBubble = userBubble + " rounded-tr-md";
   const userMiddleBubble = userBubble + " rounded-tr-md rounded-br-md";
