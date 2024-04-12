@@ -43,7 +43,8 @@ const Bio = ({ isEditPage }: Props) => {
         }
         id="bio"
       >
-        <div className="mt-[-5rem] border border-red-500 pt-20 opacity-0"></div>
+        {/* <div className="mt-[-5rem] border border-red-500 pt-20 opacity-0"></div> */}
+        {/* <div className=" border border-red-500 opacity-0"></div> */}
         {/* Image */}
         {!isEditPage && (
           <div className="relative  min-h-[33rem]  w-full max-w-4xl self-center rounded-md">

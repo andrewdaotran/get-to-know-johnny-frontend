@@ -39,7 +39,7 @@ export const Chatbox = () => {
   return (
     <>
       <main
-        className={`relative flex  w-full max-w-4xl grow flex-col  overscroll-none rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
+        className={` relative flex w-full max-w-4xl grow flex-col  overscroll-none rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:fixed 2xl:h-full 2xl:w-1/2`}
         style={
           screenWidth === "desktop" ? { height: "calc(100vh - 5rem)" } : {}
         }

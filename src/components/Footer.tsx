@@ -61,7 +61,7 @@ const Footer = () => {
   };
   return (
     // <div className=" fixed  bottom-0 left-[50%] -z-20  grid h-48 translate-x-[-50%]  items-center justify-items-center px-4">
-    <div className="fixed bottom-0 left-[50%] -z-20  flex h-[22rem] w-full  translate-x-[-50%] justify-center bg-secondary p-16">
+    <div className="fixed bottom-0 left-[50%] -z-[1]  flex h-[22rem] w-full  translate-x-[-50%] justify-center bg-secondary p-16">
       <div className="flex   gap-4  ">
         {/* Submit Contact Button */}
         <div className="grid w-[24rem] min-w-[24rem] grid-cols-3 gap-4 rounded-md  bg-main p-8 shadow-md">
