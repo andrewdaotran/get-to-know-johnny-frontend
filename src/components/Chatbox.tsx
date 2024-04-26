@@ -18,7 +18,7 @@ import WindowSizeContext, {
 import ChatboxContext, {
   ChatboxContextType,
 } from "andrewdaotran/context/ChatboxContext";
-import { useScrollPosition } from "../CustomHooks/useScrollPosition";
+
 import EmptyChatModal from "./ChatboxComponents/EmptyChatModal";
 import { useWindowSize } from "usehooks-ts";
 
@@ -37,24 +37,15 @@ export const Chatbox = () => {
 
   // console.log("expireTime", localStorage.getItem("expireTime"));
 
-  const { scrollPos } = useScrollPosition();
-
   const windowSize = useWindowSize();
-
-  console.log("scrollPos", scrollPos);
 
   return (
     <>
       <main
-        className={` relative flex w-full max-w-4xl grow flex-col  overscroll-none rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:h-full `}
+        className={` relative flex w-full max-w-4xl grow flex-col  overscroll-none rounded-lg bg-white duration-700 ease-in-out md:h-[50.5rem] 2xl:sticky 2xl:top-20 2xl:h-full 2xl:w-1/2`}
         style={
           screenWidth === "desktop"
-            ? {
-                height: "calc(100vh - 5rem)",
-                position: scrollPos < 3465.5 ? "fixed" : "relative",
-                paddingTop: scrollPos < 3465.5 ? 0 : "4000px",
-                width: scrollPos < 3465.5 ? '50%"' : windowSize.width / 2,
-              }
+            ? { height: "calc(100vh - 5rem)", width: windowSize.width / 2 }
             : {}
         }
         id="chat"

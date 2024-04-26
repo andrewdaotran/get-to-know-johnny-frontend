@@ -20,7 +20,6 @@ import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
 import Footer from "./Footer";
-import { useScrollPosition } from "andrewdaotran/CustomHooks/useScrollPosition";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -46,8 +45,6 @@ const MobilePage = () => {
 
   // May need to figure out a new way to default to chat page as default but maybe not
   console.log(windowSize.width);
-
-  const { scrollPos } = useScrollPosition();
 
   const { screenWidth } = useContext(
     WindowSizeContext
@@ -123,7 +120,7 @@ const MobilePage = () => {
         </div>
       )}
       {screenWidth === "desktop" && (
-        <div className={`grid w-full grid-cols-2 gap-4 bg-white  2xl:gap-20`}>
+        <div className={`grid w-full grid-cols-2 gap-4  bg-white 2xl:gap-20`}>
           <div className="col-start-1 col-end-2 w-1/2 ">
             <Chatbox />
           </div>
