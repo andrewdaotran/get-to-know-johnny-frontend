@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import LoginModal from "./LoginModal";
+import LoginModal from "./PopupModals/LoginModal";
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "andrewdaotran/context/ModalWrapperContext";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";

@@ -23,7 +23,7 @@ import WindowSizeContext, {
 import Link from "next/link";
 import LoginModalContext, {
   LoginModalContextType,
-} from "../context/LoginModalContext";
+} from "../context/ModalWrapperContext";
 import { api } from "../utils/api";
 import BasicInformationContext, {
   BasicInformationContextType,
@@ -33,7 +33,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Navbar from "andrewdaotran/components/Navbar";
 import Sidebar from "andrewdaotran/components/Sidebar";
-import LoginModal from "andrewdaotran/components/LoginModal";
+import LoginModal from "andrewdaotran/components/PopupModals/LoginModal";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";

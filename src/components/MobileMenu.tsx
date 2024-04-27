@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/outline";
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "andrewdaotran/context/ModalWrapperContext";
 import MobileMenuContext, {
   CHAT_ACTION,
   DESCRIPTION_ACTION,

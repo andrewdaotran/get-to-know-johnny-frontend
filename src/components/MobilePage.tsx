@@ -11,15 +11,14 @@ import WindowSizeContext, {
 } from "../context/ScreenSizeContext";
 import useWindowSize from "../CustomHooks/useWindowSize";
 import LoginModalContext, {
-  LoginModalContextType,
-} from "../context/LoginModalContext";
-import LoginModal from "./LoginModal";
+  ModalWrapperContextType,
+} from "../context/ModalWrapperContext";
+import LoginModal from "./PopupModals/LoginModal";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
-import Footer from "./Footer";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -28,12 +27,12 @@ const MobilePage = () => {
   ) as MobileMenuContextType;
 
   const {
-    openLoginModal,
-    closeLoginModal,
-    isLoginModalOpen,
+    openModal,
+    closeModal,
+    isModalOpen,
 
     modalMargin,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(LoginModalContext) as ModalWrapperContextType;
 
   const { isSidebarOpen, closeSidebar } = useContext(
     SidebarContext
@@ -44,13 +43,10 @@ const MobilePage = () => {
   // }, []);
 
   // May need to figure out a new way to default to chat page as default but maybe not
-  console.log(windowSize.width);
 
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
-
-  console.log("window", window.scrollY);
 
   return (
     <div
@@ -68,7 +64,7 @@ const MobilePage = () => {
 
       {/* Login Modal */}
 
-      {isLoginModalOpen && (
+      {isModalOpen && (
         <div
           className="fixed left-1/2 top-1/3 z-20 "
           style={
@@ -89,13 +85,13 @@ const MobilePage = () => {
         <div
           className="fixed left-0 top-0  h-full w-full bg-black duration-700 ease-in-out"
           onClick={() => {
-            if (isLoginModalOpen || isSidebarOpen) {
-              closeLoginModal();
+            if (isModalOpen || isSidebarOpen) {
+              closeModal();
               closeSidebar();
             }
           }}
           style={
-            isLoginModalOpen || isSidebarOpen
+            isModalOpen || isSidebarOpen
               ? { opacity: "50%", zIndex: 10 }
               : { opacity: "0%", zIndex: 1, visibility: "hidden" }
           }

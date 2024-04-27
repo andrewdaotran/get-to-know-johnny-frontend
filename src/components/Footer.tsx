@@ -1,6 +1,6 @@
 import LoginModalContext, {
   LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+} from "andrewdaotran/context/ModalWrapperContext";
 import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,

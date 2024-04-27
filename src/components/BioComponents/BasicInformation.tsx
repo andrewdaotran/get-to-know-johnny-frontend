@@ -10,7 +10,7 @@ import WindowSizeContext, {
 } from "../../context/ScreenSizeContext";
 import LoginModalContext, {
   LoginModalContextType,
-} from "../../context/LoginModalContext";
+} from "../../context/ModalWrapperContext";
 import MobileMenuContext, {
   EDIT_ACTION,
   MobileMenuContextType,

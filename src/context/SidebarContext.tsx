@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ChildrenNodeType } from "typings";
 import WindowSizeContext, { WindowSizeContextType } from "./ScreenSizeContext";
-import LoginModalContext, { LoginModalContextType } from "./LoginModalContext";
+import LoginModalContext, {
+  LoginModalContextType,
+} from "./ModalWrapperContext";
 import { scroller } from "react-scroll";
 
 export type SidebarContextType = {

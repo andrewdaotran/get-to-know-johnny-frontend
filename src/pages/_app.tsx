@@ -19,7 +19,7 @@ import WindowSizeContext, {
   WindowSizeProvider,
 } from "andrewdaotran/context/ScreenSizeContext";
 import { LoginButtonProvider } from "andrewdaotran/context/EditButtonContext";
-import { LoginModalProvider } from "andrewdaotran/context/LoginModalContext";
+import { ModalWrapperProvider } from "andrewdaotran/context/ModalWrapperContext";
 import { AppRouter } from "andrewdaotran/server/api/root";
 
 import { SidebarProvider } from "andrewdaotran/context/SidebarContext";
@@ -34,7 +34,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <ChatboxProvider>
-        <LoginModalProvider>
+        <ModalWrapperProvider>
           <WindowSizeProvider>
             <SidebarProvider>
               <BasicInforomationProvider>
@@ -53,7 +53,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
               </BasicInforomationProvider>
             </SidebarProvider>
           </WindowSizeProvider>
-        </LoginModalProvider>
+        </ModalWrapperProvider>
       </ChatboxProvider>
     </SessionProvider>
   );

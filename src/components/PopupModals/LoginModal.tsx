@@ -1,7 +1,7 @@
 "use client";
 import LoginModalContext, {
-  LoginModalContextType,
-} from "andrewdaotran/context/LoginModalContext";
+  ModalWrapperContextType,
+} from "andrewdaotran/context/ModalWrapperContext";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
@@ -18,9 +18,9 @@ import {
 
 const LoginModal = () => {
   const {
-    openLoginModal,
-    closeLoginModal,
-    isLoginModalOpen,
+    openModal,
+    closeModal,
+    isModalOpen,
     modalSize,
     modalMargin,
     doesJohnnyHaveAccount,
@@ -33,7 +33,7 @@ const LoginModal = () => {
     // answerInput,
     // updateAnswerInput,
     // checkIfAnswerIsCorrect,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(LoginModalContext) as ModalWrapperContextType;
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
@@ -50,7 +50,7 @@ const LoginModal = () => {
       }
     >
       {/* Close Modal Button */}
-      <div className="absolute left-4 top-4" onClick={closeLoginModal}>
+      <div className="absolute left-4 top-4" onClick={closeModal}>
         <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
       </div>
       {/* Close Modal Button End*/}

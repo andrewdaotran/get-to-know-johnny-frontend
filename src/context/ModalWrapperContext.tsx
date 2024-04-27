@@ -13,10 +13,10 @@ import { signIn, useSession } from "next-auth/react";
 import { api } from "andrewdaotran/utils/api";
 import { sign } from "crypto";
 
-export type LoginModalContextType = {
-  isLoginModalOpen: boolean;
-  openLoginModal: () => void;
-  closeLoginModal: () => void;
+export type ModalWrapperContextType = {
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
   modalSize: {
     mobile: { width: string; height: string };
     tablet: { width: string; height: string };
@@ -58,9 +58,9 @@ export type LoginModalContextType = {
   // checkIfAnswerIsCorrect: (e: FormEvent<HTMLFormElement>) => boolean;
 };
 
-const LoginModalContext = createContext<LoginModalContextType | null>(null);
+const ModalWrapperContext = createContext<ModalWrapperContextType | null>(null);
 
-export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
+export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
   const windowSize = useWindowSize();
 
   const { data: session, status } = useSession();
@@ -109,22 +109,15 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
     }
   }, [status, data]);
 
-  // console.log("all", all);
-  // console.log("johnnyData", johnnyData);
-  // console.log("status", status);
-  // console.log(session?.user, data);
-  // console.log(session?.user.id, data?.id);
-  // console.log(session?.user.id === data?.id);
-
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
-  const openLoginModal = () => {
-    setIsLoginModalOpen(true);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-  const closeLoginModal = () => {
-    setIsLoginModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   const checkIfJohnnyHasAccount = () => {
@@ -199,11 +192,11 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
   };
 
   return (
-    <LoginModalContext.Provider
+    <ModalWrapperContext.Provider
       value={{
-        isLoginModalOpen,
-        openLoginModal,
-        closeLoginModal,
+        isModalOpen,
+        openModal,
+        closeModal,
         modalSize,
         modalMargin,
         doesJohnnyHaveAccount,
@@ -219,11 +212,11 @@ export const LoginModalProvider = ({ children }: ChildrenNodeType) => {
       }}
     >
       {children}
-    </LoginModalContext.Provider>
+    </ModalWrapperContext.Provider>
   );
 };
 
-export default LoginModalContext;
+export default ModalWrapperContext;
 
 //  /* Stuff for if Johnny has not made an account yet with dumb questions */
 
