@@ -39,22 +39,7 @@ const LoginModal = () => {
   ) as WindowSizeContextType;
   console.log(johnnyData);
   return (
-    <div
-      className={` relative z-30 grid grid-rows-3 gap-4 rounded-md  bg-main duration-700 ease-in-out sm:p-12`}
-      style={
-        screenWidth === "mobile"
-          ? modalSize.mobile
-          : screenWidth === "tablet"
-          ? modalSize.tablet
-          : modalSize.desktop
-      }
-    >
-      {/* Close Modal Button */}
-      <div className="absolute left-4 top-4" onClick={closeModal}>
-        <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
-      </div>
-      {/* Close Modal Button End*/}
-
+    <div className="">
       <div>
         {johnnyData?.id ? (
           <button onClick={() => void signOut()}>sign out</button>
@@ -65,14 +50,6 @@ const LoginModal = () => {
           />
         )}
       </div>
-
-      {/* Modal Header */}
-
-      {/* Modal Header End */}
-
-      {/* Modal Body */}
-
-      {/* Modal Body End */}
     </div>
   );
 };

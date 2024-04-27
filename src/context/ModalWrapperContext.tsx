@@ -12,6 +12,7 @@ import { authOptions } from "andrewdaotran/server/auth";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "andrewdaotran/utils/api";
 import { sign } from "crypto";
+import { set } from "zod";
 
 export type ModalWrapperContextType = {
   isModalOpen: boolean;
@@ -38,6 +39,13 @@ export type ModalWrapperContextType = {
   };
   doesJohnnyHaveAccount: boolean;
   johnnyData: User;
+  modalTypeObj: {
+    closed: string;
+    login: string;
+    interested: string;
+  };
+  changeModalType: (type: string) => void;
+  modalType: string;
 
   // johnnyCreateAccountQuestions: {
   //   question: string;
@@ -110,6 +118,13 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
   }, [status, data]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalTypeObj = {
+    closed: "CLOSED",
+    login: "LOGINMODAL",
+    interested: "INTERESTEDMODAL",
+  };
+  const [modalType, setModalType] = useState(modalTypeObj.closed);
+
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
   const openModal = () => {
@@ -118,6 +133,11 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setModalType(modalTypeObj.closed);
+  };
+
+  const changeModalType = (type: string) => {
+    setModalType(type);
   };
 
   const checkIfJohnnyHasAccount = () => {
@@ -201,6 +221,9 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
         modalMargin,
         doesJohnnyHaveAccount,
         johnnyData,
+        modalTypeObj,
+        changeModalType,
+        modalType,
         // johnnyCreateAccountQuestions,
         // questionCount,
         // currentQuestion,

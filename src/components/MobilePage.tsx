@@ -19,6 +19,7 @@ import Sidebar from "./Sidebar";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
+import ModalWrapper from "./PopupModals/ModalWrapper";
 
 const MobilePage = () => {
   const windowSize = useWindowSize();
@@ -75,7 +76,7 @@ const MobilePage = () => {
               : modalMargin.desktop
           }
         >
-          <LoginModal />
+          <ModalWrapper />
         </div>
       )}
       {/* Login Modal End */}

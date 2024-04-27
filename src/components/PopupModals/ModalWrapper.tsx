@@ -1,7 +1,4 @@
 "use client";
-import LoginModalContext, {
-  ModalWrapperContextType,
-} from "andrewdaotran/context/ModalWrapperContext";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
@@ -15,8 +12,14 @@ import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
+import ModalWrapperContext, {
+  ModalWrapperContextType,
+} from "andrewdaotran/context/ModalWrapperContext";
+import LoginModal from "./LoginModal";
 
-const LoginModal = () => {
+type Props = {};
+
+const ModalWrapper = () => {
   const {
     openModal,
     closeModal,
@@ -25,7 +28,9 @@ const LoginModal = () => {
     modalMargin,
     doesJohnnyHaveAccount,
     johnnyData,
-  } = useContext(LoginModalContext) as ModalWrapperContextType;
+    modalTypeObj,
+    modalType,
+  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
@@ -47,26 +52,9 @@ const LoginModal = () => {
       </div>
       {/* Close Modal Button End*/}
 
-      <div>
-        {johnnyData?.id ? (
-          <button onClick={() => void signOut()}>sign out</button>
-        ) : (
-          <GoogleButton
-            className="mx-auto"
-            onClick={() => void signIn("google")}
-          />
-        )}
-      </div>
-
-      {/* Modal Header */}
-
-      {/* Modal Header End */}
-
-      {/* Modal Body */}
-
-      {/* Modal Body End */}
+      {modalType === modalTypeObj.login && <LoginModal />}
     </div>
   );
 };
 
-export default LoginModal;
+export default ModalWrapper;

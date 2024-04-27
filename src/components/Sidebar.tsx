@@ -7,8 +7,8 @@ import { Link as ReactScrollLink, scroller } from "react-scroll";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "andrewdaotran/context/ScreenSizeContext";
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 
 import MobileMenuContext, {
@@ -29,9 +29,9 @@ const Sidebar = () => {
     WindowSizeContext
   ) as WindowSizeContextType;
 
-  const { johnnyData, openLoginModal } = useContext(
-    LoginModalContext
-  ) as LoginModalContextType;
+  const { johnnyData, openModal, modalTypeObj, changeModalType } = useContext(
+    ModalWrapperContext
+  ) as ModalWrapperContextType;
 
   const { menu, changeMenu } = useContext(
     MobileMenuContext
@@ -152,7 +152,8 @@ const Sidebar = () => {
           style={isSidebarOpen ? {} : { display: "none" }}
           onClick={() => {
             closeSidebar();
-            openLoginModal();
+            openModal();
+            changeModalType(modalTypeObj.login);
           }}
         >
           <h3
