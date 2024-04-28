@@ -42,7 +42,7 @@ export type ModalWrapperContextType = {
   modalTypeObj: {
     closed: string;
     login: string;
-    interested: string;
+    submitContact: string;
   };
   changeModalType: (type: string) => void;
   modalType: string;
@@ -121,7 +121,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
   const modalTypeObj = {
     closed: "CLOSED",
     login: "LOGINMODAL",
-    interested: "INTERESTEDMODAL",
+    submitContact: "SUBMITCONTACTMODAL",
   };
   const [modalType, setModalType] = useState(modalTypeObj.closed);
 

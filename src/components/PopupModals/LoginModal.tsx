@@ -1,5 +1,5 @@
 "use client";
-import LoginModalContext, {
+import ModalWrapperContext, {
   ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 import WindowSizeContext, {
@@ -33,7 +33,7 @@ const LoginModal = () => {
     // answerInput,
     // updateAnswerInput,
     // checkIfAnswerIsCorrect,
-  } = useContext(LoginModalContext) as ModalWrapperContextType;
+  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;

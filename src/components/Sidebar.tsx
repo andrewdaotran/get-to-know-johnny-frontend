@@ -105,6 +105,10 @@ const Sidebar = () => {
                         if (item.title === "Chat") {
                           resetJohnnyResponseCount();
                         }
+                        if (item.title === "Submit Contact") {
+                          openModal();
+                          changeModalType(modalTypeObj.submitContact);
+                        }
                       }}
                     >
                       <h3>{item.title.toUpperCase()}</h3>

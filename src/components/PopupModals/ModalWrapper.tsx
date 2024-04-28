@@ -37,7 +37,7 @@ const ModalWrapper = () => {
 
   return (
     <div
-      className={` relative z-30 grid grid-rows-3 gap-4 rounded-md  bg-main duration-700 ease-in-out sm:p-12`}
+      className={` relative z-30 flex flex-col gap-4 rounded-md  bg-main text-center duration-700 ease-in-out sm:p-12`}
       style={
         screenWidth === "mobile"
           ? modalSize.mobile
@@ -51,6 +51,17 @@ const ModalWrapper = () => {
         <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
       </div>
       {/* Close Modal Button End*/}
+
+      <div className="border  border-red-700">
+        {modalType === modalTypeObj.login && (
+          <h3 className="text-2xl">Johnny Login</h3>
+        )}
+        {modalType === modalTypeObj.submitContact && (
+          <h3 className="text-2xl">
+            Leave your name and number and Johnny will hit you up 😛
+          </h3>
+        )}
+      </div>
 
       {modalType === modalTypeObj.login && <LoginModal />}
     </div>

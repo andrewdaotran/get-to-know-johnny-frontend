@@ -1,5 +1,5 @@
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 import MobileMenuContext, {
   EDIT_ACTION,
@@ -14,6 +14,9 @@ import React, { Fragment, useContext } from "react";
 import { Link as ReactScrollLink, scroller } from "react-scroll";
 import { creatorIcons } from "andrewdaotran/utils";
 import Link from "next/link";
+import ChatboxContext, {
+  ChatboxContextType,
+} from "andrewdaotran/context/ChatboxContext";
 
 const Footer = () => {
   const router = useRouter();
@@ -24,9 +27,13 @@ const Footer = () => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  const { johnnyData, openLoginModal } = useContext(
-    LoginModalContext
-  ) as LoginModalContextType;
+  const { johnnyData, openModal, modalTypeObj, changeModalType } = useContext(
+    ModalWrapperContext
+  ) as ModalWrapperContextType;
+
+  const { johnnyResponseCount, resetJohnnyResponseCount } = useContext(
+    ChatboxContext
+  ) as ChatboxContextType;
 
   const sidebarSmoothScrollToSectionFromEditPage = (linkTo: string) => {
     void (async () => {
@@ -82,7 +89,13 @@ const Footer = () => {
             <h3 className="text-sm">
               Send Johnny your contact info and he&apos;ll hit you up!
             </h3>
-            <button className="rounded-md border border-main bg-gray-800 px-10 py-3  text-sm text-white transition-colors duration-500 hover:border-black hover:bg-main  hover:text-black ">
+            <button
+              className="rounded-md border border-main bg-gray-800 px-10 py-3  text-sm text-white transition-colors duration-500 hover:border-black hover:bg-main  hover:text-black "
+              onClick={() => {
+                openModal();
+                changeModalType(modalTypeObj.submitContact);
+              }}
+            >
               Submit now!
             </button>
             {/* Text on Right End */}
@@ -107,6 +120,13 @@ const Footer = () => {
                     offset={-80}
                     onClick={() => {
                       sidebarSmoothScrollToSectionFromEditPage(item.linkTo);
+                      if (item.title === "Chat") {
+                        resetJohnnyResponseCount();
+                      }
+                      if (item.title === "Submit Contact") {
+                        openModal();
+                        changeModalType(modalTypeObj.submitContact);
+                      }
                     }}
                   >
                     <h3>{item.title}</h3>
