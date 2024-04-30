@@ -13,6 +13,8 @@ import { signIn, useSession } from "next-auth/react";
 import { api } from "andrewdaotran/utils/api";
 import { sign } from "crypto";
 import { set } from "zod";
+import LoginModal from "andrewdaotran/components/PopupModals/LoginModal";
+import SubmitContactModal from "andrewdaotran/components/PopupModals/SubmitContactModal";
 
 export type ModalWrapperContextType = {
   isModalOpen: boolean;
@@ -40,9 +42,21 @@ export type ModalWrapperContextType = {
   doesJohnnyHaveAccount: boolean;
   johnnyData: User;
   modalTypeObj: {
-    closed: string;
-    login: string;
-    submitContact: string;
+    closed: {
+      type: string;
+      title: string;
+      component: null;
+    };
+    login: {
+      type: string;
+      title: string;
+      component: typeof LoginModal;
+    };
+    submitContact: {
+      type: string;
+      title: string;
+      component: typeof SubmitContactModal;
+    };
   };
   changeModalType: (type: string) => void;
   modalType: string;
@@ -119,11 +133,23 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalTypeObj = {
-    closed: "CLOSED",
-    login: "LOGINMODAL",
-    submitContact: "SUBMITCONTACTMODAL",
+    closed: {
+      type: "closed",
+      title: "Closed",
+      component: null,
+    },
+    login: {
+      type: "login",
+      title: "Johnny Login",
+      component: LoginModal,
+    },
+    submitContact: {
+      type: "submitContact",
+      title: "Leave your name and number and Johnny will hit you up 😛",
+      component: SubmitContactModal,
+    },
   };
-  const [modalType, setModalType] = useState(modalTypeObj.closed);
+  const [modalType, setModalType] = useState(modalTypeObj.closed.type);
 
   const [doesJohnnyHaveAccount, setDoesJohnnyHaveAccount] = useState(false); // Checks database if there is a user with the name Johnny
 
@@ -133,7 +159,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setModalType(modalTypeObj.closed);
+    setModalType(modalTypeObj.closed.type);
   };
 
   const changeModalType = (type: string) => {

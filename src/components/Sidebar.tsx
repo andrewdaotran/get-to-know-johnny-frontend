@@ -107,7 +107,7 @@ const Sidebar = () => {
                         }
                         if (item.title === "Submit Contact") {
                           openModal();
-                          changeModalType(modalTypeObj.submitContact);
+                          changeModalType(modalTypeObj.submitContact.type);
                         }
                       }}
                     >
@@ -157,7 +157,7 @@ const Sidebar = () => {
           onClick={() => {
             closeSidebar();
             openModal();
-            changeModalType(modalTypeObj.login);
+            changeModalType(modalTypeObj.login.type);
           }}
         >
           <h3

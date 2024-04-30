@@ -93,7 +93,7 @@ const Footer = () => {
               className="rounded-md border border-main bg-gray-800 px-10 py-3  text-sm text-white transition-colors duration-500 hover:border-black hover:bg-main  hover:text-black "
               onClick={() => {
                 openModal();
-                changeModalType(modalTypeObj.submitContact);
+                changeModalType(modalTypeObj.submitContact.type);
               }}
             >
               Submit now!
@@ -125,7 +125,7 @@ const Footer = () => {
                       }
                       if (item.title === "Submit Contact") {
                         openModal();
-                        changeModalType(modalTypeObj.submitContact);
+                        changeModalType(modalTypeObj.submitContact.type);
                       }
                     }}
                   >

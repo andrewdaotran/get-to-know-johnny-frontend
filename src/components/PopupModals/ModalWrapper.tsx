@@ -34,6 +34,7 @@ const ModalWrapper = () => {
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;
+  console.log(modalType);
 
   return (
     <div
@@ -53,17 +54,19 @@ const ModalWrapper = () => {
       {/* Close Modal Button End*/}
 
       <div className="border  border-red-700">
-        {modalType === modalTypeObj.login && (
-          <h3 className="text-2xl">Johnny Login</h3>
+        <h3 className="text-2xl">
+          {modalType === modalTypeObj.login.type && modalTypeObj.login.title}
+          {modalType === modalTypeObj.submitContact.type &&
+            modalTypeObj.submitContact.title}
+        </h3>
+
+        {modalType === modalTypeObj.login.type && (
+          <modalTypeObj.login.component />
         )}
-        {modalType === modalTypeObj.submitContact && (
-          <h3 className="text-2xl">
-            Leave your name and number and Johnny will hit you up 😛
-          </h3>
+        {modalType === modalTypeObj.submitContact.type && (
+          <modalTypeObj.submitContact.component />
         )}
       </div>
-
-      {modalType === modalTypeObj.login && <LoginModal />}
     </div>
   );
 };
