@@ -53,7 +53,7 @@ const ModalWrapper = () => {
       </div>
       {/* Close Modal Button End*/}
 
-      <div className="border  border-red-700">
+      <div className="flex flex-col gap-4 p-4">
         <h3 className="text-2xl">
           {modalType === modalTypeObj.login.type && modalTypeObj.login.title}
           {modalType === modalTypeObj.submitContact.type &&

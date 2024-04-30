@@ -145,7 +145,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
     },
     submitContact: {
       type: "submitContact",
-      title: "Leave your name and number and Johnny will hit you up 😛",
+      title: "Leave your info and Johnny will hit you up 😛",
       component: SubmitContactModal,
     },
   };
@@ -183,7 +183,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
     },
     desktop: {
       width: "40",
-      height: "30",
+      height: "33",
     },
   };
 

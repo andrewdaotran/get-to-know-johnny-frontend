@@ -10,7 +10,7 @@ import GoogleButton from "react-google-button";
 
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { PatternFormat } from "react-number-format";
+import { NumberFormatValues, PatternFormat } from "react-number-format";
 
 import {
   XMarkIcon,
@@ -31,62 +31,135 @@ const SubmitContactModal = () => {
   } = useContext(ModalWrapperContext) as ModalWrapperContextType;
 
   const [contactInfo, setContactInfo] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     phoneNumber: "",
     instagramHandle: "",
     age: "",
+    horoscope: "",
     funFact: "",
   });
 
   const handleContactInfo = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === "phoneNumber") {
-      if (e.target.value.length > 10) {
-        return;
-      }
-
-      setContactInfo({
-        ...contactInfo,
-        [e.target.name]: e.target.value.replace(/[^0-9]/g, ""),
-      });
-    } else {
-      setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
-    }
+    setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
   };
 
-  console.log(contactInfo);
+  const handlePhoneNumber = (value: string) => {
+    setContactInfo({ ...contactInfo, phoneNumber: value });
+  };
 
-  const submitContact = () => {};
+  const handleAge = (value: string) => {
+    setContactInfo({ ...contactInfo, age: value });
+  };
+
+  // console.log(contactInfo);
+
+  const handleSubmitContact = () => {};
   return (
-    <form className="flex flex-col">
-      <div className="flex gap-1">
-        <h4>Name:</h4>
+    <form className="grid grid-cols-2 gap-4 px-2 text-start">
+      {/* Name */}
+      <div className="col-start-1 col-end-2 flex flex-col gap-1 ">
+        <h4 className="text-sm">
+          First Name<span className="text-red-600">*</span>:
+        </h4>
         <input
           type="text"
-          name="name"
-          value={contactInfo.name}
+          name="firstName"
+          value={contactInfo.firstName}
           placeholder="Gina"
-          className="rounded-sm border border-black px-1 outline-none"
+          className="rounded-sm border-b  border-black px-1 pb-2 outline-none"
           onChange={(e) => handleContactInfo(e)}
         />
       </div>
-      <div className="flex gap-1">
-        <h4>Phone Number:</h4>
+      <div className="col-start-2 col-end-3 flex flex-col gap-1">
+        <h4 className="text-sm">
+          Last Name<span className="text-red-600">*</span>:
+        </h4>
+        <input
+          type="text"
+          name="lastName"
+          value={contactInfo.lastName}
+          placeholder="Something"
+          className="rounded-sm border-b  border-black px-1 pb-2 outline-none"
+          onChange={(e) => handleContactInfo(e)}
+        />
+      </div>
+      {/* Phone Number */}
+      <div className="col-start-1 col-end-2 flex flex-col gap-1 ">
+        <h4 className="text-sm">
+          Phone Number<span className="text-red-600">**</span>
+        </h4>
         <PatternFormat
           format="(###) ###-####"
           placeholder="(123) 456-7890"
           value={contactInfo.phoneNumber}
-          // name: "phoneNumber"÷
+          className="border-b  border-black px-1 pb-2 outline-none"
+          onValueChange={(value) => handlePhoneNumber(value.formattedValue)}
+        />
+      </div>
+      {/* Instagram Handle */}
+      <div className="col-start-2 col-end-3 flex flex-col gap-1">
+        <h4 className="text-sm">
+          Instagram Handle<span className="text-red-600">**</span>
+        </h4>
+        <input
+          type="text"
+          name="instagramHandle"
+          value={contactInfo.instagramHandle}
+          placeholder="@ginaisme"
+          className="border-b  border-black px-1 pb-2 outline-none"
           onChange={(e) => handleContactInfo(e)}
         />
-        {/* <input
+      </div>
+
+      <div className="col-start-1 col-end-2 flex flex-col gap-1">
+        <h4 className="text-sm">
+          Age<span className="text-red-600">*</span>:
+        </h4>
+        <PatternFormat
+          format="##"
+          placeholder="24"
+          value={contactInfo.age}
+          className="border-b  border-black px-1 pb-2 outline-none"
+          onValueChange={(value) => handleAge(value.formattedValue)}
+        />
+      </div>
+      <div className="col-start-2 col-end-3 flex flex-col gap-1">
+        <h4 className="text-sm">
+          Horoscope<span className="text-red-600">*</span>:
+        </h4>
+        <input
           type="text"
-          name="phoneNumber"
-          value={contactInfo.phoneNumber}
-          placeholder="(123) 456-7890"
-          // onKeyDown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
-          className="rounded-sm border border-black px-1 outline-none"
+          name="horoscope"
+          value={contactInfo.horoscope}
+          placeholder="Gemini"
+          className="border-b  border-black px-1 pb-2 outline-none"
           onChange={(e) => handleContactInfo(e)}
-        /> */}
+        />
+      </div>
+      <div className="col-span-2 flex flex-col gap-1">
+        <h4 className="text-sm">
+          Fun Fact<span className="text-red-600">*</span>:
+        </h4>
+        <input
+          type="text"
+          name="funFact"
+          value={contactInfo.funFact}
+          placeholder="I am Radiant in Valorant"
+          className="border-b  border-black px-1 pb-2 outline-none"
+          onChange={(e) => handleContactInfo(e)}
+        />
+      </div>
+      <button className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black">
+        Submit
+      </button>
+      <div className="flex flex-col gap-1 text-xs">
+        <h6 className="text-gray-400">
+          <span className="text-red-600">*</span> Required
+        </h6>
+        <h6 className="text-xs text-gray-400">
+          <span className="text-red-600">**</span> One or the other is required
+        </h6>
       </div>
     </form>
   );
