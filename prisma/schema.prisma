@@ -95,3 +95,14 @@ model Hobby {
     icon  String
     hobby String
 }
+
+model SubmitContact {
+    id              String @id @default(cuid())
+    firstName       String
+    lastName        String
+    phoneNumber     String
+    instagramHandle String
+    age             String
+    horoscope       String
+    funFact         String
+}

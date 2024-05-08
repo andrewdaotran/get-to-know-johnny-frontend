@@ -54,3 +54,23 @@ export const userInput = z.object({
   name: z.string(),
   status: z.string(),
 });
+
+export const submitContactInput = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  phoneNumber: z.string(),
+  instagramHandle: z.string(),
+  age: z.string(),
+  horoscope: z.string(),
+  funFact: z.string(),
+});
+export const submitContactInputWithId = z.object({
+  id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  phoneNumber: z.string(),
+  instagramHandle: z.string(),
+  age: z.string(),
+  horoscope: z.string(),
+  funFact: z.string(),
+});

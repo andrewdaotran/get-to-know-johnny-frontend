@@ -179,7 +179,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
     },
     tablet: {
       width: "40",
-      height: "30",
+      height: "33",
     },
     desktop: {
       width: "40",

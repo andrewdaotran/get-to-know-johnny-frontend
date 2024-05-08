@@ -12,12 +12,15 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { NumberFormatValues, PatternFormat } from "react-number-format";
 
+import { toast } from "react-hot-toast";
+
 import {
   XMarkIcon,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
 import ModalWrapperContext from "andrewdaotran/context/ModalWrapperContext";
+import { api } from "andrewdaotran/utils/api";
 
 const SubmitContactModal = () => {
   const {
@@ -28,7 +31,11 @@ const SubmitContactModal = () => {
     modalMargin,
     doesJohnnyHaveAccount,
     johnnyData,
+    changeModalType,
+    modalTypeObj,
   } = useContext(ModalWrapperContext) as ModalWrapperContextType;
+
+  const trpc = api.useContext();
 
   const [contactInfo, setContactInfo] = useState({
     firstName: "",
@@ -52,11 +59,52 @@ const SubmitContactModal = () => {
     setContactInfo({ ...contactInfo, age: value });
   };
 
-  // console.log(contactInfo);
+  // Create Contact Mutation
+  const { mutate: create } = api.submitContact.createContact.useMutation({
+    onSettled: async () => {
+      await trpc.hobby.invalidate();
+    },
+  });
 
-  const handleSubmitContact = () => {};
+  const handleSubmitContact = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (contactInfo.firstName === "") {
+      toast.error("First Name is required");
+    }
+    if (contactInfo.lastName === "") {
+      toast.error("Last Name is required");
+    }
+    if (contactInfo.phoneNumber === "" && contactInfo.instagramHandle === "") {
+      toast.error("Phone Number or Instagram Handle is required");
+    }
+    if (
+      (contactInfo.phoneNumber.replaceAll(" ", "").length < 13 &&
+        contactInfo.phoneNumber.replaceAll(" ", "").length > 3) ||
+      contactInfo.phoneNumber[1] === "1" ||
+      contactInfo.phoneNumber[1] === "0"
+    ) {
+      toast.error("Phone Number is invalid");
+    }
+    if (contactInfo.age === "") {
+      toast.error("Age is required");
+    }
+    if (contactInfo.horoscope === "") {
+      toast.error("Horoscope is required");
+    }
+    if (contactInfo.funFact === "") {
+      toast.error("Fun Fact is required");
+    }
+
+    console.log(create(contactInfo));
+    closeModal();
+    changeModalType(modalTypeObj.closed.type);
+  };
+
   return (
-    <form className="grid grid-cols-2 gap-4 px-2 text-start">
+    <form
+      className="grid grid-cols-2 gap-4 px-2 text-start"
+      onSubmit={(e) => handleSubmitContact(e)}
+    >
       {/* Name */}
       <div className="col-start-1 col-end-2 flex flex-col gap-1 ">
         <h4 className="text-sm">
@@ -106,7 +154,7 @@ const SubmitContactModal = () => {
           type="text"
           name="instagramHandle"
           value={contactInfo.instagramHandle}
-          placeholder="@ginaisme"
+          placeholder="ginaisme"
           className="border-b  border-black px-1 pb-2 outline-none"
           onChange={(e) => handleContactInfo(e)}
         />
@@ -150,7 +198,10 @@ const SubmitContactModal = () => {
           onChange={(e) => handleContactInfo(e)}
         />
       </div>
-      <button className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black">
+      <button
+        className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black"
+        type="submit"
+      >
         Submit
       </button>
       <div className="flex flex-col gap-1 text-xs">

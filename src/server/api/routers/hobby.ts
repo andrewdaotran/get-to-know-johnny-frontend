@@ -14,7 +14,6 @@ export const hobbyRouter = createTRPCRouter({
   }),
   editHobby: publicProcedure
     .input(hobbyInputWithId)
-
     .mutation(async ({ ctx, input }) => {
       const hobby = await ctx.prisma.hobby.update({
         where: {
