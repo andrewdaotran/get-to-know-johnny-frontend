@@ -8,7 +8,7 @@ import {
 import { submitContactInput, submitContactInputWithId } from "zodTypings";
 
 export const submitContactRouter = createTRPCRouter({
-  get: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.query(async ({ ctx }) => {
     const contactList = await ctx.prisma.submitContact.findMany();
     return contactList;
   }),

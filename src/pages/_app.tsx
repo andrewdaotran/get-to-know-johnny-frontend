@@ -26,6 +26,7 @@ import { SidebarProvider } from "andrewdaotran/context/SidebarContext";
 import Navbar from "andrewdaotran/components/Navbar";
 import { useContext } from "react";
 import { ChatboxProvider } from "andrewdaotran/context/ChatboxContext";
+import { ContactsProvider } from "andrewdaotran/context/ContactsContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -42,10 +43,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
                   <HobbyProvider>
                     <MobileMenuProvider>
                       <MessageProvider>
-                        {/* Navbar */}
+                        <ContactsProvider>
+                          {/* Navbar */}
 
-                        <Component {...pageProps} />
-                        <Toaster />
+                          <Component {...pageProps} />
+                          <Toaster />
+                        </ContactsProvider>
                       </MessageProvider>
                     </MobileMenuProvider>
                   </HobbyProvider>

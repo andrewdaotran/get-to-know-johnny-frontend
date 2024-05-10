@@ -35,3 +35,14 @@ export type User = {
   name: string;
   status: string;
 };
+
+export type Contact = {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  instagramHandle: string;
+  age: string;
+  horoscope: string;
+  funFact: string;
+};

@@ -1,104 +1,24 @@
 "use client";
-import LoginModalContext, {
-  ModalWrapperContextType,
-} from "andrewdaotran/context/ModalWrapperContext";
-import WindowSizeContext, {
-  WindowSizeContextType,
-} from "andrewdaotran/context/ScreenSizeContext";
-import React, { ChangeEvent, useContext, useState } from "react";
-import GoogleButton from "react-google-button";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import React, { useContext } from "react";
 
-import { NumberFormatValues, PatternFormat } from "react-number-format";
+import { PatternFormat } from "react-number-format";
 
-import { toast } from "react-hot-toast";
-
-import {
-  XMarkIcon,
-  ArrowLeftCircleIcon,
-  ArrowRightCircleIcon,
-} from "@heroicons/react/24/solid";
-import ModalWrapperContext from "andrewdaotran/context/ModalWrapperContext";
 import { api } from "andrewdaotran/utils/api";
+import ContactsContext, {
+  ContactsContextType,
+} from "andrewdaotran/context/ContactsContext";
 
 const SubmitContactModal = () => {
   const {
-    openModal,
-    closeModal,
-    isModalOpen,
-    modalSize,
-    modalMargin,
-    doesJohnnyHaveAccount,
-    johnnyData,
-    changeModalType,
-    modalTypeObj,
-  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
+    handleContactInfo,
+    handlePhoneNumber,
+    handleAge,
+    handleSubmitContact,
+    contactInfo,
+  } = useContext(ContactsContext) as ContactsContextType;
 
   const trpc = api.useContext();
-
-  const [contactInfo, setContactInfo] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    instagramHandle: "",
-    age: "",
-    horoscope: "",
-    funFact: "",
-  });
-
-  const handleContactInfo = (e: ChangeEvent<HTMLInputElement>) => {
-    setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
-  };
-
-  const handlePhoneNumber = (value: string) => {
-    setContactInfo({ ...contactInfo, phoneNumber: value });
-  };
-
-  const handleAge = (value: string) => {
-    setContactInfo({ ...contactInfo, age: value });
-  };
-
-  // Create Contact Mutation
-  const { mutate: create } = api.submitContact.createContact.useMutation({
-    onSettled: async () => {
-      await trpc.hobby.invalidate();
-    },
-  });
-
-  const handleSubmitContact = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (contactInfo.firstName === "") {
-      toast.error("First Name is required");
-    }
-    if (contactInfo.lastName === "") {
-      toast.error("Last Name is required");
-    }
-    if (contactInfo.phoneNumber === "" && contactInfo.instagramHandle === "") {
-      toast.error("Phone Number or Instagram Handle is required");
-    }
-    if (
-      (contactInfo.phoneNumber.replaceAll(" ", "").length < 13 &&
-        contactInfo.phoneNumber.replaceAll(" ", "").length > 3) ||
-      contactInfo.phoneNumber[1] === "1" ||
-      contactInfo.phoneNumber[1] === "0"
-    ) {
-      toast.error("Phone Number is invalid");
-    }
-    if (contactInfo.age === "") {
-      toast.error("Age is required");
-    }
-    if (contactInfo.horoscope === "") {
-      toast.error("Horoscope is required");
-    }
-    if (contactInfo.funFact === "") {
-      toast.error("Fun Fact is required");
-    }
-
-    console.log(create(contactInfo));
-    closeModal();
-    changeModalType(modalTypeObj.closed.type);
-  };
 
   return (
     <form

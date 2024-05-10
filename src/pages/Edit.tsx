@@ -37,6 +37,9 @@ import LoginModal from "andrewdaotran/components/PopupModals/LoginModal";
 import SidebarContext, {
   SidebarContextType,
 } from "andrewdaotran/context/SidebarContext";
+import ContactsContext, {
+  ContactsContextType,
+} from "andrewdaotran/context/ContactsContext";
 
 type Props = {
   data: DescriptionType;
@@ -58,6 +61,10 @@ const Edit = () => {
   const { isSidebarOpen, closeSidebar } = useContext(
     SidebarContext
   ) as SidebarContextType;
+
+  const { contactsArray } = useContext(ContactsContext) as ContactsContextType;
+
+  console.log(contactsArray);
 
   //  Needs loading state
   return (
