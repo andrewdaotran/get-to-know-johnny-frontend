@@ -8,8 +8,8 @@ import Button from "../UtilityComponents/Button";
 import WindowSizeContext, {
   WindowSizeContextType,
 } from "../../context/ScreenSizeContext";
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "../../context/ModalWrapperContext";
 import MobileMenuContext, {
   EDIT_ACTION,
@@ -43,13 +43,13 @@ const BasicInformation = ({ isEditPage }: Props) => {
   const router = useRouter();
 
   const {
-    openLoginModal,
-    closeLoginModal,
-    isLoginModalOpen,
+    openModal,
+    closeModal,
+    isModalOpen,
     modalSize,
     modalMargin,
     johnnyData,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
 
   const { menu, changeMenu } = useContext(
     MobileMenuContext

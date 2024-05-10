@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import LoginModal from "./PopupModals/LoginModal";
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 import WindowSizeContext, {
   WindowSizeContextType,
@@ -23,13 +23,13 @@ import ChatboxContext, {
 
 const Navbar = () => {
   const {
-    openLoginModal,
-    closeLoginModal,
-    isLoginModalOpen,
+    openModal,
+    closeModal,
+    isModalOpen,
     modalSize,
     modalMargin,
     johnnyData,
-  } = useContext(LoginModalContext) as LoginModalContextType;
+  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
 
   const { screenWidth } = useContext(
     WindowSizeContext

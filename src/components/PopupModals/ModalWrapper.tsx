@@ -17,7 +17,7 @@ import ModalWrapperContext, {
 } from "andrewdaotran/context/ModalWrapperContext";
 import LoginModal from "./LoginModal";
 
-type Props = {};
+// type Props = {};
 
 const ModalWrapper = () => {
   const {

@@ -4,8 +4,8 @@ import {
   DocumentTextIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 import MobileMenuContext, {
   CHAT_ACTION,
@@ -22,7 +22,9 @@ const MobileMenu = () => {
     MobileMenuContext
   ) as MobileMenuContextType;
 
-  const { johnnyData } = useContext(LoginModalContext) as LoginModalContextType;
+  const { johnnyData } = useContext(
+    ModalWrapperContext
+  ) as ModalWrapperContextType;
   return (
     <>
       {/* Menu Bottom */}

@@ -21,8 +21,8 @@ import WindowSizeContext, {
   WindowSizeContextType,
 } from "../context/ScreenSizeContext";
 import Link from "next/link";
-import LoginModalContext, {
-  LoginModalContextType,
+import ModalWrapperContext, {
+  ModalWrapperContextType,
 } from "../context/ModalWrapperContext";
 import { api } from "../utils/api";
 import BasicInformationContext, {
@@ -51,8 +51,9 @@ const Edit = () => {
     WindowSizeContext
   ) as WindowSizeContextType;
 
-  const { johnnyData, isLoginModalOpen, closeLoginModal, modalMargin } =
-    useContext(LoginModalContext) as LoginModalContextType;
+  const { johnnyData, isModalOpen, closeModal, modalMargin } = useContext(
+    ModalWrapperContext
+  ) as ModalWrapperContextType;
 
   const { isSidebarOpen, closeSidebar } = useContext(
     SidebarContext
@@ -75,7 +76,7 @@ const Edit = () => {
 
       {/* Login Modal */}
 
-      {isLoginModalOpen && (
+      {isModalOpen && (
         <div
           className="fixed left-1/2 top-1/3 z-20 "
           style={
@@ -96,13 +97,13 @@ const Edit = () => {
         <div
           className="fixed left-0 top-0 z-10 h-full w-full bg-black duration-700 ease-in-out"
           onClick={() => {
-            if (isLoginModalOpen || isSidebarOpen) {
-              closeLoginModal();
+            if (isModalOpen || isSidebarOpen) {
+              closeModal();
               closeSidebar();
             }
           }}
           style={
-            isLoginModalOpen || isSidebarOpen
+            isModalOpen || isSidebarOpen
               ? { opacity: "50%" }
               : { opacity: "0%", zIndex: -1 }
           }
