@@ -48,7 +48,7 @@ const ModalWrapper = () => {
       }
     >
       {/* Close Modal Button */}
-      <div className="absolute left-4 top-4" onClick={closeModal}>
+      <div className="absolute right-6 top-6" onClick={closeModal}>
         <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
       </div>
       {/* Close Modal Button End*/}
