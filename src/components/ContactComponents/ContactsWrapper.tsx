@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { api } from "andrewdaotran/utils/api";
 import ContactsContext, {
@@ -11,10 +11,19 @@ const ContactsWrapper = () => {
 
   const { contactsArray } = useContext(ContactsContext) as ContactsContextType;
 
+  const [isAllTruncated, setIsAllTruncated] = useState(true);
+
   return (
-    <div className="grid gap-4 border border-red-600 bg-white ">
+    <div className="flex gap-4 border border-red-600 bg-white ">
       {contactsArray.map((contact) => {
-        return <Contact key={contact.id} {...contact} />;
+        return (
+          <Contact
+            key={contact.id}
+            {...contact}
+            isAllTruncated={isAllTruncated}
+            setIsAllTruncated={setIsAllTruncated}
+          />
+        );
       })}
     </div>
   );
