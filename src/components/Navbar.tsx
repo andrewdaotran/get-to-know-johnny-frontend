@@ -49,7 +49,7 @@ const Navbar = () => {
     <div className="fixed left-0 top-0 z-[1] flex h-20 w-full items-center justify-between   bg-secondary px-4 shadow-sm transition-all duration-700 ease-in-out">
       {/* Logo */}
       <Link
-        href={menu.isEdit ? "/" : ""}
+        href={"/"}
         onClick={
           !menu.isEdit
             ? () => {

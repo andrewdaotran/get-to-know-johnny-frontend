@@ -40,6 +40,7 @@ import SidebarContext, {
 import ContactsContext, {
   ContactsContextType,
 } from "andrewdaotran/context/ContactsContext";
+import ContactsWrapper from "andrewdaotran/components/ContactComponents/ContactsWrapper";
 
 type Props = {
   data: DescriptionType;
@@ -123,6 +124,10 @@ const Edit = () => {
       <Bio isEditPage={true} />
       {screenWidth === "mobile" && <MobileMenu />}
       {/* Edit Page Content End */}
+
+      {/* Contacts */}
+      <ContactsWrapper />
+      {/* Contacts End */}
     </div>
   );
 };
