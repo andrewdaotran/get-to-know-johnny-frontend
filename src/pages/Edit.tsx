@@ -41,6 +41,7 @@ import ContactsContext, {
   ContactsContextType,
 } from "andrewdaotran/context/ContactsContext";
 import ContactsWrapper from "andrewdaotran/components/ContactComponents/ContactsWrapper";
+import ModalWrapper from "andrewdaotran/components/PopupModals/ModalWrapper";
 
 type Props = {
   data: DescriptionType;
@@ -70,7 +71,7 @@ const Edit = () => {
   //  Needs loading state
   return (
     <div
-      className="relative mx-auto flex h-screen max-w-4xl flex-col bg-secondary"
+      className="00 relative mx-auto flex h-screen max-w-4xl flex-col bg-secondary"
       style={screenWidth !== "mobile" ? { marginTop: "5rem" } : {}}
     >
       {/* Navbar */}
@@ -95,7 +96,7 @@ const Edit = () => {
               : modalMargin.desktop
           }
         >
-          <LoginModal />
+          <ModalWrapper />
         </div>
       )}
       {/* Login Modal End */}

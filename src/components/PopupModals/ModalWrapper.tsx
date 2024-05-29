@@ -63,7 +63,12 @@ const ModalWrapper = () => {
         {modalType === modalTypeObj.login.type && (
           <modalTypeObj.login.component />
         )}
+
         {modalType === modalTypeObj.submitContact.type && (
+          <modalTypeObj.submitContact.component />
+        )}
+
+        {modalType === modalTypeObj.deleteContact.type && (
           <modalTypeObj.submitContact.component />
         )}
       </div>

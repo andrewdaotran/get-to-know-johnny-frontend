@@ -15,6 +15,7 @@ import { sign } from "crypto";
 import { set } from "zod";
 import LoginModal from "andrewdaotran/components/PopupModals/LoginModal";
 import SubmitContactModal from "andrewdaotran/components/PopupModals/SubmitContactModal";
+import DeleteContactModal from "andrewdaotran/components/PopupModals/DeleteContactModal";
 
 export type ModalWrapperContextType = {
   isModalOpen: boolean;
@@ -56,6 +57,11 @@ export type ModalWrapperContextType = {
       type: string;
       title: string;
       component: typeof SubmitContactModal;
+    };
+    deleteContact: {
+      type: string;
+      title: string;
+      component: typeof DeleteContactModal;
     };
   };
   changeModalType: (type: string) => void;
@@ -147,6 +153,11 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
       type: "submitContact",
       title: "Leave your info and Johnny will hit you up 😛",
       component: SubmitContactModal,
+    },
+    deleteContact: {
+      type: "deleteContact",
+      title: "Are you sure you want to delete this contact?",
+      component: DeleteContactModal,
     },
   };
   const [modalType, setModalType] = useState(modalTypeObj.closed.type);

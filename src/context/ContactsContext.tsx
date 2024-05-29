@@ -107,6 +107,20 @@ export const ContactsProvider = ({ children }: ChildrenNodeType) => {
     changeModalType(modalTypeObj.closed.type);
   };
 
+  // Delete Contact Mutation
+
+  const { mutate: deleteContact } = api.submitContact.deleteContact.useMutation(
+    {
+      onSettled: async () => {
+        await trpc.submitContact.invalidate();
+      },
+    }
+  );
+
+  // const handleDeleteContact = (id) => {
+  //   id && deleteContact(id);
+  // };
+
   return (
     <ContactsContext.Provider
       value={{

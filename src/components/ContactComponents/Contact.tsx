@@ -1,9 +1,12 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { Contact as ContactType } from "../../../typings";
 import { truncate } from "andrewdaotran/utils";
 
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { api } from "andrewdaotran/utils/api";
+import ModalWrapperContext, {
+  ModalWrapperContextType,
+} from "andrewdaotran/context/ModalWrapperContext";
 
 interface Props extends ContactType {
   isAllTruncated: boolean;
@@ -24,19 +27,11 @@ const Contact = ({
 }: Props) => {
   const trpc = api.useContext();
 
-  const { mutate: deleteContact } = api.submitContact.deleteContact.useMutation(
-    {
-      onSettled: async () => {
-        await trpc.submitContact.invalidate();
-      },
-    }
-  );
+  const { closeModal, changeModalType, modalTypeObj, modalType } = useContext(
+    ModalWrapperContext
+  ) as ModalWrapperContextType;
 
   const openDeleteContactModal = () => {};
-
-  const handleDeleteContact = () => {
-    id && deleteContact(id);
-  };
 
   const handleSeeMoreOrSeeLess = () => {
     setIsAllTruncated(!isAllTruncated);
@@ -46,7 +41,13 @@ const Contact = ({
     <div className="relative grid w-72 gap-2 rounded-md border border-black p-4">
       {/* Delete Contact */}
       <div className="absolute right-4 top-4">
-        <button className="" onClick={openDeleteContactModal}>
+        <button
+          className=""
+          onClick={() => {
+            console.log(modalTypeObj.deleteContact.type, modalType);
+            changeModalType(modalTypeObj.deleteContact.type);
+          }}
+        >
           <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
         </button>
       </div>

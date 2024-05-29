@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
@@ -22,9 +18,7 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "andrewdaotran/*": [
-        "./src/*"
-      ]
+      "andrewdaotran/*": ["./src/*"]
     }
   },
   "include": [
@@ -34,10 +28,9 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "src/CustomHooks/useWindowSize.js"
+    "src/CustomHooks/useWindowSize.js",
+    "src/utils/index.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
 // "jsx": "preserve",
