@@ -7,6 +7,9 @@ import { api } from "andrewdaotran/utils/api";
 import ModalWrapperContext, {
   ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
+import ContactsContext, {
+  ContactsContextType,
+} from "andrewdaotran/context/ContactsContext";
 
 interface Props extends ContactType {
   isAllTruncated: boolean;
@@ -33,6 +36,7 @@ const Contact = ({
     changeModalType,
     modalTypeObj,
     modalType,
+    deletedContact,
     changeDeleteContact,
   } = useContext(ModalWrapperContext) as ModalWrapperContextType;
 

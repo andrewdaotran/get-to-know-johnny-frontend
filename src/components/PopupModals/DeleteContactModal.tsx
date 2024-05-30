@@ -19,9 +19,10 @@ const DeleteContactModal = () => {
     handleAge,
     handleSubmitContact,
     contactInfo,
+    deleteContact,
   } = useContext(ContactsContext) as ContactsContextType;
 
-  const { closeModal, deleteContact, deletedContact } = useContext(
+  const { closeModal, deletedContact } = useContext(
     ModalWrapperContext
   ) as ModalWrapperContextType;
 

@@ -16,6 +16,9 @@ import ModalWrapperContext, {
   ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
 import LoginModal from "./LoginModal";
+import ContactsContext, {
+  ContactsContextType,
+} from "andrewdaotran/context/ContactsContext";
 
 // type Props = {};
 
@@ -32,6 +35,7 @@ const ModalWrapper = () => {
     modalType,
     deletedContact,
   } = useContext(ModalWrapperContext) as ModalWrapperContextType;
+
   const { screenWidth } = useContext(
     WindowSizeContext
   ) as WindowSizeContextType;

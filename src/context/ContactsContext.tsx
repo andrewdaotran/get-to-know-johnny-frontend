@@ -20,6 +20,7 @@ export type ContactsContextType = {
   handleSubmitContact: (e: React.FormEvent<HTMLFormElement>) => void;
   contactInfo: Contact;
   contactsArray: Contact[];
+  deleteContact: (id: string) => void;
 };
 
 const ContactsContext = createContext<ContactsContextType | null>(null);
@@ -38,7 +39,7 @@ export const ContactsProvider = ({ children }: ChildrenNodeType) => {
   const { mutate: createContact } = api.submitContact.createContact.useMutation(
     {
       onSettled: async () => {
-        await trpc.hobby.invalidate();
+        await trpc.submitContact.invalidate();
       },
     }
   );
@@ -108,14 +109,15 @@ export const ContactsProvider = ({ children }: ChildrenNodeType) => {
   };
 
   // Delete Contact Mutation
+  const { mutate: remove } = api.submitContact.deleteContact.useMutation({
+    onSettled: async () => {
+      await trpc.submitContact.invalidate();
+    },
+  });
 
-  const { mutate: deleteContact } = api.submitContact.deleteContact.useMutation(
-    {
-      onSettled: async () => {
-        await trpc.submitContact.invalidate();
-      },
-    }
-  );
+  const deleteContact = (id: string) => {
+    id && remove(id);
+  };
 
   // const handleDeleteContact = (id) => {
   //   id && deleteContact(id);
@@ -130,6 +132,7 @@ export const ContactsProvider = ({ children }: ChildrenNodeType) => {
         handleSubmitContact,
         contactInfo,
         contactsArray,
+        deleteContact,
       }}
     >
       {children}

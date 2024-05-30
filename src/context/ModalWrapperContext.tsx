@@ -16,6 +16,7 @@ import { set } from "zod";
 import LoginModal from "andrewdaotran/components/PopupModals/LoginModal";
 import SubmitContactModal from "andrewdaotran/components/PopupModals/SubmitContactModal";
 import DeleteContactModal from "andrewdaotran/components/PopupModals/DeleteContactModal";
+import ContactsContext, { ContactsContextType } from "./ContactsContext";
 
 export type ModalWrapperContextType = {
   isModalOpen: boolean;
@@ -66,11 +67,7 @@ export type ModalWrapperContextType = {
   };
   changeModalType: (type: string) => void;
   modalType: string;
-  deletedContact: {
-    id: string;
-    firstName: string;
-  };
-  deleteContact: (id: string) => void;
+  deletedContact: { id: string; firstName: string };
   changeDeleteContact: ({
     id,
     firstName,
@@ -183,20 +180,12 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalType(modalTypeObj.closed.type);
-    setDeletedContact({ id: "", firstName: "" });
+    changeDeleteContact({ id: "", firstName: "" });
   };
 
   const changeModalType = (type: string) => {
     setModalType(type);
   };
-
-  const { mutate: deleteContact } = api.submitContact.deleteContact.useMutation(
-    {
-      onSettled: async () => {
-        await trpc.user.invalidate();
-      },
-    }
-  );
 
   const [deletedContact, setDeletedContact] = useState({
     id: "",
@@ -298,7 +287,6 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
         changeModalType,
         modalType,
         deletedContact,
-        deleteContact,
         changeDeleteContact,
         // johnnyCreateAccountQuestions,
         // questionCount,
