@@ -30,6 +30,7 @@ const ModalWrapper = () => {
     johnnyData,
     modalTypeObj,
     modalType,
+    deletedContact,
   } = useContext(ModalWrapperContext) as ModalWrapperContextType;
   const { screenWidth } = useContext(
     WindowSizeContext
@@ -58,6 +59,13 @@ const ModalWrapper = () => {
           {modalType === modalTypeObj.login.type && modalTypeObj.login.title}
           {modalType === modalTypeObj.submitContact.type &&
             modalTypeObj.submitContact.title}
+          {modalType === modalTypeObj.deleteContact.type && (
+            <>
+              {modalTypeObj.deleteContact.title}
+              <span className="text-red-600"> {deletedContact.firstName} </span>
+              ?
+            </>
+          )}
         </h3>
 
         {modalType === modalTypeObj.login.type && (
@@ -69,7 +77,7 @@ const ModalWrapper = () => {
         )}
 
         {modalType === modalTypeObj.deleteContact.type && (
-          <modalTypeObj.submitContact.component />
+          <modalTypeObj.deleteContact.component />
         )}
       </div>
     </div>

@@ -27,11 +27,16 @@ const Contact = ({
 }: Props) => {
   const trpc = api.useContext();
 
-  const { closeModal, changeModalType, modalTypeObj, modalType } = useContext(
-    ModalWrapperContext
-  ) as ModalWrapperContextType;
+  const {
+    openModal,
+    closeModal,
+    changeModalType,
+    modalTypeObj,
+    modalType,
+    changeDeleteContact,
+  } = useContext(ModalWrapperContext) as ModalWrapperContextType;
 
-  const openDeleteContactModal = () => {};
+  // const openDeleteContactModal = () => {};
 
   const handleSeeMoreOrSeeLess = () => {
     setIsAllTruncated(!isAllTruncated);
@@ -44,8 +49,9 @@ const Contact = ({
         <button
           className=""
           onClick={() => {
-            console.log(modalTypeObj.deleteContact.type, modalType);
+            openModal();
             changeModalType(modalTypeObj.deleteContact.type);
+            changeDeleteContact({ id: String(id), firstName });
           }}
         >
           <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />

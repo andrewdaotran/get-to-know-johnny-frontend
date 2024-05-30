@@ -66,6 +66,18 @@ export type ModalWrapperContextType = {
   };
   changeModalType: (type: string) => void;
   modalType: string;
+  deletedContact: {
+    id: string;
+    firstName: string;
+  };
+  deleteContact: (id: string) => void;
+  changeDeleteContact: ({
+    id,
+    firstName,
+  }: {
+    id: string;
+    firstName: string;
+  }) => void;
 
   // johnnyCreateAccountQuestions: {
   //   question: string;
@@ -156,7 +168,7 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
     },
     deleteContact: {
       type: "deleteContact",
-      title: "Are you sure you want to delete this contact?",
+      title: "Are you sure you want to delete",
       component: DeleteContactModal,
     },
   };
@@ -171,10 +183,34 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalType(modalTypeObj.closed.type);
+    setDeletedContact({ id: "", firstName: "" });
   };
 
   const changeModalType = (type: string) => {
     setModalType(type);
+  };
+
+  const { mutate: deleteContact } = api.submitContact.deleteContact.useMutation(
+    {
+      onSettled: async () => {
+        await trpc.user.invalidate();
+      },
+    }
+  );
+
+  const [deletedContact, setDeletedContact] = useState({
+    id: "",
+    firstName: "",
+  });
+
+  const changeDeleteContact = ({
+    id,
+    firstName,
+  }: {
+    id: string;
+    firstName: string;
+  }) => {
+    setDeletedContact({ id, firstName });
   };
 
   const checkIfJohnnyHasAccount = () => {
@@ -261,6 +297,9 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
         modalTypeObj,
         changeModalType,
         modalType,
+        deletedContact,
+        deleteContact,
+        changeDeleteContact,
         // johnnyCreateAccountQuestions,
         // questionCount,
         // currentQuestion,
