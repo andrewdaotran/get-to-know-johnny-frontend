@@ -32,7 +32,11 @@ const DeleteContactModal = () => {
       {/* Confirm Delete Button */}
       <button
         className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black"
-        onClick={() => deleteContact(deletedContact.id)}
+        onClick={(e) => {
+          e.preventDefault();
+          deleteContact(deletedContact.id);
+          closeModal();
+        }}
       >
         Confirm
       </button>
