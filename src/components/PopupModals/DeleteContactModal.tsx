@@ -29,29 +29,34 @@ const DeleteContactModal = () => {
   const trpc = api.useContext();
 
   return (
-    <form className="grid grid-cols-2 gap-4 px-2 text-start">
-      {/* Confirm Delete Button */}
-      <button
-        className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black"
-        onClick={(e) => {
-          e.preventDefault();
-          deleteContact(deletedContact.id);
-          closeModal();
-        }}
-      >
-        Confirm
-      </button>
-      {/* Confirm Delete Button End */}
+    <>
+      <h4 className="my-4 text-grayText">
+        This operation cannot be undone. Would you like to proceed?
+      </h4>
+      <form className="flex justify-center gap-4 px-2 text-start">
+        {/* Cancel Button */}
+        <button
+          className="bg-inherite col-span-2 rounded-sm  border border-appOrange px-12 py-1  text-black transition-all duration-500 "
+          onClick={closeModal}
+        >
+          Cancel
+        </button>
+        {/* Cancel Button End*/}
 
-      {/* Don't Delete Button */}
-      <button
-        className="col-span-2 rounded-sm border  border-appOrange bg-appOrange py-1 pt-2 text-white transition-all duration-500 hover:bg-white hover:text-black"
-        onClick={closeModal}
-      >
-        Don&apos;t delete
-      </button>
-      {/* Don't Delete Button End*/}
-    </form>
+        {/* Delete Button */}
+        <button
+          className="col-span-2 rounded-sm border  border-appOrange bg-appOrange px-12 py-1  text-white transition-all duration-500 "
+          onClick={(e) => {
+            e.preventDefault();
+            deleteContact(deletedContact.id);
+            closeModal();
+          }}
+        >
+          Delete
+        </button>
+        {/* Delete Button End */}
+      </form>
+    </>
   );
 };
 

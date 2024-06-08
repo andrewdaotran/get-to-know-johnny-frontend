@@ -19,6 +19,7 @@ import LoginModal from "./LoginModal";
 import ContactsContext, {
   ContactsContextType,
 } from "andrewdaotran/context/ContactsContext";
+import Image from "next/image";
 
 // type Props = {};
 
@@ -57,6 +58,21 @@ const ModalWrapper = () => {
         <XMarkIcon className=" my-auto h-8 w-8 cursor-pointer text-appOrange transition-colors hover:text-secondary" />
       </div>
       {/* Close Modal Button End*/}
+
+      {/* Modal Image */}
+
+      {modalType === modalTypeObj.deleteContact.type && (
+        <Image
+          src={modalTypeObj.deleteContact.image}
+          width={250}
+          height={250}
+          className="self-center rounded-md object-cover transition-transform duration-500 ease-in-out "
+          alt={"jar-of-hearts"}
+          priority
+        />
+      )}
+
+      {/* Modal Image End  */}
 
       <div className="flex flex-col gap-4 p-4">
         <h3 className="text-2xl">

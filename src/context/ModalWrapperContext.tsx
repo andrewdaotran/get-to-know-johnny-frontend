@@ -48,21 +48,25 @@ export type ModalWrapperContextType = {
       type: string;
       title: string;
       component: null;
+      image: string;
     };
     login: {
       type: string;
       title: string;
       component: typeof LoginModal;
+      image: string;
     };
     submitContact: {
       type: string;
       title: string;
       component: typeof SubmitContactModal;
+      image: string;
     };
     deleteContact: {
       type: string;
       title: string;
       component: typeof DeleteContactModal;
+      image: string;
     };
   };
   changeModalType: (type: string) => void;
@@ -152,21 +156,25 @@ export const ModalWrapperProvider = ({ children }: ChildrenNodeType) => {
       type: "closed",
       title: "Closed",
       component: null,
+      image: "",
     },
     login: {
       type: "login",
       title: "Johnny Login",
       component: LoginModal,
+      image: "",
     },
     submitContact: {
       type: "submitContact",
       title: "Leave your info and Johnny will hit you up 😛",
       component: SubmitContactModal,
+      image: "",
     },
     deleteContact: {
       type: "deleteContact",
       title: "Are you sure you want to delete",
       component: DeleteContactModal,
+      image: "/images/recycle_bin.png",
     },
   };
   const [modalType, setModalType] = useState(modalTypeObj.closed.type);
