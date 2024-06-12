@@ -10,7 +10,7 @@ import SidebarContext, {
 } from "andrewdaotran/context/SidebarContext";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { Link as ReactScrollLink, scroller } from "react-scroll";
 import { creatorIcons } from "andrewdaotran/utils";
 import Link from "next/link";
@@ -65,6 +65,16 @@ const Footer = () => {
       }
       closeSidebar();
     })();
+  };
+
+  const [iconHovered, setIconHovered] = useState<string>("");
+
+  const onHover = (title: string) => {
+    setIconHovered(title);
+  };
+
+  const onUnhover = () => {
+    setIconHovered("");
   };
   return (
     // <div className=" fixed  bottom-0 left-[50%] -z-20  grid h-48 translate-x-[-50%]  items-center justify-items-center px-4">
@@ -172,7 +182,9 @@ const Footer = () => {
               return (
                 <h3
                   className="pointer-events-auto cursor-pointer  text-xl  transition-colors duration-300 ease-in-out hover:text-appOrange"
-                  key={icon.title}
+                  key={icon.name}
+                  onMouseEnter={() => onHover(icon.title)}
+                  onMouseLeave={onUnhover}
                 >
                   <Link href={icon.link} className="">
                     <icon.icon />
@@ -180,9 +192,17 @@ const Footer = () => {
                 </h3>
               );
             })}
+            {/* Hovered Icon Information */}
+            {iconHovered && (
+              <h4 className="text-sm text-appOrange transition-all duration-300">
+                {iconHovered}
+              </h4>
+            )}
+            {/* Hovered Icon Information End */}
           </div>
-          {/* Icons Mapped End */}
         </div>
+        {/* Icons Mapped End */}
+
         {/* Andrew's Information End */}
       </div>
     </div>

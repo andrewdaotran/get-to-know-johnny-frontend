@@ -143,7 +143,7 @@ const DescriptionBox = ({
             }}
             // border border-secondary
             className={`relative grid justify-items-start gap-2  rounded-md bg-main  ${
-              isEditing && editComponent === id ? "absolute bg-red-500" : ""
+              isEditing && editComponent === id ? "absolute " : ""
             }`}
           >
             {/* <button

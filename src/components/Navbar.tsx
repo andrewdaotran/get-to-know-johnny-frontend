@@ -72,7 +72,7 @@ const Navbar = () => {
       {/* Logo End */}
       {/* Center App Name */}
       <Link
-        href={menu.isEdit ? "/" : ""}
+        href={"/"}
         onClick={
           !menu.isEdit
             ? () => {
