@@ -25,7 +25,10 @@ const UsersTempToDeleteIfMistake = () => {
         {/* No Users End */}
         <div className="flex gap-4">
           {users?.map((user) => (
-            <div className="relative grid w-72 gap-2 rounded-md border border-black p-4">
+            <div
+              className="relative grid w-72 gap-2 rounded-md border border-black p-4"
+              key={user.id}
+            >
               {/* Delete Contact */}
               <div className="absolute right-4 top-4">
                 <button
