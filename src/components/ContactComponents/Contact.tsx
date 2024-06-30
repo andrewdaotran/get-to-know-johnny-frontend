@@ -1,4 +1,4 @@
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Contact as ContactType } from "../../../typings";
 import { truncate } from "andrewdaotran/utils";
 
@@ -7,9 +7,6 @@ import { api } from "andrewdaotran/utils/api";
 import ModalWrapperContext, {
   ModalWrapperContextType,
 } from "andrewdaotran/context/ModalWrapperContext";
-import ContactsContext, {
-  ContactsContextType,
-} from "andrewdaotran/context/ContactsContext";
 
 interface Props extends ContactType {
   isAllTruncated: boolean;
