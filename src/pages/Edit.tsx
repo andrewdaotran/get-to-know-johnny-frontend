@@ -42,6 +42,7 @@ import ContactsContext, {
 } from "andrewdaotran/context/ContactsContext";
 import ContactsWrapper from "andrewdaotran/components/ContactComponents/ContactsWrapper";
 import ModalWrapper from "andrewdaotran/components/PopupModals/ModalWrapper";
+import UsersTempToDeleteIfMistake from "andrewdaotran/components/UsersTempToDeleteIfMistake";
 
 type Props = {
   data: DescriptionType;
@@ -129,6 +130,11 @@ const Edit = () => {
       {/* Contacts */}
       <ContactsWrapper />
       {/* Contacts End */}
+
+      {/* Users Temp to Delete if Mistake */}
+
+      <UsersTempToDeleteIfMistake />
+      {/* Users Temp to Delete if Mistake End */}
     </div>
   );
 };

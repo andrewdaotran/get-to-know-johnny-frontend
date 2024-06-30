@@ -34,4 +34,12 @@ export const userRouter = createTRPCRouter({
     const users = await ctx.prisma.user.findMany();
     return users;
   }),
+  deleteUser: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.delete({
+        where: { id: input },
+      });
+      return user;
+    }),
 });
