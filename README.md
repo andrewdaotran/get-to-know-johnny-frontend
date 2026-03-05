@@ -16,7 +16,7 @@ Built using the **T3 Stack**:
 
 ---
 
-## 🧠 Architecture
+## 🧱 Tech Stack
 
 ### 🖥 Frontend
 
