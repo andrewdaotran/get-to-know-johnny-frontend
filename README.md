@@ -1,28 +1,61 @@
-# Create T3 App
+# ❤️ Get to Know Johnny
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+> A relationship application built with the **T3 Stack**  
+> Currently accepting friend requests.
 
-## What's next? How do I make an app with this?
+---
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## 🚀 Project Overview
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+**Get to Know Johnny** is a full-stack dating site specifically to showcase the interests, values, and qualities of Johnny to gain meaningful connections, long-term friendships and/or relationships, and the occasional spontaneous adventures.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Built using the **T3 Stack**:
+- **Frontend:** Next.js + TypeScript + TailwindCSS  
+- **Backend:** tRPC + Prisma + MySQL  
+- **Hosting:** Vercel 
 
-## Learn More
+---
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 🧠 Architecture
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+### 🖥 Frontend
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- ⚡ **Next.js** – Server-side rendering
+- 🧩 **TypeScript** – Strongly typed
+- 🎨 **TailwindCSS** – Clean, minimal aesthetic
 
-## How do I deploy this?
+UI principles:
+- Responsive design 
+- Accessibility-first
+- Dark mode compatible 🌙
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+---
+
+### 🔌 Backend
+
+- 🔄 **tRPC** – Type-safe APIs
+- 🗃 **Prisma** – Elegant data modeling
+- 🐬 **MySQL** – Persistent storage 
+
+---
+
+## 🎯 Core Interests
+
+- 🥊 Kickboxing
+- 🏃 Running marathons
+- ⛪ Going to church
+- 🏓 Pickleball
+- 👥 Spending time with friends
+- 🍻 Drinking alcohol (socially, responsibly, and preferably with good company)
+
+---
+
+## 🧩 Johnny Specs
+
+| Attribute        | Value                                |
+|------------------|--------------------------------------|
+| Height           | 5'09"                                |
+| Version          | 2.0 (always 1% better)               |
+| Build Status     | Millionaire Loading                  |
+| Love Language    | Acts of Service & Quality Time       |
+| Known Bugs       | Likes to fight, but does so lovingly |
