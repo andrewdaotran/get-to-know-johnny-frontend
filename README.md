@@ -20,9 +20,11 @@ Built using the **T3 Stack**:
 
 ### 🖥 Frontend
 
-- ⚡ **Next.js** – Server-side rendering
-- 🧩 **TypeScript** – Strongly typed
-- 🎨 **TailwindCSS** – Clean, minimal aesthetic
+🛠 **Built With:**
+
+- ⚡ **Next.js** – Server-side rendering and optimized routing
+- 🧩 **TypeScript** – Type-safe components and scalable architecture
+- 🎨 **TailwindCSS** – Utility-first styling for responsive and modern UI
 
 UI principles:
 - Responsive design 
@@ -32,6 +34,8 @@ UI principles:
 ---
 
 ### 🔌 Backend
+
+⚙️ **Powered By:**
 
 - 🔄 **tRPC** – Type-safe APIs
 - 🗃 **Prisma** – Elegant data modeling
